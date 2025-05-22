@@ -15,7 +15,9 @@ export default function Inventario() {
                 {/*Carrousel ou mostragem de outros imagens, dependendo da imagem selecionada ela troca a visualização da imagem principal alí em cima*/}
             </FlatList>
             <Text>Lorem ipsum</Text>
-            <View></View>
+            <View>
+                
+            </View>
         </View>
     )
 

@@ -1,35 +1,63 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, FlatList, Image} from 'react-native';
+import { Searchbar,FAB } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 
 const items = [
   {
     id: '1',
-    image: require('../assets/phone.png'),
-    titulo: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    favoritos: 10,
+    image: require('../../../assets/phone.png'),
+    titulo: 'Apple iPhone 16 Pro Max (512 GB) – Titânio natural',
+    favoritos: 1015,
     status: 'Ótimo',
   },
   {
     id: '2',
-    image: require('../assets/bike.png'),
-    titulo: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    favoritos: 10,
+    image: require('../../../assets/bike.png'),
+    titulo: 'Caloi Bicicleta Vulcan, Aro 29, Câmbio Shimano 21 Velocidades',
+    favoritos: 563,
     status: 'Ótimo',
   },
   {
     id: '3',
-    image: require('../assets/prateleira.png'),
-    titulo: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    favoritos: 10,
+    image: require('../../../assets/prateleiras.jpg'),
+    titulo: 'Kit 3 Prateleiras Grossas Madeira Maciça Suporte Invisível',
+    favoritos: 254,
     status: 'Ótimo',
   },
   {
     id: '4',
-    image: require('../assets/cadeiras.png'),
-    titulo: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    favoritos: 10,
+    image: require('../../../assets/cadeira.png'),
+    titulo: 'Cadeira de Jantar Madeira Maciça Larissa Para Sala de Jantar',
+    favoritos: 45,
+    status: 'Ótimo',
+  },
+  {
+    id: '5',
+    image: require('../../../assets/phone.png'),
+    titulo: 'Smartphone Realme Note 60x RMX3938 3 GB de RAM/ 64 GB/Bateria de 5000mAh e tela de 6,74" 90Hz HD/Midnight Black (Preto)',
+    favoritos: 156,
+    status: 'Ótimo',
+  },
+  {
+    id: '6',
+    image: require('../../../assets/bike.png'),
+    titulo: 'Bicicleta Aro 29 Ravok 21v Aço Carbono Freios a Disco',
+    favoritos: 358,
+    status: 'Ótimo',
+  },
+  {
+    id: '7',
+    image: require('../../../assets/prateleiras.jpg'),
+    titulo: 'Bicicleta Aro 29 Ravok 21v Aço Carbono Freios a Disco',
+    favoritos: 518,
+    status: 'Ótimo',
+  },
+  {
+    id: '8',
+    image: require('../../../assets/cadeira.png'),
+    titulo: 'Cadeira Peônia Assento de Madeira Maciça na cor Imbuia - Cód: CAD6',
+    favoritos: 765,
     status: 'Ótimo',
   },
 ];
@@ -37,6 +65,7 @@ const items = [
 export default function Inventario() {
 
     const navigation = useNavigation();
+    let contador;
 
     return(
         <View style={styles.container}>
@@ -48,15 +77,15 @@ export default function Inventario() {
 
         {/* Estástiticas e dados */}
         <View style={styles.status}>
-            <Text style={styles.statusTexto}><Text style={styles.statusValor}>12/25</Text> Itens</Text>
-            <Text style={styles.statusTexto}><Text style={styles.statusValor}>8</Text> Escambos</Text>
+            <Text style={styles.statusTexto}><Text style={styles.statusValor}>{contador = items.length}</Text> Itens</Text>
+            <Text style={styles.statusTexto}><Text style={styles.statusValor}>3</Text> Escambos</Text>
             <Text style={styles.statusTexto}><Text style={styles.statusValor}>39</Text> Favoritados</Text>
         </View>
 
         {/* Último Update + alterar layout */}
         <View style={styles.update}>
             <Text style={styles.updateTexto}>🕒 Último Update</Text>
-            <Icon name="grid-view" size={24} />
+            {/* <img name="grid-view" size={24} /> */}
         </View>
 
         {/* Lista de items */}
@@ -67,11 +96,11 @@ export default function Inventario() {
             <View style={styles.item}>
                 <Image source={item.image} style={styles.itemImage} />
                 <View style={styles.itemDetalhes}>
-                <Text style={styles.itemTitulo}>{item.titulo}</Text>
-                <Text style={styles.itemFav}>★ {item.favoritos} Favoritados</Text>
-                <Text style={styles.itemStatus}>🟩 {item.status}</Text>
+                  <Text style={styles.itemTitulo}>{item.titulo}</Text>
+                  <Text style={styles.itemFav}>★ {item.favoritos} Favoritados</Text>
+                  <Text style={styles.itemStatus}>🟩 {item.status}</Text>
                 </View>
-                <Icon name="edit" size={20} color="#888" />
+                {/* <img name="edit" size={20} color="#888" /> */}
             </View>
             )}
         />

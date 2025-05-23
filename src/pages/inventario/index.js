@@ -62,6 +62,10 @@ const items = [
   },
 ];
 
+function limitarTexto(texto) {
+
+}
+
 export default function Inventario() {
 
     const navigation = useNavigation();
@@ -73,18 +77,32 @@ export default function Inventario() {
         <Text style={styles.header}>Inventário</Text>
 
         {/* Barra de pesquisa */}
-        <Searchbar placeholder="Buscar" style={styles.barraPesquisa} />
+        <Searchbar placeholder="" style={styles.barraPesquisa} />
 
         {/* Estástiticas e dados */}
         <View style={styles.status}>
-            <Text style={styles.statusTexto}><Text style={styles.statusValor}>{contador = items.length}</Text> Itens</Text>
-            <Text style={styles.statusTexto}><Text style={styles.statusValor}>3</Text> Escambos</Text>
-            <Text style={styles.statusTexto}><Text style={styles.statusValor}>39</Text> Favoritados</Text>
+            <View style={styles.statusCatg}>
+              <Text style={styles.statusTexto}> Itens </Text>
+              <Text style={styles.statusValor}>{contador = items.length}</Text>
+            </View>
+
+            <View style={styles.statusCatg}>
+              <Text style={styles.statusTexto}> Escambos </Text>
+              <Text style={styles.statusValor}>3</Text>
+            </View>
+
+            <View style={styles.statusCatg}>
+              <Text style={styles.statusTexto}> Favoritados </Text>
+              <Text style={styles.statusValor}>39</Text>
+            </View>
+        </View>
+
+        <View style={styles.barraSeparatoria}>
         </View>
 
         {/* Último Update + alterar layout */}
         <View style={styles.update}>
-            <Text style={styles.updateTexto}>🕒 Último Update</Text>
+            <Text style={styles.updateTexto}>🕒 Último Update </Text>
             {/* <img name="grid-view" size={24} /> */}
         </View>
 
@@ -109,6 +127,7 @@ export default function Inventario() {
         <FAB
             style={styles.addItem}
             icon="plus"
+            color="white"
             onPress={() => console.log('Add item')}
         />
         </View>
@@ -118,7 +137,6 @@ export default function Inventario() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: '#fff',
   },
   header: {
@@ -126,46 +144,66 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
     marginBottom: 10,
+    marginTop: 15,
   },
   barraPesquisa: {
-    marginBottom: 12,
-    borderRadius: 12,
+    borderRadius: 10,
+    height: 40,
+    marginBlock: 20,
+    marginInline: 20,
   },
   status: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginBottom: 10,
   },
+  statusCatg: {
+    display: 'flex',
+    flexDirection: 'collum',
+    alignItems: 'center',
+    width: '30%'
+  },
   statusTexto: {
-    fontSize: 14,
+    fontSize: 17,
     color: '#888',
   },
   statusValor: {
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#000',
+  },
+  barraSeparatoria: {
+    height: 3,
+    width: '120%',
+    left: '-20',
+    marginBottom: 15,
+    backgroundColor: '#c0c0c0',
   },
   update: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+    marginInline: 10,
   },
   updateTexto: {
     color: '#888',
   },
   item: {
+    height: 125,
     flexDirection: 'row',
     backgroundColor: '#f8f8f8',
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
+    borderRadius: 5,
+    padding: 5,
+    marginBottom: 1,
+    borderBottomWidth: 1,
+    borderColor: '#c0c0c0',
     alignItems: 'center',
   },
   itemImage: {
-    width: 60,
-    height: 60,
+    width: 90,
+    height: 90,
     borderRadius: 8,
-    marginRight: 12,
   },
   itemDetalhes: {
     flex: 1,
@@ -191,6 +229,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 16,
     bottom: 16,
+    borderRadius: '50%',
     backgroundColor: '#E91E63',
   },
 });

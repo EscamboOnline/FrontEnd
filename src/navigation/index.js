@@ -11,6 +11,11 @@ export default function Routes(){
     return(
         <Stack.Navigator>
             <Stack.Screen
+              name="Inventario"
+              component={Inventario}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
               name="Welcome"
               component={Welcome}
               options={{headerShown: false}}
@@ -27,15 +32,6 @@ export default function Routes(){
               component={SignUp}
               options={{headerShown: false}}
             />
-<<<<<<< HEAD
-=======
-            
-            <Stack.Screen
-              name="Inventario"
-              component={Inventario}
-              options={{headerShown: false}}
-            />
->>>>>>> 97a8afbb402d3a7cad64e800401f5b0010b890ad
         </Stack.Navigator>
     );
 }

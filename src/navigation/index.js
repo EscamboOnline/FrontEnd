@@ -27,11 +27,6 @@ export default function Routes(){
               component={SignUp}
               options={{headerShown: false}}
             />
-
-            <Stack.Screen
-              name="Inventario"
-              component={Inventario}
-            />
         </Stack.Navigator>
     );
 }

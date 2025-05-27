@@ -63,7 +63,9 @@ const items = [
   },
 ];
 
-var iconeLayout = "<MaterialDesignIcons name='view-grid' color='#ff0000' size={20}/>"
+var [grid, setGrid] = useState(<MaterialDesignIcons name='view-grid' color='#ff0000' size={20}/>)
+
+var gridList = false;
 
 function limitarTexto(texto) {
   if (texto.length > 60) {
@@ -74,7 +76,17 @@ function limitarTexto(texto) {
 }
 
 function mudarLayout() {
+  gridList = !gridList
 
+  if (gridList) {
+    return (
+      <MaterialDesignIcons name='view-grid' color='#ff0000' size={20}/>
+    )
+  } else {
+    return (
+      <MaterialDesignIcons name='format-list-checkbox' color='#ff0000' size={20}/>
+    )
+  }
 }
 
 export default function Inventario() {
@@ -115,8 +127,11 @@ export default function Inventario() {
         <View style={styles.update}>
             <Text style={styles.updateTexto}>🕒 Último Update </Text>
             <IconButton
-              icon={() => iconeLayout}
-              onPress={() => console.log("Mudou o layout")}
+              icon={() => grid}
+              onPress={() => {
+                mudarLayout()
+                console.log("Deu bom")
+              }}
             />
         </View>
 

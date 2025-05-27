@@ -63,11 +63,9 @@ const items = [
   },
 ];
 
-var [grid, setGrid] = useState(<MaterialDesignIcons name='view-grid' color='#ff0000' size={20}/>)
-
 var gridList = false;
 
-function limitarTexto(texto) {
+function limitarTextoList(texto) {
   if (texto.length > 60) {
     texto = texto.substring(0, 50)
     texto = texto+"..."
@@ -75,91 +73,94 @@ function limitarTexto(texto) {
   return texto
 }
 
-function mudarLayout() {
-  gridList = !gridList
-
-  if (gridList) {
-    return (
-      <MaterialDesignIcons name='view-grid' color='#ff0000' size={20}/>
-    )
-  } else {
-    return (
-      <MaterialDesignIcons name='format-list-checkbox' color='#ff0000' size={20}/>
-    )
-  }
-}
 
 export default function Inventario() {
 
-    const navigation = useNavigation();
-    let contador;
+  var [grid, setGrid] = useState(<MaterialDesignIcons name='view-grid' color='#111' size={20}/>)
 
-    return(
-        <View style={styles.container}>
-        {/* Título da página */}
-        <Text style={styles.header}>Inventário</Text>
+  function mudarLayout() {
+    gridList = !gridList
+  
+    if (gridList) {
+      setGrid(
+        <MaterialDesignIcons name='view-grid' color='#111' size={20}/>
+      )
+    } else {
+      setGrid(
+        <MaterialDesignIcons name='format-list-checkbox' color='#111' size={20}/>
+      )
+    }
+  }
 
-        {/* Barra de pesquisa */}
-        <Searchbar placeholder="" style={styles.barraPesquisa} inputStyle={{minHeight: 0}}/>
+  const navigation = useNavigation();
+  let contador;
 
-        {/* Estástiticas e dados */}
-        <View style={styles.status}>
-            <View style={styles.statusCatg}>
-              <Text style={styles.statusTexto}> Items </Text>
-              <Text style={styles.statusValor}>{contador = items.length}</Text>
-            </View>
+  return(
+      <View style={styles.container}>
+      {/* Título da página */}
+      <Text style={styles.header}>Inventário</Text>
 
-            <View style={styles.statusCatg}>
-              <Text style={styles.statusTexto}> Escambos </Text>
-              <Text style={styles.statusValor}>3</Text>
-            </View>
+      {/* Barra de pesquisa */}
+      <Searchbar placeholder="" style={styles.barraPesquisa} inputStyle={{minHeight: 0}}/>
 
-            <View style={styles.statusCatg}>
-              <Text style={styles.statusTexto}> Favoritados </Text>
-              <Text style={styles.statusValor}>39</Text>
-            </View>
-        </View>
+      {/* Estástiticas e dados */}
+      <View style={styles.status}>
+          <View style={styles.statusCatg}>
+            <Text style={styles.statusTexto}> Items </Text>
+            <Text style={styles.statusValor}>{contador = items.length}</Text>
+          </View>
 
-        <View style={styles.barraSeparatoria}>
-        </View>
+          <View style={styles.statusCatg}>
+            <Text style={styles.statusTexto}> Escambos </Text>
+            <Text style={styles.statusValor}>3</Text>
+          </View>
 
-        {/* Último Update + alterar layout */}
-        <View style={styles.update}>
-            <Text style={styles.updateTexto}>🕒 Último Update </Text>
-            <IconButton
-              icon={() => grid}
-              onPress={() => {
-                mudarLayout()
-                console.log("Deu bom")
-              }}
-            />
-        </View>
+          <View style={styles.statusCatg}>
+            <Text style={styles.statusTexto}> Favoritados </Text>
+            <Text style={styles.statusValor}>39</Text>
+          </View>
+      </View>
 
-        {/* Lista de items */}
-        <FlatList
-            data={items}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-            <View style={styles.item}>
-                <Image source={item.image} style={styles.itemImage} />
-                <View style={styles.itemDetalhes}>
-                  <Text style={styles.itemTitulo}>{limitarTexto(item.titulo)}</Text>
-                  <Text style={styles.itemFav}>★ {item.favoritos} Favoritados</Text>
-                  <Text style={styles.itemStatus}>🟩 {item.status}</Text>
-                </View>
-            </View>
-            )}
-        />
+      <View style={styles.barraSeparatoria}>
+      </View>
 
-        {/* ADD Novo Item */}
-        <FAB
-            style={styles.addItem}
-            icon="plus"
-            color="white"
-            onPress={() => console.log('Add item')}
-        />
-        </View>
-    );
+      {/* Último Update + alterar layout */}
+      <View style={styles.update}>
+          <Text style={styles.updateTexto}>🕒 Último Update </Text>
+          <IconButton
+            icon={() => grid}
+            onPress={() => {
+              mudarLayout()
+              console.log("Deu bom")
+            }}
+          />
+      </View>
+
+      {/* Lista de items */}
+      <FlatList
+          data={items}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+          <View style={gridList ? styles.item : styles.itemList}>
+              <Image source={item.image} style={gridList ? styles.itemImage : styles.itemImageList} />
+              <View style={gridList ? styles.itemDetalhes : styles.itemDetalhes}>
+                <Text style={gridList ? styles.itemTitulo : styles.itemTituloList}>{limitarTextoList(item.titulo)}</Text>
+                <Text style={gridList ? styles.itemFav : styles.itemFavList}>★ {item.favoritos} Favoritados</Text>
+                <Text style={gridList ? styles.itemStatus : styles.itemStatusList}>🟩 {item.status}</Text>
+              </View>
+          </View>
+          )}
+      />
+
+      {/* ADD Novo Item */}
+      <FAB
+          style={styles.addItem}
+          icon="plus"
+          color="white"
+          onPress={() => console.log('Add item')}
+      />
+      </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
     height: 3,
     width: '120%',
     left: '-20',
-    marginBottom: 15,
+    marginBottom: 0,
     backgroundColor: '#c0c0c0',
   },
   update: {
@@ -215,12 +216,11 @@ const styles = StyleSheet.create({
     marginInline: 10,
   },
   updateTexto: {
-    color: '#888',
+    color: '#101010',
   },
   item: {
-    height: 170,
+    height: 140,
     flexDirection: 'row',
-    backgroundColor: '#f8f8f8',
     borderRadius: 5,
     padding: 5,
     marginBottom: 1,
@@ -229,9 +229,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   itemImage: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     borderRadius: 8,
+    marginRight: 10
   },
   itemDetalhes: {
     flex: 1,
@@ -255,7 +256,45 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: 4,
   },
-  addItem: {
+  itemList: {
+    height: 140,
+    flexDirection: 'row',
+    borderRadius: 5,
+    padding: 5,
+    marginBottom: 1,
+    borderBottomWidth: 1,
+    borderColor: '#c0c0c0',
+    alignItems: 'center',
+  },
+  itemImageList: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    marginRight: 10
+  },
+  itemDetalhesList: {
+    flex: 1,
+  },
+  itemTituloList: {
+    maxWidth: '10ch',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 4,
+  },
+  itemFavList: {
+    color: '#666',
+    fontSize: 14,
+  },
+  itemStatusList: {
+    backgroundColor: '#00c853',
+    color: '#fff',
+    paddingHorizontal: 6,
+    borderRadius: 4,
+    fontSize: 15,
+    alignSelf: 'flex-start',
+    marginTop: 4,
+  },
+  addItemList: {
     position: 'absolute',
     right: 16,
     bottom: 16,

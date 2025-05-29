@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, FlatList, Image} from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert, FlatList, Image} from 'react-native';
 import { Searchbar, FAB, IconButton } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons'; 
@@ -83,11 +83,11 @@ export default function Inventario() {
   
     if (gridList) {
       setGrid(
-        <MaterialDesignIcons name='view-grid' color='#111' size={20}/>
+        <MaterialDesignIcons name='format-list-checkbox' color='#111' size={20}/>
       )
     } else {
       setGrid(
-        <MaterialDesignIcons name='format-list-checkbox' color='#111' size={20}/>
+        <MaterialDesignIcons name='view-grid' color='#111' size={20}/>
       )
     }
   }
@@ -137,13 +137,18 @@ export default function Inventario() {
       </View>
 
       {/* Lista de items */}
+
+      
       <FlatList
+          key={gridList ? 'grid' : 'list'}
+          style={gridList ? styles.listaQd : styles.listaList}
           data={items}
+          numColumns={gridList ? 2 : 1}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
           <View style={gridList ? styles.item : styles.itemList}>
               <Image source={item.image} style={gridList ? styles.itemImage : styles.itemImageList} />
-              <View style={gridList ? styles.itemDetalhes : styles.itemDetalhes}>
+              <View style={gridList ? styles.itemDetalhes : styles.itemDetalhesList}>
                 <Text style={gridList ? styles.itemTitulo : styles.itemTituloList}>{limitarTextoList(item.titulo)}</Text>
                 <Text style={gridList ? styles.itemFav : styles.itemFavList}>★ {item.favoritos} Favoritados</Text>
                 <Text style={gridList ? styles.itemStatus : styles.itemStatusList}>🟩 {item.status}</Text>
@@ -157,7 +162,7 @@ export default function Inventario() {
           style={styles.addItem}
           icon="plus"
           color="white"
-          onPress={() => console.log('Add item')}
+          onPress={() => navigation.navigate('addItem')}
       />
       </View>
   );
@@ -188,7 +193,7 @@ const styles = StyleSheet.create({
   },
   statusCatg: {
     display: 'flex',
-    flexDirection: 'collum',
+    flexDirection: 'column',
     alignItems: 'center',
     width: '30%'
   },
@@ -218,19 +223,24 @@ const styles = StyleSheet.create({
   updateTexto: {
     color: '#101010',
   },
+
+
+
+  listaQd: {
+    flex: 1
+  },
   item: {
-    height: 140,
-    flexDirection: 'row',
+    height: 'auto',
+    width: '50%',
+    flexDirection: 'collum',
+    alignItems: 'center',
     borderRadius: 5,
     padding: 5,
-    marginBottom: 1,
-    borderBottomWidth: 1,
-    borderColor: '#c0c0c0',
-    alignItems: 'center',
+    marginBottom: 30,
   },
   itemImage: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
     borderRadius: 8,
     marginRight: 10
   },
@@ -240,22 +250,25 @@ const styles = StyleSheet.create({
   itemTitulo: {
     maxWidth: '10ch',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 15,
     marginBottom: 4,
   },
   itemFav: {
     color: '#666',
-    fontSize: 14,
+    fontSize: 13,
   },
   itemStatus: {
     backgroundColor: '#00c853',
     color: '#fff',
     paddingHorizontal: 6,
     borderRadius: 4,
-    fontSize: 15,
+    fontSize: 12,
     alignSelf: 'flex-start',
     marginTop: 4,
   },
+
+
+
   itemList: {
     height: 140,
     flexDirection: 'row',
@@ -294,7 +307,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: 4,
   },
-  addItemList: {
+
+
+
+  addItem: {
     position: 'absolute',
     right: 16,
     bottom: 16,

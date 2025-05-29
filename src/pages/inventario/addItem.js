@@ -1,9 +1,23 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, TouchableHighlight } from 'react-native';
+import { IconButton } from 'react-native-paper';
+import { useNavigation } from "@react-navigation/native";
+import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons'; 
 
 export default function AdicionarItem() {
+
+  const navigation = useNavigation();
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
+
+      <IconButton
+          style={styles.botaoVoltar}
+          icon={() => <MaterialDesignIcons style={{ transform: [{ scaleX: -1 }] }} name="play" color="#000" size={30}/>}
+          size={20}
+          onPress={() => navigation.navigate('inventario')}
+      />
+
       <Text style={styles.header}>Adicionar Item</Text>
 
       {/* Nome do Item */}
@@ -22,17 +36,17 @@ export default function AdicionarItem() {
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Condição</Text>
-          <View style={styles.dropdown}>
+          <TouchableHighlight style={styles.dropdown}>
             <Text style={styles.dropdownText}>Condição</Text>
-          </View>
+          </TouchableHighlight>
         </View>
       </View>
 
       {/* Categoria do item */}
       <Text style={styles.label}>Categoria</Text>
-      <View style={styles.dropdown}>
+      <TouchableHighlight style={styles.dropdown}>
         <Text style={styles.dropdownText}>Categorias</Text>
-      </View>
+      </TouchableHighlight>
 
       {/* Lista de Imagens */}
       <View style={styles.imageSection}>
@@ -69,6 +83,11 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
   },
+  botaoVoltar: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+  },
   header: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -76,11 +95,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   label: {
+    fontSize: 18,
     fontWeight: '600',
     marginBottom: 4,
     marginTop: 12,
   },
   input: {
+    fontSize: 16,
     borderBottomWidth: 1,
     borderColor: '#e91e63',
     paddingVertical: 6,

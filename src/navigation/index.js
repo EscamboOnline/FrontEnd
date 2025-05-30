@@ -21,6 +21,11 @@ export default function Routes() {
         headerShown: false,
       }}>
 
+            <Stack.Screen
+              name="Inventario"
+              component={Inventario}
+              options={{headerShown: false}}
+            />
       <Stack.Screen
         name="Welcome"
         component={Welcome}

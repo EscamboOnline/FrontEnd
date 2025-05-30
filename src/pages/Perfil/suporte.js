@@ -56,16 +56,10 @@ export default function Suporte() {
         }));
     };
 
-    const handleSubmit = () => {
-        console.log('Form submitted:', { formData, imageUri });
-        // Handle form submission logic here
-    };
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* 
-                TouchableWithoutFeedback: 
-            */}
+   
 
             <Modal
                 visible={exitModalVisible}

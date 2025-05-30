@@ -1,9 +1,59 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, TouchableHighlight, FlatList } from 'react-native';
+import { IconButton } from 'react-native-paper';
+import { useNavigation } from "@react-navigation/native";
+import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
+
+let items = [
+  {
+    id: 1,
+    image: require('../../assets/phone.png')
+  },
+  {
+    id: 2,
+    image: require('../../assets/bike.png')
+  },
+  {
+    id: 3,
+    image: require('../../assets/cadeira.png')
+  },
+  {
+    id: 4,
+    image: require('../../assets/prateleiras.jpg')
+  },
+  {
+    id: 5,
+    image: require('../../assets/bike.png')
+  }
+]
 
 export default function AdicionarItem() {
+
+  let [selecao, setSelecao] = useState(1);
+  let [selecionado, setSelecionado] = useState(items[0].image)
+
+  function imagemSelecionada(posicao) {
+    items.forEach((item) => {
+      if (posicao == item.id) {
+        setSelecao(item.id)
+
+        setSelecionado(item.image)
+      }
+    })
+  }
+
+  const navigation = useNavigation();
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
+
+      <IconButton
+          style={styles.botaoVoltar}
+          icon={() => <MaterialDesignIcons style={{ transform: [{ scaleX: -1 }] }} name="play" color="#000" size={30}/>}
+          size={20}
+          onPress={() => navigation.navigate('inventario')}
+      />
+
       <Text style={styles.header}>Adicionar Item</Text>
 
       {/* Nome do Item */}
@@ -22,30 +72,43 @@ export default function AdicionarItem() {
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Condição</Text>
-          <View style={styles.dropdown}>
+          <TouchableHighlight style={styles.dropdown}>
             <Text style={styles.dropdownText}>Condição</Text>
-          </View>
+          </TouchableHighlight>
         </View>
       </View>
 
       {/* Categoria do item */}
       <Text style={styles.label}>Categoria</Text>
-      <View style={styles.dropdown}>
+      <TouchableHighlight style={styles.dropdown}>
         <Text style={styles.dropdownText}>Categorias</Text>
-      </View>
+      </TouchableHighlight>
 
       {/* Lista de Imagens */}
       <View style={styles.imageSection}>
         <View style={styles.imageUpload}>
           {/* imagem principal */}
           <Text style={styles.imageText}>Imagem</Text>
+          <Image source={selecionado} style={styles.imagemPrincipal}/>
         </View>
 
-        <View style={styles.thumbnailColumn}>
-          {[...Array(3)].map((_, i) => (
-            <View key={i} style={styles.thumbnail} />
-          ))}
-        </View>
+        <FlatList style={styles.thumbnailArea}
+          contentContainerStyle={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          data={items}
+          numColumns={1}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableHighlight onPress={() => imagemSelecionada(item.id)} underlayColor="#e91e63" style={{borderRadius: 6}}>
+              <Image
+                source={item.image}
+                style={selecao == item.id ? styles.selecionado : styles.thumbnail}
+              />
+            </TouchableHighlight>
+          )}
+        />
       </View>
 
       {/* Descrição do produto*/}
@@ -57,17 +120,23 @@ export default function AdicionarItem() {
       />
 
       {/* Botão para concluir e adicionar o item */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('inventario')}>
         <Text style={styles.buttonText}>Adicionar</Text>
       </TouchableOpacity>
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    height: '100%',
+    padding: 20,
     backgroundColor: '#fff',
+  },
+  botaoVoltar: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
   },
   header: {
     fontSize: 20,
@@ -76,11 +145,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   label: {
+    fontSize: 18,
     fontWeight: '600',
     marginBottom: 4,
     marginTop: 12,
   },
   input: {
+    fontSize: 16,
     borderBottomWidth: 1,
     borderColor: '#e91e63',
     paddingVertical: 6,
@@ -119,32 +190,53 @@ const styles = StyleSheet.create({
     color: '#e91e63',
   },
   imageSection: {
+    width: '100%',
+    height: 200,
+    display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-evenly',
     marginTop: 16,
     alignItems: 'flex-start',
+    alignSelf: 'flex-end',
   },
   imageUpload: {
-    width: 130,
-    height: 130,
+    width: '200',
+    height: '100%',
     backgroundColor: '#e91e63',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },
   imageText: {
+    fontSize: 30,
     color: '#fff',
     fontWeight: 'bold',
   },
-  thumbnailColumn: {
-    marginLeft: 10,
-    justifyContent: 'space-between',
+  imagemPrincipal: {
+    position: 'absolute',
+    width: 200,
+    height: 200,
+    backgroundColor: '#fff',
+  },
+  thumbnailArea: {
+    width: '20%',
+    marginInline: 'auto'
   },
   thumbnail: {
-    width: 50,
-    height: 50,
-    backgroundColor: '#ddd',
+    width: 100,
+    height: 100,
+    backgroundColor: '#eee',
     marginBottom: 8,
     borderRadius: 6,
+  },
+  selecionado: {
+    width: 100,
+    height: 100,
+    backgroundColor: '#fff',
+    marginBottom: 8,
+    borderColor: '#e91e63',
+    borderRadius: 6,
+    borderWidth: 5,
   },
   textarea: {
     height: 100,

@@ -15,12 +15,7 @@ const Stack = createNativeStackNavigator();
 
 export default function Routes() {
   return (
-    <Stack.Navigator
-
-      initialRouteName='UserPerfil'
-      screenOptions={{
-        headerShown: false,
-      }}>
+    <Stack.Navigator>
 
       <Stack.Screen
         name="Welcome"
@@ -72,6 +67,12 @@ export default function Routes() {
       <Stack.Screen
         name="ComprovanteTroca"
         component={ComprovanteTroca}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="addItem"
+        component={addItem}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -7,7 +7,8 @@ import Inventario from '../pages/Inventario';
 import UserPerfil from '../pages/Perfil';
 import PerfilConfig from '../pages/Perfil/perfilConfig';
 import Suporte from '../pages/Perfil/suporte';
-import EscamboFeitos from '../pages/Perfil/escamboFeitos';
+import EscambosFeitos from '../pages/Perfil/escamboFeitos';
+import ComprovanteTroca from "../pages/Perfil/comprovante";
 
 
 const Stack = createNativeStackNavigator();
@@ -21,11 +22,6 @@ export default function Routes() {
         headerShown: false,
       }}>
 
-            <Stack.Screen
-              name="Inventario"
-              component={Inventario}
-              options={{headerShown: false}}
-            />
       <Stack.Screen
         name="Welcome"
         component={Welcome}
@@ -68,8 +64,14 @@ export default function Routes() {
       />
 
       <Stack.Screen
-        name="EscamboFeitos"
-        component={EscamboFeitos}
+        name="EscambosFeitos"
+        component={EscambosFeitos}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ComprovanteTroca"
+        component={ComprovanteTroca}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

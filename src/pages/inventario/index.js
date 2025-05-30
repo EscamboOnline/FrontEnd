@@ -92,8 +92,6 @@ export default function Inventario() {
     }
   }
 
-  const navigation = useNavigation();
-  let contador;
 
   return(
       <View style={styles.container}>

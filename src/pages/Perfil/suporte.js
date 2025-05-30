@@ -1,21 +1,42 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Keyboard, Image, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    Keyboard,
+    Image,
+    TouchableWithoutFeedback,
+    FlatList,
+    Platform,
+    SafeAreaView,
+    Dimensions,
+    Modal
+} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import colors from '../../constants/colors';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { popupStyles} from '../../constants/popup';
+
+
+const { height: screenHeight } = Dimensions.get('window');
 
 export default function Suporte() {
-
     const navigation = useNavigation();
-
     const [imageUri, setImageUri] = useState(null);
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        description: ''
+    });
+
+    const [exitModalVisible, setExitModalVisible] = useState(false);
 
     const handleAddImage = async () => {
-
         const simulatedImage = '../../assets/addImage.png';
         const fileName = 'addImage.png';
-
         setImageUri({ uri: simulatedImage, name: fileName });
     };
 
@@ -23,231 +44,364 @@ export default function Suporte() {
         setImageUri(null);
     };
 
+    // Função para fechar o teclado quando tocar fora dos inputs
+    const dismissKeyboard = () => {
+        Keyboard.dismiss();
+    };
+
+    const updateFormData = (field, value) => {
+        setFormData(prev => ({
+            ...prev,
+            [field]: value
+        }));
+    };
+
+    const handleSubmit = () => {
+        console.log('Form submitted:', { formData, imageUri });
+        // Handle form submission logic here
+    };
+
     return (
-        <View style={{ flex: 1 }}>
-            <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
+            {/* 
+                TouchableWithoutFeedback: 
+            */}
 
-                <View style={styles.header}>
-                    <TouchableOpacity style={styles.buttonVoltar} onPress={() => navigation.navigate('UserPerfil')}>
-                        <Image
-                            source={require('../../assets/voltar.png')}
-                            style={styles.voltarIcon}
-                        />
-                    </TouchableOpacity>
+            <Modal
+                visible={exitModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setExitModalVisible(false)}
+            >
+                <View style={popupStyles.centeredView}>
+                    <View style={popupStyles.modalView}>
+                        <Text style={popupStyles.modalText}>Sua mensagem foi enviada pro suporte</Text>
 
-                </View>
-
-
-                <View style={styles.suporteContainerContainer}>
-                    <Image
-                        source={require('../../assets/suporte.png')}
-                        style={styles.suporteIcon}
-                    />
-                </View>
-                <ScrollView style={styles.scrollForm}
-                    contentContainerStyle={styles.scrollContent}
-                    keyboardShouldPersistTaps="handled">
-                    <View style={styles.containerForm}>
-
-                        <Text style={styles.title}>Seu Nome</Text>
-                        <TextInput placeholder="Seu nome"
-                            style={styles.input} />
-
-
-                        <Text style={styles.title}>E-Mail</Text>
-                        <TextInput placeholder="Seu email"
-                            style={styles.input} keyboardType="email-address" />
-
-                        <Text style={styles.title}>Telefone</Text>
-                        <TextInput placeholder="Seu telefone"
-                            style={styles.input} keyboardType='phone-pad' />
-
-                        <Text style={styles.title}>Descrição do problema</Text>
-
-                        <TextInput
-                            placeholder="Digite sua mensagem..."
-                            multiline={true}
-                            numberOfLines={4}
-                            style={styles.textArea}
-                        />
-
-                        <View>
-                            <Text style={styles.title}>Mandar foto do comprovante da troca ou print do erro:</Text>
-
-                            {
-                                imageUri ? (
-                                    <View style={styles.imageInfoContainer}>
-                                        <Text style={styles.imageName}>{imageUri.name}</Text>
-                                        <TouchableOpacity onPress={handleRemoveImage}>
-                                            <Text style={styles.removeText}>Remover</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                ) : (
-                                    <View style={styles.addImageContainer}>
-                                        <TouchableOpacity onPress={handleAddImage}>
-                                            <Image
-                                                source={require('../../assets/addImagem.png')}
-                                                style={styles.addIcon}
-                                            />
-                                        </TouchableOpacity>
-                                    </View>
-                                )
-                            }
+                        <View style={popupStyles.modalButtons}>
+                    
+                            <TouchableOpacity
+                                style={[popupStyles.modalButton, popupStyles.okButton]}
+                                onPress={() => {
+                                    setExitModalVisible(false);
+                                    navigation.navigate('UserPerfil');
+                                }}
+                            >
+                                <Text style={popupStyles.okButtonText}>OK</Text>
+                            </TouchableOpacity>
                         </View>
-
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>Enviar</Text>
-                        </TouchableOpacity>
-
                     </View>
-                </ScrollView>
-            </View>
-        </View>
+                </View>
+            </Modal>
+
+            <TouchableWithoutFeedback onPress={dismissKeyboard}>
+                <View style={styles.mainContainer}>
+                    {/* Fixed Header */}
+                    <View style={styles.header}>
+                        <TouchableOpacity
+                            style={styles.buttonVoltar}
+                            onPress={() => navigation.navigate('UserPerfil')}
+                        >
+                            <MaterialIcons name="play-arrow" size={30} color="#fff" style={{ transform: [{ scaleX: -1 }] }}/>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Support Icon */}
+                    <View style={styles.suporteContainerContainer}>
+                        <Image
+                            source={require('../../assets/suporte.png')}
+                            style={styles.suporteIcon}
+                        />
+                    </View>
+
+
+                    <View style={styles.formWrapper}>
+                        <View style={styles.containerForm}>
+
+                            <FlatList
+                                data={[{ key: 'form' }]}
+                                renderItem={() => (
+                                    <>
+                                        <Text style={styles.title}>Seu Nome</Text>
+                                        <TextInput
+                                            placeholder="Seu nome"
+                                            style={styles.input}
+                                            value={formData.name}
+                                            onChangeText={(value) => updateFormData('name', value)}
+                                            returnKeyType="next"
+                                        />
+
+                                        <Text style={styles.title}>E-Mail</Text>
+                                        <TextInput
+                                            placeholder="Seu email"
+                                            style={styles.input}
+                                            keyboardType="email-address"
+                                            autoCapitalize="none"
+                                            value={formData.email}
+                                            onChangeText={(value) => updateFormData('email', value)}
+                                            returnKeyType="next"
+                                        />
+
+                                        <Text style={styles.title}>Telefone</Text>
+                                        <TextInput
+                                            placeholder="Seu telefone"
+                                            style={styles.input}
+                                            keyboardType='phone-pad'
+                                            value={formData.phone}
+                                            onChangeText={(value) => updateFormData('phone', value)}
+                                            returnKeyType="next"
+                                        />
+
+                                        <Text style={styles.title}>Descrição do problema</Text>
+                                        <TextInput
+                                            placeholder="Digite sua mensagem..."
+                                            multiline={true}
+                                            numberOfLines={4}
+                                            style={styles.textArea}
+                                            textAlignVertical="top"
+                                            value={formData.description}
+                                            onChangeText={(value) => updateFormData('description', value)}
+                                            returnKeyType="done"
+                                        />
+
+                                        <View style={styles.imageSection}>
+                                            <Text style={styles.title}>
+                                                Mandar foto do comprovante da troca ou print do erro:
+                                            </Text>
+
+                                            {imageUri ? (
+                                                <View style={styles.imageInfoContainer}>
+                                                    <Text style={styles.imageName}>{imageUri.name}</Text>
+                                                    <TouchableOpacity onPress={handleRemoveImage}>
+                                                        <Text style={styles.removeText}>Remover</Text>
+                                                    </TouchableOpacity>
+                                                </View>
+                                            ) : (
+                                                <View style={styles.addImageContainer}>
+                                                    <TouchableOpacity onPress={handleAddImage}>
+                                                        <Image
+                                                            source={require('../../assets/addImagem.png')}
+                                                            style={styles.addIcon}
+                                                        />
+                                                    </TouchableOpacity>
+                                                </View>
+                                            )}
+                                        </View>
+
+                                        <TouchableOpacity style={styles.button} onPress={() => setExitModalVisible(true)}>
+                                            <Text style={styles.buttonText}>Enviar</Text>
+                                        </TouchableOpacity>
+
+                                        {/* Espaço extra no final para evitar que o botão fique escondido */}
+                                        <View style={styles.bottomPadding} />
+                                    </>
+                                )}
+                                style={styles.formFlatView}
+                                contentContainerStyle={styles.formFlatContent}
+                                showsVerticalScrollIndicator={false}
+                                keyboardShouldPersistTaps="handled"
+                                bounces={false}
+                                nestedScrollEnabled={true}
+                            />
+                        </View>
+                    </View>
+                </View>
+            </TouchableWithoutFeedback>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
         backgroundColor: colors.green,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingBottom: 20
     },
-    scrollForm: {
-        width: '100%',
+
+    mainContainer: {
+        flex: 1,
     },
-    scrollContent: {
-        paddingBottom: Platform.OS === 'ios' ? 100 : 20,
-        alignItems: 'center',
-    },
+
     header: {
         width: '100%',
-        paddingTop: 20,
+        paddingTop: Platform.OS === 'ios' ? 20 : 30,
         paddingBottom: 10,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.green,
+        zIndex: 10,
     },
 
     buttonVoltar: {
         position: 'absolute',
-        top: 50,
+        top: Platform.OS === 'ios' ? 30 : 40,
         left: 20,
         width: 50,
         height: 50,
         zIndex: 10,
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 25,
     },
-    voltarIcon: {
-        position: 'absolute',
+
+    backIcon: {
+        fontSize: 25,
+        color: colors.white,
+        fontWeight: 'bold',
+    },
+
+    suporteContainerContainer: {
+        alignItems: 'center',
+        backgroundColor: colors.green,
+        paddingVertical: 10,
+        width: 100,
+        height: 100,
+        alignSelf: 'center',
+    },
+
+    suporteIcon: {
         width: '100%',
         height: '100%',
         resizeMode: 'contain',
     },
-    suporteContainer: {
-        position: 'absolute',
-        marginTop: 20,
-        zIndex: 10,
-        alignSelf: 'center',
-        backgroundColor: colors.green,
+
+   
+    formWrapper: {
+        flex: 1,
+        marginTop: 50,
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        paddingBottom: 20,
+        maxHeight: screenHeight * 0.75, 
     },
-    suporteIcon: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        resizeMode: 'contain',
-    },
+
     containerForm: {
         backgroundColor: colors.white,
-        width: '90%',
-        borderRadius: 10,
-        paddingHorizontal: '5%',
+        borderRadius: 15,
+        flex: 1,
+        minHeight: 600,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+
+
+    formFlatView: {
+        flex: 1,
+        backgroundColor: colors.white,
+        borderRadius: 15,
+    },
+
+    
+    formFlatContent: {
+        paddingHorizontal: 20,
+        paddingVertical: 20,
         paddingBottom: 20,
-        paddingTop: 10,
+        flexGrow: 1, 
+        justifyContent: 'flex-start', 
     },
+
     title: {
-        fontSize: 20,
-        marginTop: 28
+        fontSize: 18,
+        marginTop: 18,
+        marginBottom: 8,
+        fontWeight: '600',
+        color: colors.black,
     },
+
     input: {
         height: 50,
-        marginBottom: 12,
         fontSize: 16,
         backgroundColor: colors.thirdGray,
-        borderRadius: 20,
-        padding: 15,
-        dropShadow: 6,
-        shadowColor: colors.black,
-        shadowOpacity: 0.5,
+        borderRadius: 25,
+        paddingHorizontal: 15,
+        marginBottom: 12,
     },
+
     textArea: {
         height: 120,
-        padding: 12,
-        borderColor: '#ccc',
+        padding: 15,
+        borderColor: '#E0E0E0',
         borderWidth: 1,
-        borderRadius: 12,
+        borderRadius: 15,
         backgroundColor: colors.thirdGray,
         textAlignVertical: 'top',
+        fontSize: 16,
+        marginBottom: 12,
+    },
+
+    imageSection: {
+        marginTop: 10,
     },
 
     addImageContainer: {
+        height: 80,
         alignItems: 'center',
         justifyContent: 'center',
         marginVertical: 10,
         padding: 20,
-        borderWidth: 1,
-        borderColor: '#ccc',
+        borderWidth: 2,
+        borderColor: colors.red,
+        borderStyle: 'dashed',
         borderRadius: 12,
-        backgroundColor: colors.red,
+        backgroundColor: 'rgba(255, 23, 68, 0.1)',
     },
+
     addIcon: {
         width: 60,
         height: 60,
         resizeMode: 'contain',
+        tintColor: colors.red,
     },
+
     imageInfoContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#e0e0e0',
+        backgroundColor: '#f0f0f0',
         padding: 15,
-        borderRadius: 8,
+        borderRadius: 12,
         borderWidth: 1,
-        borderColor: '#aaa',
+        borderColor: '#ddd',
         marginVertical: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        elevation: 2,
     },
+
     imageName: {
         fontSize: 16,
         color: '#333',
+        flex: 1,
+        fontWeight: '500',
     },
+
     removeText: {
-        color: 'red',
+        color: colors.red,
         fontWeight: 'bold',
+        fontSize: 16,
     },
 
     button: {
         backgroundColor: colors.red,
-        width: '60%',
-        borderRadius: 8,
-        paddingVertical: 8,
-        marginTop: 14,
+        width: 160,
+        borderRadius: 12,
+        paddingVertical: 15,
+        marginTop: 25,
         justifyContent: 'center',
         alignItems: 'center',
-        dropShadow: 6,
-        shadowColor: colors.red,
-        shadowOpacity: 0.5,
         alignSelf: 'center',
     },
+
     buttonText: {
         color: colors.white,
         fontSize: 18,
         fontWeight: 'bold'
     },
-    registerText: {
-        color: 'alalal'
-    },
-})
 
+    bottomPadding: {
+        height: 30,
+    },
+});

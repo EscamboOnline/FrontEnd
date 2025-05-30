@@ -1,14 +1,31 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Dimensions } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    Image,
+    ScrollView,
+    Dimensions,
+    Modal,
+    Alert
+} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import colors from '../../constants/colors';
 import { useFonts, Baloo2_400Regular, Baloo2_700Bold } from '@expo-google-fonts/baloo-2';
+import { popupStyles} from '../../constants/popup';
+
 
 const { width } = Dimensions.get('window');
 const BUTTON_COUNT = 4;
 const BUTTON_MARGIN = 8;
-const buttonSize = (width - 40 - BUTTON_MARGIN * (BUTTON_COUNT - 1)) / BUTTON_COUNT;
+const buttonSize = (width - 25 - BUTTON_MARGIN * (BUTTON_COUNT - 1)) / BUTTON_COUNT;
+
+const avatarSize = buttonSize * 1.75;
+
+const baseWidth = 375;
+const scale = width / baseWidth;
+
 
 const notificationsData = [
     { id: 1, userImg: 'https://i.pravatar.cc/40?img=1', title: 'Seu pedido foi enviado' },
@@ -24,6 +41,7 @@ const reviewsData = [
 
 export default function UserPerfil() {
     const [selectedTab, setSelectedTab] = useState('notificacoes');
+    const [exitModalVisible, setExitModalVisible] = useState(false);
 
     const navigation = useNavigation();
 
@@ -36,11 +54,45 @@ export default function UserPerfil() {
         return <Text>Carregando fontes...</Text>;
     }
 
+    const handleLogout = () => {
+
+        Alert.alert('Logout', 'Você foi desconectado com sucesso!');
+
+    };
+
     return (
         <View style={styles.container}>
+            {/* Exit Modal */}
+            <Modal visible={exitModalVisible} transparent animationType="fade">
+                <View style={popupStyles.centeredView}>
+                    <View style={popupStyles.modalView}>
+                        <Text style={popupStyles.modalText}>Tem certeza que deseja sair?</Text>
+
+                        <View style={popupStyles.modalButtons}>
+                            <TouchableOpacity
+                                style={[popupStyles.modalButton, popupStyles.noButton]}
+                                onPress={() => setExitModalVisible(false)}
+                            >
+                                <Text style={popupStyles.noButtonText}>Não</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={[popupStyles.modalButton, popupStyles.yesButton]}
+                                onPress={handleLogout}
+                            >
+                                <Text style={popupStyles.yesButtonText}>Sim</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
 
             {/* Botão Exit */}
-            <TouchableOpacity style={styles.buttonExit}>
+            <TouchableOpacity
+                style={styles.buttonExit}
+                onPress={() => setExitModalVisible(true)}
+            >
                 <Image
                     source={require('../../assets/logout.png')}
                     style={styles.exitIcon}
@@ -49,7 +101,7 @@ export default function UserPerfil() {
 
             {/* Avatar e Nome */}
             <Image
-                source={{ uri: 'https://i.pravatar.cc/150?img=12' }}
+                source={require('../../assets/personaImage.png')}
                 style={styles.avatar}
             />
             <Text style={styles.title}>Ana Catarina</Text>
@@ -62,10 +114,10 @@ export default function UserPerfil() {
                         source={require('../../assets/perfilConfig.png')}
                         style={styles.buttonIcon}
                     />
-                    <Text style={styles.textButton}>Configurar Perfil</Text>
+                    <Text style={styles.textButton}>Config. Perfil</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.buttonBox1} onPress={() => navigation.navigate('EscamboFeitos')}>
+                <TouchableOpacity style={styles.buttonBox1} onPress={() => navigation.navigate('EscambosFeitos')}>
                     <Image
                         source={require('../../assets/escambos.png')}
                         style={styles.buttonIcon}
@@ -73,7 +125,7 @@ export default function UserPerfil() {
                     <Text style={styles.textButton}>Escambos</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.buttonBox2}>
+                <TouchableOpacity style={styles.buttonBox2} onPress={() => navigation.navigate('Inventario')}>
                     <Image
                         source={require('../../assets/inventario.png')}
                         style={styles.buttonIcon}
@@ -81,7 +133,7 @@ export default function UserPerfil() {
                     <Text style={styles.textButton}>Inventário</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.buttonBox3}  onPress={() => navigation.navigate('Suporte')}>
+                <TouchableOpacity style={styles.buttonBox3} onPress={() => navigation.navigate('Suporte')}>
                     <Image
                         source={require('../../assets/suporte.png')}
                         style={styles.buttonIcon}
@@ -159,12 +211,12 @@ export default function UserPerfil() {
                     ))
                 )}
             </ScrollView>
-
         </View >
     );
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         backgroundColor: colors.white,
@@ -173,13 +225,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat',
     },
     buttonExit: {
-        width: 50,
-        height: 50,
+        width: 45 * scale,
+        height: 45 * scale,
         position: 'absolute',
         top: 40,
         right: 20,
         backgroundColor: colors.red,
-        borderRadius: 25,
+        borderRadius: 25 * scale,
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 10,
@@ -191,24 +243,23 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     avatar: {
-        width: 130,
-        height: 130,
-        borderRadius: 65,
-        borderWidth: 2,
+        width: avatarSize,
+        height: avatarSize,
+        borderRadius: 75,
         alignSelf: 'center',
         marginTop: 30,
         marginBottom: 12,
     },
     title: {
         textAlign: 'center',
-        fontSize: 24,
+        fontSize: 24 * scale,
         fontWeight: 'bold',
         color: colors.black,
         fontFamily: 'Montserrat',
     },
     username: {
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 16 * scale,
         color: colors.black,
         opacity: 0.7,
         marginBottom: 30,
@@ -274,10 +325,10 @@ const styles = StyleSheet.create({
     textButton: {
         color: colors.white,
         fontWeight: '600',
-        fontSize: 14,
+        fontSize: 16 * scale,
         textAlign: 'center',
         zIndex: 1,
-        fontFamily: 'Baloo2_700Bold'
+        fontFamily: 'Baloo2_700Bold',
     },
     containerOptions: {
         flexDirection: 'row',
@@ -293,10 +344,9 @@ const styles = StyleSheet.create({
         borderColor: colors.secondBlue,
         backgroundColor: 'transparent',
     },
-
     verticalDivider: {
-        width: 1,
-        height: 30,
+        width: 1 * scale,
+        height: 30 * scale,
         backgroundColor: colors.secondGray,
         marginHorizontal: 10,
     },
@@ -304,7 +354,7 @@ const styles = StyleSheet.create({
         borderColor: colors.red,
     },
     textOptions: {
-        fontSize: 16,
+        fontSize: 18 * scale,
         color: colors.black,
         fontWeight: '600',
     },
@@ -326,28 +376,28 @@ const styles = StyleSheet.create({
         borderBottomColor: colors.secondGray,
     },
     notificationImage: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: 40 * scale,
+        height: 40 * scale,
+        borderRadius: 20 * scale,
         marginRight: 12,
     },
     notificationText: {
-        fontSize: 16,
+        fontSize: 16 * scale,
         color: colors.black,
     },
 
     // Reviews
     reviewItem: {
         flexDirection: 'row',
-        paddingVertical: 16,
+        paddingVertical: 16 * scale,
         borderBottomWidth: 1,
         borderBottomColor: colors.secondGray,
         position: 'relative',
     },
     reviewImage: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
+        width: 60 * scale,
+        height: 60 * scale,
+        borderRadius: 30 * scale,
         marginRight: 12,
     },
     reviewTextContainer: {
@@ -356,22 +406,22 @@ const styles = StyleSheet.create({
     },
     reviewName: {
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 16 * scale,
         color: colors.black,
     },
     reviewUsername: {
-        fontSize: 14,
+        fontSize: 14 * scale,
         color: colors.black,
         opacity: 0.7,
         marginBottom: 6,
     },
     reviewComment: {
-        fontSize: 15,
+        fontSize: 15 * scale,
         color: '#333',
     },
     estralasIcon: {
-        width: 100,
-        height: 15,
+        width: 100 * scale,
+        height: 16 * scale,
         position: 'absolute',
         top: 15,
         right: 10,

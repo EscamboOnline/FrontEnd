@@ -6,26 +6,32 @@ const baseWidth = 375;
 const scale = width / baseWidth;
 
 export const headerStyles = StyleSheet.create({
+
     header: {
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: 8*scale,
-        paddingBottom: 8*scale,
+        paddingTop: 20 * scale,
         backgroundColor: colors.white,
-        paddingHorizontal: 15,
+        paddingHorizontal: 15 * scale,
     },
+
     backButton: {
-        padding: 5,
+        width: 40 * scale,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
     },
+
     headerTitle: {
-        fontSize: 19 * scale,
+        fontSize: 22 * scale,
         fontWeight: 'bold',
-        color: colors.black,
+        color: colors.darkGray,
+        textAlign: 'center',
+        flex: 1,
     },
     downloadButton: {
         padding: 5,
-    }
+    },
 });
 

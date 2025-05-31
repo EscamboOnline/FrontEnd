@@ -17,8 +17,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import colors from '../../constants/colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { popupStyles} from '../../constants/popup';
-
+import { popupStyles } from '../../constants/popup';
+import { buttonsStyles } from '../../constants/buttons';
+import { headerStyles } from '../../constants/header';
 
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -44,28 +45,13 @@ export default function Suporte() {
         setImageUri(null);
     };
 
-    // Função para fechar o teclado quando tocar fora dos inputs
     const dismissKeyboard = () => {
         Keyboard.dismiss();
     };
 
-    const updateFormData = (field, value) => {
-        setFormData(prev => ({
-            ...prev,
-            [field]: value
-        }));
-    };
-
-    const handleSubmit = () => {
-        console.log('Form submitted:', { formData, imageUri });
-        // Handle form submission logic here
-    };
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* 
-                TouchableWithoutFeedback: 
-            */}
 
             <Modal
                 visible={exitModalVisible}
@@ -78,7 +64,7 @@ export default function Suporte() {
                         <Text style={popupStyles.modalText}>Sua mensagem foi enviada pro suporte</Text>
 
                         <View style={popupStyles.modalButtons}>
-                    
+
                             <TouchableOpacity
                                 style={[popupStyles.modalButton, popupStyles.okButton]}
                                 onPress={() => {
@@ -93,34 +79,34 @@ export default function Suporte() {
                 </View>
             </Modal>
 
-            <TouchableWithoutFeedback onPress={dismissKeyboard}>
-                <View style={styles.mainContainer}>
-                    {/* Fixed Header */}
-                    <View style={styles.header}>
-                        <TouchableOpacity
-                            style={styles.buttonVoltar}
-                            onPress={() => navigation.navigate('UserPerfil')}
-                        >
-                            <MaterialIcons name="play-arrow" size={30} color="#fff" style={{ transform: [{ scaleX: -1 }] }}/>
-                        </TouchableOpacity>
-                    </View>
 
-                    {/* Support Icon */}
-                    <View style={styles.suporteContainerContainer}>
-                        <Image
-                            source={require('../../assets/suporte.png')}
-                            style={styles.suporteIcon}
-                        />
-                    </View>
+            <View style={styles.mainContainer}>
 
+                <View style={[headerStyles.header, { backgroundColor: colors.green, paddingTop: 20, }]}>
+                    <TouchableOpacity
+                        style={headerStyles.buttonVoltar}
+                        onPress={() => navigation.navigate('UserPerfil')}
+                    >
+                        <MaterialIcons name="play-arrow" size={30} color="#fff" style={{ transform: [{ scaleX: -1 }] }} />
+                    </TouchableOpacity>
+                </View>
 
-                    <View style={styles.formWrapper}>
-                        <View style={styles.containerForm}>
+                {/* Support Icon */}
+                <View style={styles.suporteContainerContainer}>
+                    <Image
+                        source={require('../../assets/suporte.png')}
+                        style={styles.suporteIcon}
+                    />
+                </View>
 
-                            <FlatList
-                                data={[{ key: 'form' }]}
-                                renderItem={() => (
-                                    <>
+                <View style={styles.formWrapper}>
+                    <View style={styles.containerForm}>
+
+                        <FlatList
+                            data={[{ key: 'form' }]}
+                            renderItem={() => (
+                                <TouchableWithoutFeedback onPress={dismissKeyboard}>
+                                    <View>
                                         <Text style={styles.title}>Seu Nome</Text>
                                         <TextInput
                                             placeholder="Seu nome"
@@ -187,25 +173,27 @@ export default function Suporte() {
                                             )}
                                         </View>
 
-                                        <TouchableOpacity style={styles.button} onPress={() => setExitModalVisible(true)}>
-                                            <Text style={styles.buttonText}>Enviar</Text>
+                                        <TouchableOpacity style={buttonsStyles.buttonForm} onPress={() => setExitModalVisible(true)}>
+                                            <Text style={buttonsStyles.buttonFormText}>Enviar</Text>
                                         </TouchableOpacity>
 
-                                        {/* Espaço extra no final para evitar que o botão fique escondido */}
                                         <View style={styles.bottomPadding} />
-                                    </>
-                                )}
-                                style={styles.formFlatView}
-                                contentContainerStyle={styles.formFlatContent}
-                                showsVerticalScrollIndicator={false}
-                                keyboardShouldPersistTaps="handled"
-                                bounces={false}
-                                nestedScrollEnabled={true}
-                            />
-                        </View>
+
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            )}
+                            style={styles.formFlatView}
+                            contentContainerStyle={styles.formFlatContent}
+                            showsVerticalScrollIndicator={false}
+                            keyboardShouldPersistTaps="handled"
+                            bounces={false}
+                            nestedScrollEnabled={true}
+                        />
                     </View>
+
                 </View>
-            </TouchableWithoutFeedback>
+            </View>
+
         </SafeAreaView>
     );
 }
@@ -218,34 +206,6 @@ const styles = StyleSheet.create({
 
     mainContainer: {
         flex: 1,
-    },
-
-    header: {
-        width: '100%',
-        paddingTop: Platform.OS === 'ios' ? 20 : 30,
-        paddingBottom: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.green,
-        zIndex: 10,
-    },
-
-    buttonVoltar: {
-        position: 'absolute',
-        top: Platform.OS === 'ios' ? 30 : 40,
-        left: 20,
-        width: 50,
-        height: 50,
-        zIndex: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 25,
-    },
-
-    backIcon: {
-        fontSize: 25,
-        color: colors.white,
-        fontWeight: 'bold',
     },
 
     suporteContainerContainer: {
@@ -263,14 +223,13 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
 
-   
     formWrapper: {
         flex: 1,
-        marginTop: 50,
+        marginTop: 20,
         justifyContent: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
         paddingBottom: 20,
-        maxHeight: screenHeight * 0.75, 
+        maxHeight: screenHeight * 0.75,
     },
 
     containerForm: {
@@ -292,13 +251,13 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
 
-    
+
     formFlatContent: {
         paddingHorizontal: 20,
         paddingVertical: 20,
         paddingBottom: 20,
-        flexGrow: 1, 
-        justifyContent: 'flex-start', 
+        flexGrow: 1,
+        justifyContent: 'flex-start',
     },
 
     title: {
@@ -402,6 +361,6 @@ const styles = StyleSheet.create({
     },
 
     bottomPadding: {
-        height: 30,
+        height: 10,
     },
 });

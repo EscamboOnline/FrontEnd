@@ -9,14 +9,15 @@ import PerfilConfig from '../pages/Perfil/perfilConfig';
 import Suporte from '../pages/Perfil/suporte';
 import EscambosFeitos from '../pages/Perfil/escamboFeitos';
 import ComprovanteTroca from "../pages/Perfil/comprovante";
+import addItem from "../pages/Inventario/addItem";
 
 
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
   return (
-    <Stack.Navigator>
-
+    <Stack.Navigator initialRouteName="UserPerfil">
+      
       <Stack.Screen
         name="Welcome"
         component={Welcome}

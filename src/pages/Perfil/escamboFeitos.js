@@ -5,15 +5,16 @@ import {
     StyleSheet,
     TouchableOpacity,
     Image,
-    ScrollView,
     SafeAreaView,
-    Dimensions
+    Dimensions,
+    FlatList
 } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import colors from '../../constants/colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { conditionStyles} from '../../constants/condicao';
-import { headerStyles} from '../../constants/header';
+import { conditionStyles } from '../../constants/condicao';
+import { headerStyles } from '../../constants/header';
+import { buttonsStyles } from '../../constants/buttons';
 
 const { width } = Dimensions.get('window');
 
@@ -42,7 +43,7 @@ export default function EscambosFeitos() {
         {
             id: 2,
             receivedItem: {
-                title: 'Item do Usuário',
+                title: 'Item do Usuário 2',
                 description: 'Recebido nesta troca. Produto em ótimo estado.',
                 rating: 'Ótimo',
                 image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop',
@@ -86,8 +87,8 @@ export default function EscambosFeitos() {
             ))}
 
 
-            <TouchableOpacity style={styles.receiptButton} onPress={() => navigation.navigate('ComprovanteTroca')}>
-                <Text style={styles.receiptButtonText}>Ver comprovante</Text>
+            <TouchableOpacity style={buttonsStyles.longButton} onPress={() => navigation.navigate('ComprovanteTroca')}>
+                <Text style={buttonsStyles.longButtonText}>Ver comprovante</Text>
             </TouchableOpacity>
             {/* Linha forte após o segundo item */}
             <View style={styles.strongDivider} />
@@ -99,7 +100,7 @@ export default function EscambosFeitos() {
         <SafeAreaView style={styles.container}>
             <View style={headerStyles.header}>
                 <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
-                    <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }}/>
+                    <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
                 </TouchableOpacity>
 
                 <Text style={headerStyles.headerTitle}>Escambos Feitos</Text>
@@ -109,15 +110,16 @@ export default function EscambosFeitos() {
             </View>
 
 
-            <ScrollView 
-                style={styles.scrollView} 
-                showsVerticalScrollIndicator={false} 
-                contentContainerStyle={[styles.contentContainer, { paddingBottom: 30 * scale }]}
-            >
-                <View style={styles.contentContainer}>
-                    {trades.map(renderTradeItem)}
-                </View>
-            </ScrollView>
+            <FlatList
+                data={trades}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => renderTradeItem(item)}
+                contentContainerStyle={[
+                    styles.contentContainer,
+                    { paddingBottom: 30 * scale }
+                ]}
+                showsVerticalScrollIndicator={false}
+            />
         </SafeAreaView>
     );
 }
@@ -126,49 +128,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.white,
-        paddingHorizontal: 10 * scale,
-    },
-    
-    header: {
-        width: '100%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingTop: 30 * scale,
-        backgroundColor: colors.white,
-        paddingHorizontal: 15 * scale,
     },
 
-    backButton: {
-        width: 40 * scale,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-    },
-
-    headerTitle: {
-        fontSize: 22 * scale,
-        fontWeight: 'bold',
-        color: colors.darkGray,
-        textAlign: 'center',
-        flex: 1,
-    },
-
-    scrollView: {
-        flex: 1,
-    },
-    
     contentContainer: {
         paddingTop: 10 * scale,
         gap: 8 * scale,
     },
-    
+
     tradeCard: {
         width: '100%',
         backgroundColor: colors.gray,
         borderRadius: 12 * scale,
         padding: 10 * scale,
     },
-    
+
     strongDivider: {
         width: '100%',
         height: 2 * scale,
@@ -184,29 +157,29 @@ const styles = StyleSheet.create({
         marginVertical: 8 * scale,
         borderRadius: 1 * scale,
     },
-    
+
     tradeTitle: {
         fontSize: 17 * scale,
         fontWeight: 'bold',
         color: colors.darkGray,
         marginBottom: 10 * scale,
     },
-    
+
     itemWrapper: {
         marginBottom: 15 * scale,
     },
-    
+
     itemTitle: {
         fontSize: 16 * scale,
         fontWeight: 'bold',
         marginBottom: 6 * scale,
         color: colors.darkGray,
     },
-    
+
     itemContent: {
         flexDirection: 'row',
     },
-    
+
     imageWrapper: {
         width: width * 0.25,
         height: width * 0.25,
@@ -215,7 +188,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderRadius: 8 * scale,
     },
-    
+
     itemImage: {
         width: '100%',
         height: '100%',
@@ -226,25 +199,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
     },
-    
+
     description: {
         fontSize: 15 * scale,
         color: colors.darkGray,
         marginBottom: 8 * scale,
         lineHeight: 18 * scale,
     },
-    
-    receiptButton: {
-        backgroundColor: colors.red,
-        marginTop: 10 * scale,
-        borderRadius: 8 * scale,
-        paddingVertical: 10 * scale,
-        alignItems: 'center',
-    },
-    
-    receiptButtonText: {
-        color: colors.white,
-        fontSize: 16 * scale,
-        fontWeight: 'bold'
-    },
+
+
 });

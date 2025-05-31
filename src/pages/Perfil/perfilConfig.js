@@ -10,12 +10,16 @@ import {
     FlatList,
     TextInput,
     Dimensions,
+    Modal,
 } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from '@react-native-picker/picker';
 import colors from '../../constants/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { popupStyles } from '../../constants/popup';
+import { buttonsStyles } from '../../constants/buttons';
+import { headerStyles } from '../../constants/header';
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;
@@ -24,7 +28,7 @@ const scale = width / baseWidth;
 export default function PerfilConfig() {
     const navigation = useNavigation();
 
-    const [formData, setFormData] = useState({
+    const [formData] = useState({
         name: "Ana Catarina",
         username: "@ana_catarina",
         gender: "feminino",
@@ -41,44 +45,75 @@ export default function PerfilConfig() {
 
     const formData_array = [{ id: 'form' }];
 
+    const [exitModalVisible, setExitModalVisible] = useState(false);
+
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableWithoutFeedback onPress={dismissKeyboard}>
-                <View style={styles.mainContainer}>
-                    <View style={styles.header}>
-                        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
-                            <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
-                        </TouchableOpacity>
-                    </View>
 
-                    <View style={styles.headerSection}>
-                        <TouchableOpacity style={styles.avatarContainer} onPress={handleAvatarPress}>
-                            <Image source={require('../../assets/personaImage.png')} style={styles.avatar} />
-                            <View style={styles.editIconContainer}>
-                                <Image source={require('../../assets/camera.png')} style={styles.editIcon} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+            <Modal
+                visible={exitModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setExitModalVisible(false)}
+            >
+                <View style={popupStyles.centeredView}>
+                    <View style={popupStyles.modalView}>
+                        <Text style={popupStyles.modalText}>Seus dados foram alterados!</Text>
 
-                    <View style={styles.containerForm}>
-                        <FlatList
-                            data={formData_array}
-                            keyExtractor={item => item.id}
-                            style={styles.flatList}
-                            contentContainerStyle={styles.contentContainer}
-                            showsVerticalScrollIndicator={false}
-                            keyboardShouldPersistTaps="handled"
-                            bounces={false}
-                            renderItem={() => (
+                        <View style={popupStyles.modalButtons}>
+
+                            <TouchableOpacity
+                                style={[popupStyles.modalButton, popupStyles.okButton]}
+                                onPress={() => {
+                                    setExitModalVisible(false);
+                                    navigation.navigate('UserPerfil');
+                                }}
+                            >
+                                <Text style={popupStyles.okButtonText}>OK</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            <View style={headerStyles.header}>
+                <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
+                    <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
+                </TouchableOpacity>
+
+            </View>
+
+            <View style={styles.mainContainer}>
+
+                <View style={styles.headerSection}>
+                    <TouchableOpacity style={styles.avatarContainer} onPress={handleAvatarPress}>
+                        <Image source={require('../../assets/personaImage.png')} style={styles.avatar} />
+                        <View style={styles.editIconContainer}>
+                            <Image source={require('../../assets/camera.png')} style={styles.editIcon} />
+                        </View>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.containerForm}>
+                    <FlatList
+                        data={formData_array}
+                        keyExtractor={item => item.id}
+                        style={styles.flatList}
+                        contentContainerStyle={styles.contentContainer}
+                        showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps="handled"
+                        bounces={false}
+                        renderItem={({ item }) => (
+                            <TouchableWithoutFeedback onPress={dismissKeyboard}>
                                 <View>
                                     <Text style={styles.title2}>Informações base</Text>
                                     <Text style={styles.title}>Seu Nome</Text>
-                                    <TextInput placeholder="Seu nome" style={styles.input} value={formData.name} onChangeText={v => updateFormData('name', v)} />
+                                    <TextInput placeholder="Seu nome" style={styles.input} value={formData.name} />
                                     <Text style={styles.title}>Username</Text>
-                                    <TextInput placeholder="Seu username" style={styles.input} value={formData.username} onChangeText={v => updateFormData('username', v)} />
+                                    <TextInput placeholder="Seu username" style={styles.input} value={formData.username} />
                                     <Text style={styles.title}>Sexo</Text>
                                     <View style={styles.pickerContainer}>
-                                        <Picker selectedValue={formData.gender} style={styles.picker} onValueChange={v => updateFormData('gender', v)}>
+                                        <Picker selectedValue={formData.gender} style={styles.picker}>
                                             <Picker.Item style={styles.pickerText} label="Selecione o sexo" value="" />
                                             <Picker.Item style={styles.pickerText} label="Masculino" value="masculino" />
                                             <Picker.Item style={styles.pickerText} label="Feminino" value="feminino" />
@@ -101,26 +136,28 @@ export default function PerfilConfig() {
 
                                     <Text style={styles.title2}>Endereço</Text>
                                     <Text style={styles.title}>CEP</Text>
-                                    <TextInput placeholder="Seu CEP atual" style={styles.input} value={formData.zipCode} onChangeText={v => updateFormData('zipCode', v)} />
+                                    <TextInput placeholder="Seu CEP atual" style={styles.input} value={formData.zipCode} />
 
                                     <Text style={styles.title}>Estado</Text>
                                     <View style={styles.rowInputs}>
-                                        <TextInput style={styles.inputHalf} placeholder="Estado" value={formData.state} onChangeText={v => updateFormData('state', v)} />
+                                        <TextInput style={styles.inputHalf} placeholder="Estado" value={formData.state} />
                                         <View style={styles.separator} />
-                                        <TextInput style={styles.inputHalf} placeholder="Cidade, Bairro" value={formData.cityNeighborhood} onChangeText={v => updateFormData('cityNeighborhood', v)} />
+                                        <TextInput style={styles.inputHalf} placeholder="Cidade, Bairro" value={formData.cityNeighborhood} />
                                     </View>
 
-                                    <TouchableOpacity style={styles.button}>
-                                        <Text style={styles.buttonText}>Alterar</Text>
+                                    <TouchableOpacity style={buttonsStyles.buttonForm} onPress={() => setExitModalVisible(true)}>
+                                        <Text style={buttonsStyles.buttonFormText}>Alterar</Text>
                                     </TouchableOpacity>
 
                                     <View style={styles.bottomPadding} />
+
                                 </View>
-                            )}
-                        />
-                    </View>
+                            </TouchableWithoutFeedback>
+                        )}
+                    />
                 </View>
-            </TouchableWithoutFeedback>
+            </View>
+
         </SafeAreaView>
     );
 }
@@ -128,18 +165,10 @@ export default function PerfilConfig() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
     },
     mainContainer: {
         flex: 1
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 15 * scale
-    },
-    backButton: {
-        width: 40 * scale
     },
     headerSection: {
         paddingBottom: 10 * scale
@@ -178,7 +207,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 24 * scale,
         fontWeight: 'bold',
-        color: colors.red
+        color: colors.red,
+        paddingTop: 5 * scale,
     },
     title: {
         fontSize: 20 * scale,
@@ -202,8 +232,8 @@ const styles = StyleSheet.create({
         height: '100%',
         paddingHorizontal: 8 * scale,
     },
-    pickerText:{
-       fontSize: 16*scale,
+    pickerText: {
+        fontSize: 16 * scale,
     },
     inputContainer: {
         flexDirection: 'row',
@@ -216,7 +246,7 @@ const styles = StyleSheet.create({
     },
     inputReadOnly: {
         flex: 1,
-        fontSize: 16 * scale
+        fontSize: 16 * scale,
     },
     lockIcon: {
         width: 20 * scale,
@@ -240,21 +270,7 @@ const styles = StyleSheet.create({
         height: '60%',
         backgroundColor: '#ccc'
     },
-    button: {
-        backgroundColor: colors.red,
-        width: '70%',
-        borderRadius: 12 * scale,
-        paddingVertical: 15 * scale,
-        alignSelf: 'center',
-        alignItems: 'center',
-        marginTop: 30 * scale
-    },
-    buttonText: {
-        color:colors.white,
-        fontSize: 18 * scale,
-        fontWeight: 'bold'
-    },
     bottomPadding: {
-        height: 30 * scale
+        height: 10 * scale
     },
 });

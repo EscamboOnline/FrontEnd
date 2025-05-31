@@ -66,17 +66,17 @@ export default function ComprovanteTroca() {
         meetingDate: new Date('2025-09-22T12:00:00')
     };
 
-    // Format date to DD/MM/YYYY
+
     const formatDate = (date) => {
         return date.toLocaleDateString('pt-BR');
     };
 
-    // Format time to HH:MM
+
     const formatTime = (date) => {
         return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     };
 
-    // Format full address
+
     const formatAddress = () => {
         const { street, number, neighborhood, city, state, zipCode } = receiptData.address;
         return `${street}, ${number} - ${neighborhood}, ${city} - ${state}, ${zipCode}`;
@@ -97,13 +97,11 @@ export default function ComprovanteTroca() {
                 </TouchableOpacity>
             </View>
 
-            {/* Scrollable content, including button */}
             <FlatList style={styles.flatList}
                 data={receiptData.items}
                 keyExtractor={(item) => item.id.toString()}
                 ListHeaderComponent={
                     <>
-                        {/* Header e dados fixos como nome do usuário, status, etc */}
                         <View style={styles.userInfoContainer}>
                             <Image source={{ uri: receiptData.user.avatar }} style={styles.userAvatar} />
                             <View style={styles.userTextContainer}>
@@ -176,13 +174,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.white,
         fontFamily: 'Montserrat',
-        paddingHorizontal: 5 * scale,
     },
 
     flatList: {
         flex: 1,
         padding: 10 * scale,
-        paddingBottom: 30 * scale, 
+        paddingBottom: 40 * scale, 
     },
     
     userInfoContainer: {
@@ -258,6 +255,7 @@ const styles = StyleSheet.create({
         fontSize: 17 * scale,
         fontWeight: 'bold',
         marginBottom: 10 * scale,
+        marginTop: 5*scale,
     },
     
     itemContent: {
@@ -326,6 +324,7 @@ const styles = StyleSheet.create({
         borderRadius: 15 * scale,
         paddingVertical: 12 * scale,
         alignItems: 'center',
+        marginBottom: 10*scale,
     },
     
     chatButtonText: {

@@ -5,7 +5,7 @@ import {
     StyleSheet,
     TouchableOpacity,
     Image,
-    ScrollView,
+    FlatList,
     Dimensions,
     Modal,
     Alert
@@ -13,7 +13,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import colors from '../../constants/colors';
 import { useFonts, Baloo2_400Regular, Baloo2_700Bold } from '@expo-google-fonts/baloo-2';
-import { popupStyles} from '../../constants/popup';
+import { popupStyles } from '../../constants/popup';
 
 
 const { width } = Dimensions.get('window');
@@ -36,7 +36,7 @@ const notificationsData = [
 const reviewsData = [
     { id: 1, userImg: 'https://i.pravatar.cc/60?img=4', name: 'João Silva', username: '@joaosilva', comment: 'Ótimo serviço, super recomendo!' },
     { id: 2, userImg: 'https://i.pravatar.cc/60?img=5', name: 'Maria Oliveira', username: '@mariaoliveira', comment: 'Gostei muito da experiência!' },
-    { id: 3, userImg: 'https://i.pravatar.cc/60?img=6', name: 'Carlos Souza', username: '@carlossouza', comment: 'Pode melhorar, mas no geral é bom.' },
+    { id: 3, userImg: 'https://i.pravatar.cc/60?img=6', name: 'Rui Braga', username: '@albraga', comment: 'Pode melhorar, mas no geral é bom. YaaaaaaaHuuuHaaaaaaaaaaaaaaaa' },
 ];
 
 export default function UserPerfil() {
@@ -184,33 +184,44 @@ export default function UserPerfil() {
 
 
             {/* Conteúdo da aba selecionada */}
-            <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+            <View style={styles.content}>
                 {selectedTab === 'notificacoes' && (
-                    notificationsData.map(item => (
-                        <View key={item.id} style={styles.notificationItem}>
-                            <Image source={{ uri: item.userImg }} style={styles.notificationImage} />
-                            <Text style={styles.notificationText}>{item.title}</Text>
-                        </View>
-                    ))
+                    <FlatList
+                        data={notificationsData}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({ item }) => (
+                            <View style={styles.notificationItem}>
+                                <Image source={{ uri: item.userImg }} style={styles.notificationImage} />
+                                <Text style={styles.notificationText}>{item.title}</Text>
+                            </View>
+                        )}
+                        showsVerticalScrollIndicator={false}
+                    />
                 )}
 
                 {selectedTab === 'reviews' && (
-                    reviewsData.map(item => (
-                        <View key={item.id} style={styles.reviewItem}>
-                            <Image source={{ uri: item.userImg }} style={styles.reviewImage} />
-                            <Image
-                                source={require('../../assets/estrelas.png')}
-                                style={styles.estralasIcon}
-                            />
-                            <View style={styles.reviewTextContainer}>
-                                <Text style={styles.reviewName}>{item.name}</Text>
-                                <Text style={styles.reviewUsername}>{item.username}</Text>
-                                <Text style={styles.reviewComment}>{item.comment}</Text>
+                    <FlatList
+                        data={reviewsData}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({ item }) => (
+                            <View style={styles.reviewItem}>
+                                <Image source={{ uri: item.userImg }} style={styles.reviewImage} />
+                                <Image
+                                    source={require('../../assets/estrelas.png')}
+                                    style={styles.estralasIcon}
+                                />
+                                <View style={styles.reviewTextContainer}>
+                                    <Text style={styles.reviewName}>{item.name}</Text>
+                                    <Text style={styles.reviewUsername}>{item.username}</Text>
+                                    <Text style={styles.reviewComment}>{item.comment}</Text>
+                                </View>
                             </View>
-                        </View>
-                    ))
+                        )}
+                        showsVerticalScrollIndicator={false}
+                    />
                 )}
-            </ScrollView>
+            </View>
+
         </View >
     );
 }
@@ -228,8 +239,8 @@ const styles = StyleSheet.create({
         width: 45 * scale,
         height: 45 * scale,
         position: 'absolute',
-        top: 40,
-        right: 20,
+        top: 30 * scale,
+        right: 20 * scale,
         backgroundColor: colors.red,
         borderRadius: 25 * scale,
         alignItems: 'center',
@@ -247,7 +258,7 @@ const styles = StyleSheet.create({
         height: avatarSize,
         borderRadius: 75,
         alignSelf: 'center',
-        marginTop: 30,
+        marginTop: 10 * scale,
         marginBottom: 12,
     },
     title: {

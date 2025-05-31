@@ -66,16 +66,13 @@ export default function ComprovanteTroca() {
         meetingDate: new Date('2025-09-22T12:00:00')
     };
 
-
     const formatDate = (date) => {
         return date.toLocaleDateString('pt-BR');
     };
 
-
     const formatTime = (date) => {
         return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     };
-
 
     const formatAddress = () => {
         const { street, number, neighborhood, city, state, zipCode } = receiptData.address;

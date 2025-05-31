@@ -13,8 +13,8 @@ import { useNavigation } from "@react-navigation/native";
 import colors from '../../constants/colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { conditionStyles } from '../../constants/condicao';
-import { headerStyles } from '../../constants/header';
-import { buttonsStyles } from '../../constants/buttons';
+import { headerStyles } from '../../components/header';
+import { buttonsStyles } from '../../components/buttons';
 
 const { width } = Dimensions.get('window');
 

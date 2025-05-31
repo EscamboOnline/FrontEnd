@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import colors from './colors';
+import colors from '../constants/colors';
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;

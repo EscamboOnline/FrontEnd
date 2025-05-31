@@ -9,7 +9,6 @@ import {
     Image,
     TouchableWithoutFeedback,
     FlatList,
-    Platform,
     SafeAreaView,
     Dimensions,
     Modal
@@ -17,9 +16,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import colors from '../../constants/colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { popupStyles } from '../../constants/popup';
-import { buttonsStyles } from '../../constants/buttons';
-import { headerStyles } from '../../constants/header';
+import { popupStyles } from '../../components/popup';
+import { buttonsStyles } from '../../components/buttons';
+import { headerStyles } from '../../components/header';
 
 const { height: screenHeight } = Dimensions.get('window');
 

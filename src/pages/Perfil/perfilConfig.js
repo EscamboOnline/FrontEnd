@@ -17,9 +17,9 @@ import { Picker } from '@react-native-picker/picker';
 import colors from '../../constants/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { popupStyles } from '../../constants/popup';
-import { buttonsStyles } from '../../constants/buttons';
-import { headerStyles } from '../../constants/header';
+import { popupStyles } from '../../components/popup';
+import { buttonsStyles } from '../../components/buttons';
+import { headerStyles } from '../../components/header';
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;

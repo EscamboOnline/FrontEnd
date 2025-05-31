@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { conditionStyles} from '../../constants/condicao';
-import { headerStyles} from '../../constants/header';
+import { headerStyles} from '../../components/header';
 
 
 const { width } = Dimensions.get('window');

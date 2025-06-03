@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 
 export default function Routes() {
   return (
-    <Stack.Navigator initialRouteName="UserPerfil">
+    <Stack.Navigator initialRouteName="Inventario">
       
       <Stack.Screen
         name="Welcome"
@@ -39,6 +39,7 @@ export default function Routes() {
       <Stack.Screen
         name="Inventario"
         component={Inventario}
+        options={{ headerShown: false }}
       />
 
       <Stack.Screen

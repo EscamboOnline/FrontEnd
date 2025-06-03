@@ -92,6 +92,8 @@ export default function Inventario() {
     }
   }
 
+  const navigation = useNavigation();
+
 
   return(
       <View style={styles.container}>

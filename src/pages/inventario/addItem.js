@@ -31,6 +31,7 @@ export default function AdicionarItem() {
 
   let [selecao, setSelecao] = useState(1);
   let [selecionado, setSelecionado] = useState(items[0].image)
+  let [DDC, setMDDC] = useState(false)
 
   function imagemSelecionada(posicao) {
     items.forEach((item) => {
@@ -51,7 +52,7 @@ export default function AdicionarItem() {
           style={styles.botaoVoltar}
           icon={() => <MaterialDesignIcons style={{ transform: [{ scaleX: -1 }] }} name="play" color="#000" size={30}/>}
           size={20}
-          onPress={() => navigation.navigate('inventario')}
+          onPress={() => navigation.navigate('Inventario')}
       />
 
       <Text style={styles.header}>Adicionar Item</Text>
@@ -72,9 +73,40 @@ export default function AdicionarItem() {
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Condição</Text>
-          <TouchableHighlight style={styles.dropdown}>
-            <Text style={styles.dropdownText}>Condição</Text>
-          </TouchableHighlight>
+          <View>
+
+            <TouchableHighlight style={styles.dropdown} onPress={() => setMDDC(!DDC)}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '20'}}>
+                <Text style={styles.dropdownText}>Condição</Text>
+                <IconButton icon={() => <MaterialDesignIcons style={DDC ? "" : {transform: [{ rotateZ: "90deg"}]}} name="play" color="#000" size={20}/>}/>
+              </View>
+            </TouchableHighlight>
+            
+            <View style={DDC ? styles.MDD : styles.escondido}>
+              <TouchableHighlight style={{width: '100%', height: 'auto'}}>
+                <View style={styles.categoriaMDD}>
+                  <IconButton icon={() => <MaterialDesignIcons name="circle" color="#00ff00" size={15}/>}> </IconButton>
+                  <Text style={styles.textoMDD}>Ótimo</Text>
+                </View>
+              </TouchableHighlight>
+
+              <TouchableHighlight style={{width: '100%', height: 'auto'}}>
+                <View style={styles.categoriaMDD}>
+                  <IconButton icon={() => <MaterialDesignIcons name="circle" color="#ffaa00" size={15}/>}> </IconButton>
+                  <Text style={styles.textoMDD}>Regular</Text>
+                </View>
+              </TouchableHighlight>
+
+              <TouchableHighlight style={{width: '100%', height: 'auto'}}>
+                <View style={styles.categoriaMDD}>
+                  <IconButton icon={() => <MaterialDesignIcons name="circle" color="#ff0000" size={15}/>}> </IconButton>
+                  <Text style={styles.textoMDD}>Irregular</Text>
+                </View>
+              </TouchableHighlight>
+              
+            </View>
+          
+          </View>
         </View>
       </View>
 
@@ -180,6 +212,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   dropdown: {
+    position: 'relative',
     backgroundColor: '#eee',
     padding: 10,
     borderRadius: 6,
@@ -189,7 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#e91e63',
   },
-  imageSection: {
+    imageSection: {
     width: '100%',
     height: 200,
     display: 'flex',
@@ -258,4 +291,28 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  escondido: {
+    display: 'none'
+  },
+  MDD: {
+    position: 'absolute',
+    top: '110%',
+    height: 'auto',
+    width: '100%',
+    padding: 3,
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    boxShadow: '3px 3px 6px 0.5px #a0a0a0',
+    zIndex: 1
+  },
+  textoMDD: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  categoriaMDD: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'start',
+    alignItems: 'center'
+  }
 });

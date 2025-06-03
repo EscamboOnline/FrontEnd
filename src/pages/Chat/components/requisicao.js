@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-export default function TrocaResumo() {
+export default function requisitarTroca() {
   return (
     <View style={styles.container}>
       {/* Você */}

@@ -13,13 +13,13 @@ import ComprovanteTroca from "../pages/Perfil/comprovante";
 
 // Inventario ----
 import Inventario from '../pages/Inventario';
-import addItem from "../pages/Inventario/addItem";
-import verItem from "../pages/Inventario/verItem";
-import editarItem from "../pages/Inventario/editarItem";
+import AddItem from "../pages/Inventario/addItem";
+import VerItem from "../pages/Inventario/verItem";
+// import editarItem from "../pages/Inventario/editarItem";
 
 // Chat ----
-import contatos from "../pages/Chat";
-import chat from "../pages/Chat/chat";
+import Contatos from "../pages/Chat";
+import Chat from "../pages/Chat/chat";
 
 // Pra se localizar melhor (daqui pra frente terá muita página) dá um ctrl+F e escreve uma das categorias abaixo:
 // - Perfil
@@ -31,7 +31,7 @@ const Stack = createNativeStackNavigator();
 
 export default function Routes() {
   return (
-    <Stack.Navigator initialRouteName="Inventario">
+    <Stack.Navigator initialRouteName="addItem">
       
       {/* ---------- Parte do Login ---------- */}
 
@@ -93,33 +93,33 @@ export default function Routes() {
 
       <Stack.Screen
         name="addItem"
-        component={addItem}
+        component={AddItem}
         options={{ headerShown: false }}
       />
 
       <Stack.Screen
         name="verItem"
-        component={verItem}
+        component={VerItem}
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen
+      {/* <Stack.Screen
         name="editarItem"
         component={editarItem}
         options={{ headerShown: false }}
-      />
+      /> */}
 
       {/* ---------- Parte do Chat ---------- */}
 
       <Stack.Screen
         name="contatos"
-        component={contatos}
+        component={Contatos}
         options={{ headerShown: false }}
       />
 
       <Stack.Screen
         name="chat"
-        component={chat}
+        component={Chat}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

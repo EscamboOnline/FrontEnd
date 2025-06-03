@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView,
 import { IconButton } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
+import BarraNavegacao from '../../components/navegador';
 
 let items = [
   {
@@ -55,106 +56,110 @@ export default function AdicionarItem() {
           onPress={() => navigation.navigate('Inventario')}
       />
 
-      <Text style={styles.header}>Adicionar Item</Text>
+      <View style={{ padding: 20 }}>
+        <Text style={styles.header}>Adicionar Item</Text>
 
-      {/* Nome do Item */}
-      <Text style={styles.label}>Nome do item</Text>
-      <TextInput style={styles.input} placeholder="Nome do produto" />
+        {/* Nome do Item */}
+        <Text style={styles.label}>Nome do item</Text>
+        <TextInput style={styles.input} placeholder="Nome do produto" />
 
-      {/* Valor e Estado do item */}
-      <View style={styles.row}>
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Valor Estimado</Text>
-          <View style={styles.currencyInput}>
-            <Text style={styles.currencySymbol}>R$</Text>
-            <TextInput style={styles.valorInput} keyboardType="numeric" placeholder="00,00" />
+        {/* Valor e Estado do item */}
+        <View style={styles.row}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Valor Estimado</Text>
+            <View style={styles.currencyInput}>
+              <Text style={styles.currencySymbol}>R$</Text>
+              <TextInput style={styles.valorInput} keyboardType="numeric" placeholder="00,00" />
+            </View>
           </View>
-        </View>
 
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Condição</Text>
-          <View>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Condição</Text>
+            <View>
 
-            <TouchableHighlight style={styles.dropdown} onPress={() => setMDDC(!DDC)}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '20'}}>
-                <Text style={styles.dropdownText}>Condição</Text>
-                <IconButton icon={() => <MaterialDesignIcons style={DDC ? "" : {transform: [{ rotateZ: "90deg"}]}} name="play" color="#000" size={20}/>}/>
-              </View>
-            </TouchableHighlight>
-            
-            <View style={DDC ? styles.MDD : styles.escondido}>
-              <TouchableHighlight style={{width: '100%', height: 'auto'}}>
-                <View style={styles.categoriaMDD}>
-                  <IconButton icon={() => <MaterialDesignIcons name="circle" color="#00ff00" size={15}/>}> </IconButton>
-                  <Text style={styles.textoMDD}>Ótimo</Text>
-                </View>
-              </TouchableHighlight>
-
-              <TouchableHighlight style={{width: '100%', height: 'auto'}}>
-                <View style={styles.categoriaMDD}>
-                  <IconButton icon={() => <MaterialDesignIcons name="circle" color="#ffaa00" size={15}/>}> </IconButton>
-                  <Text style={styles.textoMDD}>Regular</Text>
-                </View>
-              </TouchableHighlight>
-
-              <TouchableHighlight style={{width: '100%', height: 'auto'}}>
-                <View style={styles.categoriaMDD}>
-                  <IconButton icon={() => <MaterialDesignIcons name="circle" color="#ff0000" size={15}/>}> </IconButton>
-                  <Text style={styles.textoMDD}>Irregular</Text>
+              <TouchableHighlight style={styles.dropdown} onPress={() => setMDDC(!DDC)}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '20'}}>
+                  <Text style={styles.dropdownText}>Condição</Text>
+                  <IconButton icon={() => <MaterialDesignIcons style={DDC ? "" : {transform: [{ rotateZ: "90deg"}]}} name="play" color="#000" size={20}/>}/>
                 </View>
               </TouchableHighlight>
               
+              <View style={DDC ? styles.MDD : styles.escondido}>
+                <TouchableHighlight style={{width: '100%', height: 'auto'}}>
+                  <View style={styles.categoriaMDD}>
+                    <IconButton icon={() => <MaterialDesignIcons name="circle" color="#00ff00" size={15}/>}> </IconButton>
+                    <Text style={styles.textoMDD}>Ótimo</Text>
+                  </View>
+                </TouchableHighlight>
+
+                <TouchableHighlight style={{width: '100%', height: 'auto'}}>
+                  <View style={styles.categoriaMDD}>
+                    <IconButton icon={() => <MaterialDesignIcons name="circle" color="#ffaa00" size={15}/>}> </IconButton>
+                    <Text style={styles.textoMDD}>Regular</Text>
+                  </View>
+                </TouchableHighlight>
+
+                <TouchableHighlight style={{width: '100%', height: 'auto'}}>
+                  <View style={styles.categoriaMDD}>
+                    <IconButton icon={() => <MaterialDesignIcons name="circle" color="#ff0000" size={15}/>}> </IconButton>
+                    <Text style={styles.textoMDD}>Irregular</Text>
+                  </View>
+                </TouchableHighlight>
+                
+              </View>
+            
             </View>
-          
           </View>
         </View>
-      </View>
 
-      {/* Categoria do item */}
-      <Text style={styles.label}>Categoria</Text>
-      <TouchableHighlight style={styles.dropdown}>
-        <Text style={styles.dropdownText}>Categorias</Text>
-      </TouchableHighlight>
+        {/* Categoria do item */}
+        <Text style={styles.label}>Categoria</Text>
+        <TouchableHighlight style={styles.dropdown}>
+          <Text style={styles.dropdownText}>Categorias</Text>
+        </TouchableHighlight>
 
-      {/* Lista de Imagens */}
-      <View style={styles.imageSection}>
-        <View style={styles.imageUpload}>
-          {/* imagem principal */}
-          <Text style={styles.imageText}>Imagem</Text>
-          <Image source={selecionado} style={styles.imagemPrincipal}/>
+        {/* Lista de Imagens */}
+        <View style={styles.imageSection}>
+          <View style={styles.imageUpload}>
+            {/* imagem principal */}
+            <Text style={styles.imageText}>Imagem</Text>
+            <Image source={selecionado} style={styles.imagemPrincipal}/>
+          </View>
+
+          <FlatList style={styles.thumbnailArea}
+            contentContainerStyle={{
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            data={items}
+            numColumns={1}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <TouchableHighlight onPress={() => imagemSelecionada(item.id)} underlayColor="#e91e63" style={{borderRadius: 6}}>
+                <Image
+                  source={item.image}
+                  style={selecao == item.id ? styles.selecionado : styles.thumbnail}
+                />
+              </TouchableHighlight>
+            )}
+          />
         </View>
 
-        <FlatList style={styles.thumbnailArea}
-          contentContainerStyle={{
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          data={items}
-          numColumns={1}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <TouchableHighlight onPress={() => imagemSelecionada(item.id)} underlayColor="#e91e63" style={{borderRadius: 6}}>
-              <Image
-                source={item.image}
-                style={selecao == item.id ? styles.selecionado : styles.thumbnail}
-              />
-            </TouchableHighlight>
-          )}
+        {/* Descrição do produto*/}
+        <Text style={styles.label}>Descrição do Produto</Text>
+        <TextInput
+          style={[styles.input, styles.textarea]}
+          placeholder="descrição do produto"
+          multiline
         />
+
+        {/* Botão para concluir e adicionar o item */}
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('inventario')}>
+          <Text style={styles.buttonText}>Adicionar</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Descrição do produto*/}
-      <Text style={styles.label}>Descrição do Produto</Text>
-      <TextInput
-        style={[styles.input, styles.textarea]}
-        placeholder="descrição do produto"
-        multiline
-      />
-
-      {/* Botão para concluir e adicionar o item */}
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('inventario')}>
-        <Text style={styles.buttonText}>Adicionar</Text>
-      </TouchableOpacity>
+      <BarraNavegacao />
     </View>
   );
 }
@@ -162,7 +167,6 @@ export default function AdicionarItem() {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    padding: 20,
     backgroundColor: '#fff',
   },
   botaoVoltar: {

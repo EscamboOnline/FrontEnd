@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert, FlatList, Image} from 'react-native';
 import { Searchbar, FAB, IconButton } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
-import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons'; 
+import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 
 const items = [
   {

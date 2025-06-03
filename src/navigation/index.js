@@ -12,9 +12,9 @@ import EscambosFeitos from '../pages/Perfil/escamboFeitos';
 import ComprovanteTroca from "../pages/Perfil/comprovante";
 
 // Inventario ----
-import Inventario from '../pages/Inventario';
-import AddItem from "../pages/Inventario/addItem";
-import VerItem from "../pages/Inventario/verItem";
+import Inventario from '../pages/inventario';
+import AddItem from '../pages/inventario/addItem';
+import VerItem from '../pages/inventario/verItem';
 // import editarItem from "../pages/Inventario/editarItem";
 
 // Chat ----
@@ -112,13 +112,13 @@ export default function Routes() {
       {/* ---------- Parte do Chat ---------- */}
 
       <Stack.Screen
-        name="contatos"
+        name="Contatos"
         component={Contatos}
         options={{ headerShown: false }}
       />
 
       <Stack.Screen
-        name="chat"
+        name="Chat"
         component={Chat}
         options={{ headerShown: false }}
       />

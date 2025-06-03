@@ -28,7 +28,7 @@ let items = [
   }
 ]
 
-export default function AdicionarItem() {
+export default function AddItem() {
 
   let [selecao, setSelecao] = useState(1);
   let [selecionado, setSelecionado] = useState(items[0].image)

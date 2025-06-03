@@ -17,7 +17,7 @@ export default function BarraNavegacao() {
                 </View>
             </TouchableHighlight>
 
-            <TouchableHighlight style={styles.botaoBarra}>
+            <TouchableHighlight style={styles.botaoBarra} onPress={() => navigation.navigate('Contatos')}>
                 <View style={styles.itemBarra}>
                     <MaterialDesignIcons name="message-outline" color="#fff" size={30}/>
                     <Text style={styles.textoBarra}>Chat</Text>
@@ -37,7 +37,7 @@ export default function BarraNavegacao() {
                 </View>
             </TouchableHighlight>
 
-            <TouchableHighlight style={styles.botaoBarra}>
+            <TouchableHighlight style={styles.botaoBarra} onPress={() => navigation.navigate('UserPerfil')}>
                 <View style={styles.itemBarra}>
                     <MaterialDesignIcons name="account" color="#fff" size={30}/>
                     <Text style={styles.textoBarra}>Perfil</Text>

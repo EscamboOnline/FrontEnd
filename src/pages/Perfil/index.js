@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import colors from '../../constants/colors';
 import { useFonts, Baloo2_400Regular, Baloo2_700Bold } from '@expo-google-fonts/baloo-2';
 import { popupStyles } from '../../components/popup';
+import BarraNavegacao from '../../components/navegador';
 
 
 const { width } = Dimensions.get('window');
@@ -223,7 +224,9 @@ export default function UserPerfil() {
                 )}
             </View>
 
-        </View >
+            <BarraNavegacao/>
+
+        </View>
     );
 }
 

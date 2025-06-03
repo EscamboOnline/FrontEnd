@@ -40,6 +40,7 @@ const reviewsData = [
 ];
 
 export default function UserPerfil() {
+
     const [selectedTab, setSelectedTab] = useState('notificacoes');
     const [exitModalVisible, setExitModalVisible] = useState(false);
 
@@ -62,6 +63,7 @@ export default function UserPerfil() {
 
     return (
         <View style={styles.container}>
+            
             {/* Exit Modal */}
             <Modal visible={exitModalVisible} transparent animationType="fade">
                 <View style={popupStyles.centeredView}>
@@ -86,7 +88,6 @@ export default function UserPerfil() {
                     </View>
                 </View>
             </Modal>
-
 
             {/* Botão Exit */}
             <TouchableOpacity
@@ -336,7 +337,7 @@ const styles = StyleSheet.create({
     textButton: {
         color: colors.white,
         fontWeight: '600',
-        fontSize: 16 * scale,
+        fontSize: 17 * scale,
         textAlign: 'center',
         zIndex: 1,
         fontFamily: 'Baloo2_700Bold',
@@ -351,8 +352,6 @@ const styles = StyleSheet.create({
     optionButton: {
         paddingVertical: 10,
         paddingHorizontal: 20,
-        borderRadius: 20,
-        borderColor: colors.secondBlue,
         backgroundColor: 'transparent',
     },
     verticalDivider: {
@@ -406,8 +405,8 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     reviewImage: {
-        width: 60 * scale,
-        height: 60 * scale,
+        width: 50 * scale,
+        height: 50 * scale,
         borderRadius: 30 * scale,
         marginRight: 12,
     },

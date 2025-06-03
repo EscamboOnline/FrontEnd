@@ -10,13 +10,15 @@ import Suporte from '../pages/Perfil/suporte';
 import EscambosFeitos from '../pages/Perfil/escamboFeitos';
 import ComprovanteTroca from "../pages/Perfil/comprovante";
 import addItem from "../pages/Inventario/addItem";
+import PerfilX from "../pages/Perfil/perfilX";
+import Comentar from "../pages/Perfil/comentar"
 
 
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
   return (
-    <Stack.Navigator initialRouteName="UserPerfil">
+    <Stack.Navigator initialRouteName="PerfilX">
       
       <Stack.Screen
         name="Welcome"
@@ -68,6 +70,18 @@ export default function Routes() {
       <Stack.Screen
         name="ComprovanteTroca"
         component={ComprovanteTroca}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="PerfilX"
+        component={PerfilX}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Comentar"
+        component={Comentar}
         options={{ headerShown: false }}
       />
 

@@ -50,6 +50,17 @@ export default function PerfilConfig() {
     return (
         <SafeAreaView style={styles.container}>
 
+            <View style={[headerStyles.header, {paddingTop: 10*scale}]}>
+                <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
+                    <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
+                </TouchableOpacity>
+
+                <Text style={headerStyles.headerTitle}>Config. Perfil</Text>
+
+                {/* Espaço vazio para balancear layout e centralizar o título */}
+                <View style={{ width: 40 * scale }} />
+            </View>
+
             <Modal
                 visible={exitModalVisible}
                 transparent={true}
@@ -76,12 +87,6 @@ export default function PerfilConfig() {
                 </View>
             </Modal>
 
-            <View style={headerStyles.header}>
-                <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
-                    <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
-                </TouchableOpacity>
-
-            </View>
 
             <View style={styles.mainContainer}>
 

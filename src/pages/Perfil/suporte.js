@@ -14,6 +14,7 @@ import {
     Modal
 } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from 'expo-image-picker';
 import colors from '../../constants/colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { popupStyles } from '../../components/popup';
@@ -22,9 +23,13 @@ import { headerStyles } from '../../components/header';
 
 const { height: screenHeight } = Dimensions.get('window');
 
+const { width } = Dimensions.get('window');
+const baseWidth = 375;
+const scale = width / baseWidth;
+
 export default function Suporte() {
     const navigation = useNavigation();
-    const [imageUri, setImageUri] = useState(null);
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -32,7 +37,38 @@ export default function Suporte() {
         description: ''
     });
 
+    //imagePick
+
+    //pede permissão
+    const [imageUri, setImageUri] = useState(null);
+    const [image, setImage] = useState(null);
+
+
+    const pickImage = async () => {
+        try {
+            const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (!permissionResult.granted) {
+                alert("Você precisa permitir o acesso à galeria!");
+                return;
+            }
+            const result = await ImagePicker.launchImageLibraryAsync({
+                //mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                quality: 1,
+            });
+            console.log(result);
+            if (!result.canceled && result.assets.length > 0) {
+                setImage(result.assets[0].uri);
+            }
+        } catch (error) {
+            console.error("Erro ao pegar imagem:", error);
+        }
+    };
+
+
+    //Popup
     const [exitModalVisible, setExitModalVisible] = useState(false);
+
 
     const handleAddImage = async () => {
         const simulatedImage = '../../assets/addImage.png';
@@ -81,13 +117,15 @@ export default function Suporte() {
 
             <View style={styles.mainContainer}>
 
-                <View style={[headerStyles.header, { backgroundColor: colors.green, paddingTop: 20, }]}>
-                    <TouchableOpacity
-                        style={headerStyles.buttonVoltar}
-                        onPress={() => navigation.navigate('UserPerfil')}
-                    >
-                        <MaterialIcons name="play-arrow" size={30} color="#fff" style={{ transform: [{ scaleX: -1 }] }} />
+                <View style={[headerStyles.header,  {backgroundColor: colors.green}]}>
+                    <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
+                        <MaterialIcons name="play-arrow" size={30 * scale} color="#fff" style={{ transform: [{ scaleX: -1 }] }} />
                     </TouchableOpacity>
+
+                    <Text style={[headerStyles.headerTitle, { color: colors.white }]}>Suporte</Text>
+
+                    {/* Espaço vazio para balancear layout e centralizar o título */}
+                    <View style={{ width: 40 * scale }} />
                 </View>
 
                 {/* Support Icon */}
@@ -153,16 +191,17 @@ export default function Suporte() {
                                                 Mandar foto do comprovante da troca ou print do erro:
                                             </Text>
 
-                                            {imageUri ? (
+
+                                            {image ? (
                                                 <View style={styles.imageInfoContainer}>
-                                                    <Text style={styles.imageName}>{imageUri.name}</Text>
-                                                    <TouchableOpacity onPress={handleRemoveImage}>
+                                                    <Image source={{ uri: image }} style={{ width: 70, height: 70 }} />
+                                                    <TouchableOpacity onPress={() => setImage(null)}>
                                                         <Text style={styles.removeText}>Remover</Text>
                                                     </TouchableOpacity>
                                                 </View>
                                             ) : (
                                                 <View style={styles.addImageContainer}>
-                                                    <TouchableOpacity onPress={handleAddImage}>
+                                                    <TouchableOpacity onPress={pickImage}>
                                                         <Image
                                                             source={require('../../assets/addImagem.png')}
                                                             style={styles.addIcon}
@@ -189,10 +228,8 @@ export default function Suporte() {
                             nestedScrollEnabled={true}
                         />
                     </View>
-
                 </View>
             </View>
-
         </SafeAreaView>
     );
 }
@@ -224,7 +261,7 @@ const styles = StyleSheet.create({
 
     formWrapper: {
         flex: 1,
-        marginTop: 20,
+        marginTop: 30,
         justifyContent: 'center',
         paddingHorizontal: 15,
         paddingBottom: 20,
@@ -235,7 +272,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderRadius: 15,
         flex: 1,
-        minHeight: 600,
+        minHeight: 650,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,

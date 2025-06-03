@@ -15,9 +15,9 @@ const colors = {
     gray: '#F5F8FF',
     secondGray: '#ccc',
     thirdGray: '#D9D9D9',
+    fourthGray: '#4C484A',
     white: '#FFFFFF',
-    black: '#000000',
-    
+    black: '#000000',  
 }
 
 export default colors;

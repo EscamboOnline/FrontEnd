@@ -50,7 +50,7 @@ export default function PerfilConfig() {
     return (
         <SafeAreaView style={styles.container}>
 
-            <View style={[headerStyles.header, {paddingTop: 10*scale}]}>
+            <View style={headerStyles.header}>
                 <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
                     <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
                 </TouchableOpacity>

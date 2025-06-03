@@ -13,7 +13,7 @@ export const conditionStyles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     ratingText: {
-        color: colors.white,
+        color: colors.black,
         fontSize: 12 * scale,
         fontWeight: '600',
     },

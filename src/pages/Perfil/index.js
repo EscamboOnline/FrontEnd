@@ -193,7 +193,7 @@ export default function UserPerfil() {
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({ item }) => (
                             <View style={styles.notificationItem}>
-                                <Image source={{ uri: item.userImg }} style={styles.notificationImage} />
+                                <Image source={{ uri: item.userImg }} style={styles.notificationImage}/>
                                 <Text style={styles.notificationText}>{item.title}</Text>
                             </View>
                         )}
@@ -207,7 +207,7 @@ export default function UserPerfil() {
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({ item }) => (
                             <View style={styles.reviewItem}>
-                                <Image source={{ uri: item.userImg }} style={styles.reviewImage} />
+                                <TouchableOpacity   onPress={() => navigation.navigate('PerfilX')}><Image source={{ uri: item.userImg }} style={styles.reviewImage}/></TouchableOpacity>
                                 <Image
                                     source={require('../../assets/estrelas.png')}
                                     style={styles.estralasIcon}
@@ -235,8 +235,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.white,
-        paddingHorizontal: 10,
-        paddingTop: 60,
+        paddingBottom: 70 * scale,
+        paddingTop: 50 * scale,
         fontFamily: 'Montserrat',
     },
     buttonExit: {
@@ -284,7 +284,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        marginBottom: 30,
+        marginBottom: 10,
+        paddingHorizontal: 10,
     },
     buttonBox: {
         width: buttonSize,
@@ -387,6 +388,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         borderBottomWidth: 1,
         borderBottomColor: colors.secondGray,
+        paddingHorizontal: 10,
     },
     notificationImage: {
         width: 40 * scale,
@@ -406,6 +408,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: colors.secondGray,
         position: 'relative',
+        paddingHorizontal: 10,
     },
     reviewImage: {
         width: 50 * scale,

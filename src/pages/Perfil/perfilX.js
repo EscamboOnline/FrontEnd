@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import colors from '../../constants/colors';
 import { headerStyles } from '../../components/header';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import BarraNavegacao from '../../components/navegador';
 
 const { width } = Dimensions.get('window');
 const BUTTON_COUNT = 4;
@@ -65,7 +66,10 @@ const reviewsData = [
     { id: 1, userImg: 'https://i.pravatar.cc/60?img=4', name: 'João Silva', username: '@joaosilva', comment: 'Ótimo serviço, super recomendo!' },
     { id: 2, userImg: 'https://i.pravatar.cc/60?img=5', name: 'Maria Oliveira', username: '@mariaoliveira', comment: 'Gostei muito da experiência!' },
     { id: 3, userImg: 'https://i.pravatar.cc/60?img=6', name: 'Rui Braga', username: '@albraga', comment: 'Pode melhorar, mas no geral é bom. YaaaaaaaHuuuHaaaaaaaaaaaaaaaa' },
-    { id: 4, userImg: 'https://i.pravatar.cc/60?img=6', name: 'Rui Braga', username: '@albraga', comment: 'Pode melhorar, mas no geral é bom. YaaaaaaaHuuuHaaaaaaaaaaaaaaaa' },
+];
+
+const userData = [
+    { id: 1, userImg: 'https://i.pravatar.cc/150?img=6', name: 'Rui Braga', username: '@albraga' }
 ];
 
 export default function UserPerfil() {
@@ -99,6 +103,8 @@ export default function UserPerfil() {
                     />
                 </TouchableOpacity>
 
+
+                {/*Não apagar!! Ele serve para ilustrar uma situação*/}
                 <TouchableOpacity onPress={showButton} style={styles.primaryButton}>
                     <Text style={styles.buttonText}>Mostrar Comentário</Text>
                 </TouchableOpacity>
@@ -106,11 +112,12 @@ export default function UserPerfil() {
 
             {/* Avatar e Nome */}
             <Image
-                source={require('../../assets/personaImage.png')}
+                source={{ uri: userData[0].userImg }}
                 style={styles.avatar}
             />
-            <Text style={styles.title}>Rui Braga</Text>
-            <Text style={styles.username}>@rui_braga</Text>
+
+            <Text style={styles.title}>{userData[0].name}</Text>
+            <Text style={styles.username}>{userData[0].username}</Text>
 
             <View style={styles.centeredItens}>
                 <Image source={require('../../assets/estrelas.png')} style={styles.estrelas} />
@@ -157,11 +164,13 @@ export default function UserPerfil() {
             </View>
 
 
-            {showCommentButton && (
-                <TouchableOpacity style={styles.buttonComment} onPress={() => navigation.navigate('Comentar')}>
-                    <Text style={styles.buttonCommentText}>Comentar</Text>
-                </TouchableOpacity>
-            )}
+            <View style={styles.commentConteiner}>
+                {showCommentButton && (
+                    <TouchableOpacity style={styles.buttonComment} onPress={() => navigation.navigate('Comentar')}>
+                        <Text style={styles.buttonCommentText}>Comentar</Text>
+                    </TouchableOpacity>
+                )}
+            </View>
 
 
             {/* Conteúdo da aba selecionada */}
@@ -204,6 +213,8 @@ export default function UserPerfil() {
                 )}
             </View>
 
+            <BarraNavegacao />
+
         </View >
     );
 }
@@ -213,8 +224,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.white,
-        paddingHorizontal: 10,
         fontFamily: 'Montserrat',
+        paddingBottom: 65 * scale,
     },
     avatar: {
         width: avatarSize,
@@ -225,17 +236,18 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: 'center',
-        fontSize: 24 * scale,
+        fontSize: 20 * scale,
         fontWeight: 'bold',
         color: colors.black,
         fontFamily: 'Montserrat',
     },
     username: {
         textAlign: 'center',
-        fontSize: 16 * scale,
+        fontSize: 15 * scale,
         color: colors.black,
         opacity: 0.7,
         marginBottom: 5,
+        fontWeight: 'bold',
     },
 
     //center
@@ -257,6 +269,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         color: colors.black,
+        opacity: 0.75
     },
 
     itensLegenda: {
@@ -278,9 +291,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 12,
         marginBottom: 10,
+        paddingHorizontal: 10,
     },
     optionButton: {
-        padding: 5,
+        padding: 3,
         borderRadius: 7,
         backgroundColor: colors.fourthGray,
         flex: 1,
@@ -288,10 +302,10 @@ const styles = StyleSheet.create({
     },
     optionButtonSelected: {
         backgroundColor: colors.red,
-        borderRadius: 10,
+        borderRadius: 7,
     },
     textOptions: {
-        fontSize: 20 * scale,
+        fontSize: 23 * scale,
         color: colors.thirdGray,
         fontWeight: 'bold',
     },
@@ -305,23 +319,28 @@ const styles = StyleSheet.create({
 
     //botao comment
 
+    commentConteiner:{
+        paddingHorizontal: 10,
+    },
     buttonCommentText: {
         color: colors.white,
-        fontSize: 20,
-        fontWeight: 'bold'
+        fontSize: 23,
+        fontWeight: 'bold',
     },
     buttonComment: {
         width: "100%",
         height: 40,
         backgroundColor: colors.red,
-        borderRadius: 8,
+        borderRadius: 7,
         justifyContent: 'center',
         alignItems: 'center',
+
     },
 
     // itens
     listaQd: {
         flex: 1,
+        paddingHorizontal: 10,
     },
     item: {
         height: 'auto',
@@ -348,6 +367,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: colors.secondGray,
         position: 'relative',
+        paddingHorizontal: 10,
     },
     reviewImage: {
         width: 50 * scale,

@@ -15,6 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { conditionStyles } from '../../constants/condicao';
 import { headerStyles } from '../../components/header';
 import { buttonsStyles } from '../../components/buttons';
+import BarraNavegacao from '../../components/navegador';
 
 const { width } = Dimensions.get('window');
 
@@ -121,6 +122,8 @@ export default function EscambosFeitos() {
                 ]}
                 showsVerticalScrollIndicator={false}
             />
+
+            <BarraNavegacao/>
         </SafeAreaView>
     );
 }
@@ -129,6 +132,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.white,
+        paddingBottom: 30 * scale,
     },
 
     contentContainer: {

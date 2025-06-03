@@ -14,9 +14,9 @@ import PerfilX from "../pages/Perfil/perfilX";
 import Comentar from "../pages/Perfil/comentar"
 
 // Inventario ----
-import Inventario from '../pages/inventario';
-import AddItem from '../pages/inventario/addItem';
-import VerItem from '../pages/inventario/verItem';
+import Inventario from '../pages/Inventario';
+import AddItem from '../pages/Inventario/addItem';
+import VerItem from '../pages/Inventario/verItem';
 // import editarItem from "../pages/Inventario/editarItem";
 
 // Chat ----

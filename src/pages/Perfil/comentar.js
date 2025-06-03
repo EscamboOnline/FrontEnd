@@ -7,9 +7,9 @@ import {
     Image,
     Modal,
     SafeAreaView,
-    StatusBar,
     Dimensions,
-    TextInput
+    TextInput,
+    Alert,
 } from 'react-native';
 import colors from '../../constants/colors';
 import { useNavigation } from "@react-navigation/native";
@@ -18,6 +18,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { popupStyles } from '../../components/popup';
 import { buttonsStyles } from '../../components/buttons';
 import { headerStyles } from '../../components/header';
+import StarRating from 'react-native-star-rating-widget';
 
 
 const { width } = Dimensions.get('window');
@@ -27,8 +28,13 @@ const scale = width / baseWidth;
 
 export default function Comentar() {
 
+    //estrelas
+    const [rating, setRating] = useState(0);
+
+    //navegação
     const navigation = useNavigation();
 
+    //dado
     const receiptData = {
         user: {
             name: 'Usuario1',
@@ -37,8 +43,10 @@ export default function Comentar() {
         },
     };
 
+    //popup
     const [exitModalVisible, setExitModalVisible] = useState(false);
 
+    //alert
     const handleComment = () => {
 
         Alert.alert('Comentário enviado com sucesso!');
@@ -48,7 +56,7 @@ export default function Comentar() {
 
     return (
         <SafeAreaView style={styles.container}>
-
+            
             <Modal visible={exitModalVisible} transparent animationType="fade">
                 <View style={popupStyles.centeredView}>
                     <View style={popupStyles.modalView}>
@@ -73,8 +81,6 @@ export default function Comentar() {
                 </View>
             </Modal>
 
-            <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-
             {/* Header */}
             <View style={headerStyles.header}>
                 <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('PerfilX')}>
@@ -83,10 +89,18 @@ export default function Comentar() {
             </View>
 
             <View style={styles.userConteiner}>
-
                 <Image source={{ uri: receiptData.user.avatar }} style={styles.userAvatar} />
-                <Text>Como é esse usuário?</Text>
 
+                <View style={styles.userTextArea}>
+                    <Text style={styles.userQuestion}>Como é esse usuário?</Text>
+
+                    <StarRating
+                        rating={rating}
+                        onChange={setRating}
+                        starSize={30}
+                        color="gold"
+                    />
+                </View>
             </View>
 
             <View style={styles.commentConteiner}>
@@ -121,37 +135,29 @@ const styles = StyleSheet.create({
         padding: 10 * scale,
         paddingBottom: 40 * scale,
     },
-
-    userInfoContainer: {
+    userConteiner: {
         flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20 * scale,
-    },
-
-    userConteiner:{
+        alignItems: 'flex-start',
         paddingHorizontal: 10,
+        marginBottom: 20,
     },
 
     userAvatar: {
         width: 60 * scale,
         height: 60 * scale,
-        borderRadius: 35 * scale,
+        borderRadius: 30 * scale,
         marginRight: 15 * scale,
     },
 
-    userTextContainer: {
-        justifyContent: 'center',
+    userTextArea: {
+        flex: 1,
     },
 
-    userName: {
-        fontSize: 15 * scale,
+    userQuestion: {
+        fontSize: 20,
         fontWeight: 'bold',
+        marginBottom: 8,
         color: colors.black,
-    },
-
-    userHandle: {
-        fontSize: 13 * scale,
-        color: '#666',
     },
 
     commentConteiner: {
@@ -159,13 +165,12 @@ const styles = StyleSheet.create({
     },
 
     titleComment: {
-        fontSize: 14,
+        fontSize: 18,
         color: colors.black,
-
     },
 
     textArea: {
-        height: 120,
+        height: 600,
         padding: 15,
         borderColor: '#E0E0E0',
         borderWidth: 1,
@@ -173,9 +178,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.thirdGray,
         textAlignVertical: 'top',
         fontSize: 16,
-        marginBottom: 12,
     },
-
-
 
 });

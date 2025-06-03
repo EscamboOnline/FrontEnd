@@ -13,7 +13,7 @@ export const buttonsStyles = StyleSheet.create({
         paddingVertical: 10 * scale,
         alignSelf: 'center',
         alignItems: 'center',
-        marginTop: 30 * scale,
+        marginTop: 10 * scale,
     },
     buttonFormText: {
         color: colors.white,

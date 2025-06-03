@@ -5,6 +5,7 @@ const { width } = Dimensions.get('window');
 const baseWidth = 375;
 const scale = width / baseWidth;
 
+
 export const popupStyles = StyleSheet.create({
     centeredView: {
         flex: 1,
@@ -25,19 +26,22 @@ export const popupStyles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-        height: 200 * scale,
+        minHeight: 200 * scale, 
         width: 300 * scale,
+        justifyContent: 'space-between', 
     },
     modalText: {
         fontFamily: 'Baloo2_700Bold',
-        marginBottom: 30 * scale,
+        marginBottom: 20 * scale,
         textAlign: 'center',
         fontSize: 22 * scale,
+        flexShrink: 1
     },
     modalButtons: {
         flexDirection: 'row',
         width: 110 * scale,
         justifyContent: 'center',
+        marginBottom: 10,
     },
     modalButton: {
         borderRadius: 15 * scale,
@@ -63,7 +67,6 @@ export const popupStyles = StyleSheet.create({
         color: colors.white,
         fontSize: 20 * scale,
     },
-
     okButton: {
         backgroundColor: colors.orange,
     },

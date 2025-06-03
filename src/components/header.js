@@ -5,6 +5,7 @@ const { width } = Dimensions.get('window');
 const baseWidth = 375;
 const scale = width / baseWidth;
 
+
 export const headerStyles = StyleSheet.create({
 
     header: {
@@ -12,7 +13,7 @@ export const headerStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: 35 * scale,
+        paddingTop: 20 * scale,
         paddingBottom: 10 * scale,
         paddingHorizontal: 15 * scale,
         backgroundColor: colors.white

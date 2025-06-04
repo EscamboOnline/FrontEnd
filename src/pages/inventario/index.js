@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert, FlatList, Image} from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Searchbar, FAB, IconButton } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
-import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons'; 
+import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
+
+//adcionei ai
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { headerStyles } from '../../components/header';
+
 
 const items = [
   {
@@ -68,7 +73,7 @@ var gridList = false;
 function limitarTextoList(texto) {
   if (texto.length > 60) {
     texto = texto.substring(0, 50)
-    texto = texto+"..."
+    texto = texto + "..."
   }
   return texto
 }
@@ -76,49 +81,59 @@ function limitarTextoList(texto) {
 
 export default function Inventario() {
 
-  var [grid, setGrid] = useState(<MaterialDesignIcons name='view-grid' color='#111' size={20}/>)
+  var [grid, setGrid] = useState(<MaterialDesignIcons name='view-grid' color='#111' size={20} />)
 
   function mudarLayout() {
     gridList = !gridList
-  
+
     if (gridList) {
       setGrid(
-        <MaterialDesignIcons name='format-list-checkbox' color='#111' size={20}/>
+        <MaterialDesignIcons name='format-list-checkbox' color='#111' size={20} />
       )
     } else {
       setGrid(
-        <MaterialDesignIcons name='view-grid' color='#111' size={20}/>
+        <MaterialDesignIcons name='view-grid' color='#111' size={20} />
       )
     }
   }
 
   const navigation = useNavigation();
-  let contador;
 
-  return(
-      <View style={styles.container}>
+
+  return (
+    <View style={styles.container}>
       {/* Título da página */}
-      <Text style={styles.header}>Inventário</Text>
+
+      <View style={headerStyles.header}>
+        <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
+          <MaterialIcons name="play-arrow" size={30} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
+        </TouchableOpacity>
+
+        <Text style={headerStyles.headerTitle}>Inventário</Text>
+
+        {/* Espaço vazio para balancear layout e centralizar o título */}
+        <View style={{ width: 40}} />
+      </View>
 
       {/* Barra de pesquisa */}
-      <Searchbar placeholder="" style={styles.barraPesquisa} inputStyle={{minHeight: 0}}/>
+      <Searchbar placeholder="" style={styles.barraPesquisa} inputStyle={{ minHeight: 0 }} />
 
       {/* Estástiticas e dados */}
       <View style={styles.status}>
-          <View style={styles.statusCatg}>
-            <Text style={styles.statusTexto}> Items </Text>
-            <Text style={styles.statusValor}>{contador = items.length}</Text>
-          </View>
+        <View style={styles.statusCatg}>
+          <Text style={styles.statusTexto}> Items </Text>
+          <Text style={styles.statusValor}>{contador = items.length}</Text>
+        </View>
 
-          <View style={styles.statusCatg}>
-            <Text style={styles.statusTexto}> Escambos </Text>
-            <Text style={styles.statusValor}>3</Text>
-          </View>
+        <View style={styles.statusCatg}>
+          <Text style={styles.statusTexto}> Escambos </Text>
+          <Text style={styles.statusValor}>3</Text>
+        </View>
 
-          <View style={styles.statusCatg}>
-            <Text style={styles.statusTexto}> Favoritados </Text>
-            <Text style={styles.statusValor}>39</Text>
-          </View>
+        <View style={styles.statusCatg}>
+          <Text style={styles.statusTexto}> Favoritados </Text>
+          <Text style={styles.statusValor}>39</Text>
+        </View>
       </View>
 
       <View style={styles.barraSeparatoria}>
@@ -126,45 +141,45 @@ export default function Inventario() {
 
       {/* Último Update + alterar layout */}
       <View style={styles.update}>
-          <Text style={styles.updateTexto}>🕒 Último Update </Text>
-          <IconButton
-            icon={() => grid}
-            onPress={() => {
-              mudarLayout()
-              console.log("Deu bom")
-            }}
-          />
+        <Text style={styles.updateTexto}>🕒 Último Update </Text>
+        <IconButton
+          icon={() => grid}
+          onPress={() => {
+            mudarLayout()
+            console.log("Deu bom")
+          }}
+        />
       </View>
 
       {/* Lista de items */}
 
-      
+
       <FlatList
-          key={gridList ? 'grid' : 'list'}
-          style={gridList ? styles.listaQd : styles.listaList}
-          data={items}
-          numColumns={gridList ? 2 : 1}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
+        key={gridList ? 'grid' : 'list'}
+        style={gridList ? styles.listaQd : styles.listaList}
+        data={items}
+        numColumns={gridList ? 2 : 1}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <View style={gridList ? styles.item : styles.itemList}>
-              <Image source={item.image} style={gridList ? styles.itemImage : styles.itemImageList} />
-              <View style={gridList ? styles.itemDetalhes : styles.itemDetalhesList}>
-                <Text style={gridList ? styles.itemTitulo : styles.itemTituloList}>{limitarTextoList(item.titulo)}</Text>
-                <Text style={gridList ? styles.itemFav : styles.itemFavList}>★ {item.favoritos} Favoritados</Text>
-                <Text style={gridList ? styles.itemStatus : styles.itemStatusList}>🟩 {item.status}</Text>
-              </View>
+            <Image source={item.image} style={gridList ? styles.itemImage : styles.itemImageList} />
+            <View style={gridList ? styles.itemDetalhes : styles.itemDetalhesList}>
+              <Text style={gridList ? styles.itemTitulo : styles.itemTituloList}>{limitarTextoList(item.titulo)}</Text>
+              <Text style={gridList ? styles.itemFav : styles.itemFavList}>★ {item.favoritos} Favoritados</Text>
+              <Text style={gridList ? styles.itemStatus : styles.itemStatusList}>🟩 {item.status}</Text>
+            </View>
           </View>
-          )}
+        )}
       />
 
       {/* ADD Novo Item */}
       <FAB
-          style={styles.addItem}
-          icon="plus"
-          color="white"
-          onPress={() => navigation.navigate('addItem')}
+        style={styles.addItem}
+        icon="plus"
+        color="white"
+        onPress={() => navigation.navigate('addItem')}
       />
-      </View>
+    </View>
   );
 }
 

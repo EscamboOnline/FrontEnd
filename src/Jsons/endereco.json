@@ -1,0 +1,50 @@
+[
+  {
+    "id": 201,
+    "cpf": "123.456.789-00",
+    "cep": "04567-890",
+    "estado": "SP",
+    "endereco": "Rua das Flores, 123",
+    "complemento": "Apto 45"
+  },
+  {
+    "id": 202,
+    "cpf": "321.654.987-10",
+    "cep": "22030-001",
+    "estado": "RJ",
+    "endereco": "Av. Atlântica, 456",
+    "complemento": "Cobertura"
+  },
+  {
+    "id": 203,
+    "cpf": "987.654.321-00",
+    "cep": "30130-110",
+    "estado": "MG",
+    "endereco": "Rua do Sol, 789",
+    "complemento": "Casa"
+  },
+  {
+    "id": 204,
+    "cpf": "741.852.963-00",
+    "cep": "90430-180",
+    "estado": "RS",
+    "endereco": "Av. Ipiranga, 987",
+    "complemento": "Bloco B"
+  },
+  {
+    "id": 205,
+    "cpf": "258.369.147-00",
+    "cep": "70040-010",
+    "estado": "DF",
+    "endereco": "SQS 308 Bloco C",
+    "complemento": "Apto 201"
+  },
+  {
+    "id": 206,
+    "cpf": "159.753.486-00",
+    "cep": "30295-000",
+    "estado": "MG",
+    "endereco": "Rua da Harmonia, 321",
+    "complemento": "Fundos"
+  }
+]

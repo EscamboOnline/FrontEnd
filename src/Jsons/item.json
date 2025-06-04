@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "nome": "Apple iPhone 16 Pro Max (512 GB) – Titânio natural",
+    "valor": 3000,
+    "status": "Ótimo",
+    "categoria": "Tecnologia",
+    "imagens": [
+      "../../assets/phone.png",
+      "../../assets/phone2.png",
+      "../../assets/phone3.png",
+      "../../assets/phone4.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 101
+  },
+  {
+    "id": "2",
+    "nome": "Caloi Bicicleta Vulcan, Aro 29, Câmbio Shimano 21 Velocidades",
+    "valor": 1500,
+    "status": "Ótimo",
+    "categoria": "Esportes",
+    "imagens": [
+      "../../assets/bike.png",
+      "../../assets/bike2.png",
+      "../../assets/bike3.png",
+      "../../assets/bike4.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 102
+  },
+  {
+    "id": "3",
+    "nome": "Kit 3 Prateleiras Grossas Madeira Maciça Suporte Invisível",
+    "valor": 299,
+    "status": "Ótimo",
+    "categoria": "Móveis",
+    "imagens": [
+      "../../assets/prateleiras.jpg",
+      "../../assets/prateleiras2.png",
+      "../../assets/prateleiras3.png",
+      "../../assets/prateleiras4.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 103
+  },
+  {
+    "id": "4",
+    "nome": "Cadeira de Jantar Madeira Maciça Larissa Para Sala de Jantar",
+    "valor": 449,
+    "status": "Ótimo",
+    "categoria": "Móveis",
+    "imagens": [
+      "../../assets/cadeira.png",
+      "../../assets/cadeira2.png",
+      "../../assets/cadeira3.png",
+      "../../assets/cadeira4.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 104
+  },
+  {
+    "id": "5",
+    "nome": "Smartphone Realme Note 60x RMX3938 3 GB RAM / 64 GB / Bateria 5000mAh",
+    "valor": 1099,
+    "status": "Ótimo",
+    "categoria": "Tecnologia",
+    "imagens": [
+      "../../assets/phoneV2.png",
+      "../../assets/phone2V2.png",
+      "../../assets/phone3V2.png",
+      "../../assets/phone4V2.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 105
+  },
+  {
+    "id": "6",
+    "nome": "Bicicleta Aro 29 Ravok 21v Aço Carbono Freios a Disco",
+    "valor": 1299,
+    "status": "Ótimo",
+    "categoria": "Esportes",
+    "imagens": [
+      "../../assets/bikeV2.png",
+      "../../assets/bike2V2.png",
+      "../../assets/bike3V2.png",
+      "../../assets/bike4V2.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 102
+  },
+  {
+    "id": "7",
+    "nome": "Kit Prateleiras Rústicas em Madeira Maciça",
+    "valor": 349,
+    "status": "Ótimo",
+    "categoria": "Móveis",
+    "imagens": [
+      "../../assets/prateleiras.jpg",
+      "../../assets/prateleiras2V2.png",
+      "../../assets/prateleiras3V2.png",
+      "../../assets/prateleiras4V2.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 103
+  },
+  {
+    "id": "8",
+    "nome": "Cadeira Peônia Madeira Maciça Imbuia - Cód: CAD6",
+    "valor": 599,
+    "status": "Ótimo",
+    "categoria": "Móveis",
+    "imagens": [
+      "../../assets/cadeiraV2.png",
+      "../../assets/cadeira2V2.png",
+      "../../assets/cadeira3V2.png",
+      "../../assets/cadeira4V2.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 106
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id_usuario": 101,
+    "id_UserComent": 102,
+    "avaliacao": 5,
+    "descricao": "Ótima troca! Produto em excelente estado."
+  },
+  {
+    "id_usuario": 103,
+    "id_UserComent": 104,
+    "avaliacao": 4,
+    "descricao": "Boa negociação, tudo como combinado."
+  },
+  {
+    "id_usuario": 105,
+    "id_UserComent": 106,
+    "avaliacao": 5,
+    "descricao": "Rápido e confiável. Recomendo!"
+  },
+  {
+    "id_usuario": 106,
+    "id_UserComent": 105,
+    "avaliacao": 5,
+    "descricao": "Negociação tranquila, sem problemas."
+  }
+]

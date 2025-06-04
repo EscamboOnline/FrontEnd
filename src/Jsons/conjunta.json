@@ -1,0 +1,16 @@
+[
+  {
+    "id_chat": 5,
+    "id_usuario": 101,
+    "id_SegUser": 102,
+    "id_TerUser": 103,
+    "mensagens": [
+      { "mensagem": "Podemos fazer uma troca entre os três?", "id_usuario": 101 },
+      { "mensagem": "Tenho interesse no item da Maria.", "id_usuario": 102 },
+      { "mensagem": "Fechado, trocamos entre nós.", "id_usuario": 103 }
+    ],
+    "PrmTroca": 1,
+    "SegTroca": 2,
+    "TerTroca": 3
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id_troca": 1,
+    "id_usuario": 101,
+    "id_usuario2": 102,
+    "id_item": 1,
+    "id_item2": 2,
+    "data_inicio": "2025-05-25T10:00:00Z",
+    "visible": true
+  },
+  {
+    "id_troca": 2,
+    "id_usuario": 103,
+    "id_usuario2": 104,
+    "id_item": 3,
+    "id_item2": 4,
+    "data_inicio": "2025-05-26T14:00:00Z",
+    "visible": true
+  },
+  {
+    "id_troca": 3,
+    "id_usuario": 105,
+    "id_usuario3": 106,
+    "id_item": 5,
+    "id_item2": 8,
+    "data_inicio": "2025-05-27T16:30:00Z",
+    "visible": false
+  }
+]

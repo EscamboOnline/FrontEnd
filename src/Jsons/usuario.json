@@ -4,6 +4,7 @@
     "categorias": ["Tecnologia", "Moda"],
     "nome": "Ana Beatriz da Silva",
     "nickname": "ana_b",
+    "image": "https://randomuser.me/api/portraits/women/44.jpg",
     "sexo": "Feminino",
     "favoritos": ["1", "5"],
     "endereco": 201
@@ -13,6 +14,7 @@
     "categorias": ["Esportes", "Games"],
     "nome": "João Pereira",
     "nickname": "joaogamer",
+    "image": "https://randomuser.me/api/portraits/men/23.jpg",
     "sexo": "Masculino",
     "favoritos": ["2", "6"],
     "endereco": 202
@@ -22,6 +24,7 @@
     "categorias": ["Cosméticos", "Móveis"],
     "nome": "Maria Oliveira",
     "nickname": "maria_oli",
+    "image": "https://randomuser.me/api/portraits/women/68.jpg",
     "sexo": "Feminino",
     "favoritos": ["3", "7"],
     "endereco": 203
@@ -31,6 +34,7 @@
     "categorias": ["Automóveis", "Tecnologia"],
     "nome": "Carlos Santos",
     "nickname": "carlao",
+    "image": "https://randomuser.me/api/portraits/men/41.jpg",
     "sexo": "Masculino",
     "favoritos": ["4"],
     "endereco": 204
@@ -40,6 +44,7 @@
     "categorias": ["Livros", "Tecnologia"],
     "nome": "Juliana Martins",
     "nickname": "juju.reads",
+    "image": "https://randomuser.me/api/portraits/women/10.jpg",
     "sexo": "Feminino",
     "favoritos": ["5"],
     "endereco": 205
@@ -49,6 +54,7 @@
     "categorias": ["Música", "Games"],
     "nome": "Rafael Costa",
     "nickname": "rafac",
+    "image": "https://randomuser.me/api/portraits/men/15.jpg",
     "sexo": "Masculino",
     "favoritos": ["8"],
     "endereco": 206

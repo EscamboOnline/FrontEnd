@@ -3,7 +3,6 @@ import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, StatusBar, 
 import { IconButton } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
-import BarraNavegacao from '../../components/navegador';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 let items = [
@@ -162,7 +161,6 @@ export default function AddItem() {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-      <BarraNavegacao />
     </SafeAreaProvider>
   );
 }

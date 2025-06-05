@@ -4,6 +4,7 @@ import { Searchbar, FAB, IconButton } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import BarraNavegacao from '../../components/navegador';
 
 //adcionei ai
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -104,83 +105,87 @@ export default function Inventario() {
 
   return (
     <SafeAreaProvider style={styles.container}>
-      {/* Título da página */}
+      <SafeAreaView>
+        {/* Título da página */}
 
-      <View style={headerStyles.header}>
-        <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
-          <MaterialIcons name="play-arrow" size={30} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
-        </TouchableOpacity>
+        <View style={headerStyles.header}>
+          <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
+            <MaterialIcons name="play-arrow" size={30} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
+          </TouchableOpacity>
 
-        <Text style={headerStyles.headerTitle}>Inventário</Text>
+          <Text style={headerStyles.headerTitle}>Inventário</Text>
 
-        {/* Espaço vazio para balancear layout e centralizar o título */}
-        <View style={{ width: 40}} />
-      </View>
-
-      {/* Barra de pesquisa */}
-      <Searchbar placeholder="" style={styles.barraPesquisa} inputStyle={{ minHeight: 0 }} />
-
-      {/* Estástiticas e dados */}
-      <View style={styles.status}>
-        <View style={styles.statusCatg}>
-          <Text style={styles.statusTexto}> Items </Text>
-          <Text style={styles.statusValor}>{contador = items.length}</Text>
+          {/* Espaço vazio para balancear layout e centralizar o título */}
+          <View style={{ width: 40}} />
         </View>
 
-        <View style={styles.statusCatg}>
-          <Text style={styles.statusTexto}> Escambos </Text>
-          <Text style={styles.statusValor}>3</Text>
-        </View>
+        {/* Barra de pesquisa */}
+        <Searchbar placeholder="" style={styles.barraPesquisa} inputStyle={{ minHeight: 0 }} />
 
-        <View style={styles.statusCatg}>
-          <Text style={styles.statusTexto}> Favoritados </Text>
-          <Text style={styles.statusValor}>39</Text>
-        </View>
-      </View>
-
-      <View style={styles.barraSeparatoria}>
-      </View>
-
-      {/* Último Update + alterar layout */}
-      <View style={styles.update}>
-        <Text style={styles.updateTexto}>🕒 Último Update </Text>
-        <IconButton
-          icon={() => grid}
-          onPress={() => {
-            mudarLayout()
-            console.log("Deu bom")
-          }}
-        />
-      </View>
-
-      {/* Lista de items */}
-
-
-      <FlatList
-        key={gridList ? 'grid' : 'list'}
-        style={gridList ? styles.listaQd : styles.listaList}
-        data={items}
-        numColumns={gridList ? 2 : 1}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={gridList ? styles.item : styles.itemList}>
-            <Image source={item.image} style={gridList ? styles.itemImage : styles.itemImageList} />
-            <View style={gridList ? styles.itemDetalhes : styles.itemDetalhesList}>
-              <Text style={gridList ? styles.itemTitulo : styles.itemTituloList}>{limitarTextoList(item.titulo)}</Text>
-              <Text style={gridList ? styles.itemFav : styles.itemFavList}>★ {item.favoritos} Favoritados</Text>
-              <Text style={gridList ? styles.itemStatus : styles.itemStatusList}>🟩 {item.status}</Text>
-            </View>
+        {/* Estástiticas e dados */}
+        <View style={styles.status}>
+          <View style={styles.statusCatg}>
+            <Text style={styles.statusTexto}> Items </Text>
+            <Text style={styles.statusValor}>{contador = items.length}</Text>
           </View>
-        )}
-      />
 
-      {/* ADD Novo Item */}
+          <View style={styles.statusCatg}>
+            <Text style={styles.statusTexto}> Escambos </Text>
+            <Text style={styles.statusValor}>3</Text>
+          </View>
+
+          <View style={styles.statusCatg}>
+            <Text style={styles.statusTexto}> Favoritados </Text>
+            <Text style={styles.statusValor}>39</Text>
+          </View>
+        </View>
+
+        <View style={styles.barraSeparatoria}>
+        </View>
+
+        {/* Último Update + alterar layout */}
+        <View style={styles.update}>
+          <Text style={styles.updateTexto}>🕒 Último Update </Text>
+          <IconButton
+            style={{ margin: 0, padding: 0, height: 20 }}
+            icon={() => grid}
+            onPress={() => {
+              mudarLayout()
+              console.log("Deu bom")
+            }}
+          />
+        </View>
+
+        {/* Lista de items */}
+
+        {/* ADD Novo Item */}
+
+      </SafeAreaView>
+
+        <FlatList
+          key={gridList ? 'grid' : 'list'}
+          style={gridList ? styles.listaQd : styles.listaList}
+          data={items}
+          numColumns={gridList ? 2 : 1}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={gridList ? styles.item : styles.itemList}>
+              <Image source={item.image} style={gridList ? styles.itemImage : styles.itemImageList} />
+              <View style={gridList ? styles.itemDetalhes : styles.itemDetalhesList}>
+                <Text style={gridList ? styles.itemTitulo : styles.itemTituloList}>{limitarTextoList(item.titulo)}</Text>
+                <Text style={gridList ? styles.itemFav : styles.itemFavList}>★ {item.favoritos} Favoritados</Text>
+                <Text style={gridList ? styles.itemStatus : styles.itemStatusList}>🟩 {item.status}</Text>
+              </View>
+            </View>
+          )}
+        />
       <FAB
         style={styles.addItem}
         icon="plus"
         color="white"
         onPress={() => navigation.navigate('addItem')}
       />
+      <BarraNavegacao />
     </SafeAreaProvider>
   );
 }
@@ -234,17 +239,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginTop: 10,
     marginInline: 10,
   },
   updateTexto: {
+    height: 20,
     color: '#101010',
+    margin: 0,
+    padding: 0
   },
 
 
 
   listaQd: {
-    flex: 1
+    flex: 1,
+    marginBottom: 50
   },
   item: {
     height: 'auto',
@@ -285,7 +294,9 @@ const styles = StyleSheet.create({
   },
 
 
-
+  listaList: {
+    marginBottom: 70
+  },
   itemList: {
     height: 140,
     flexDirection: 'row',
@@ -330,7 +341,7 @@ const styles = StyleSheet.create({
   addItem: {
     position: 'absolute',
     right: 16,
-    bottom: 16,
+    bottom: 100,
     borderRadius: '50%',
     backgroundColor: '#E91E63',
   },

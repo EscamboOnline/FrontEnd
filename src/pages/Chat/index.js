@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // para ícone de busca
 import BarraNavegacao from '../../components/navegador';
+import chats from '../../Jsons/chats.json';
+import chat from '../../Jsons/chat.json';
+import usuarios from '../../Jsons/usuario.json';
 
 const users = [
   {
@@ -73,6 +76,16 @@ const users = [
 export default function TelaDeChats() {
   const [selectedTab, setSelectedTab] = useState('Chats');
 
+  // Eu sou o usuario1
+  // Eu preciso que apareça os chats atribuidos a mim isso inclui o id_usuario e o id_UResposta
+  // Eu preciso buscar as informações do usuário que estou conversando
+  // Preciso do nome, imagem, nickname
+  // Por ultimo necessito também das mensagens do chat
+
+  let meusChats = chat.filter(i => i.id_usuario === 101)
+
+  console.log(JSON.stringify(meusChats, null, 2))
+
   const renderItem = ({ item }) => (
     <View style={styles.chatItem}>
       <View>
@@ -82,8 +95,8 @@ export default function TelaDeChats() {
         />
       </View>
       <View style={styles.userInfo}>
-        <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.username}>{item.username}</Text>
+        <Text style={styles.name}>{item.nome}</Text>
+        <Text style={styles.username}>{item.nickname}</Text>
         <Text style={styles.lastMessage}>ultima mensagem</Text>
       </View>
       <Text style={styles.time}>{item.time}</Text>
@@ -140,9 +153,9 @@ export default function TelaDeChats() {
 
       {/* Lista de Conversas */}
       <FlatList
-        data={users}
+        data={usuarios}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id_usuario.toString()}
         style={styles.chatList}
       />
 

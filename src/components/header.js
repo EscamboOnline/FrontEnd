@@ -13,7 +13,7 @@ export const headerStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: 20 * scale,
+        paddingTop: 10 * scale,
         paddingBottom: 10 * scale,
         paddingHorizontal: 15 * scale,
         backgroundColor: colors.white

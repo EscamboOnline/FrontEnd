@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 
 export default function DetalhesDoItem() {
   return (

@@ -1,6 +1,6 @@
 import requisitarTroca from './components/requisicao';
 // Depois é só usar <requisitarTroca /> que ele puxa direto o código dos components
-
+import BarraNavegacao from '../../components/navegador';
 import React, { useState } from 'react';
 import {
   View,
@@ -91,6 +91,8 @@ export default function ChatScreen() {
           <Text style={styles.setaEnviar}>▶</Text>
         </TouchableOpacity>
       </View>
+
+      <BarraNavegacao />
     </View>
   );
 }

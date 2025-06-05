@@ -10,7 +10,7 @@ export default function BarraNavegacao() {
 
     return(
         <View style={styles.barra}>
-            <TouchableHighlight style={styles.botaoBarra}>
+            <TouchableHighlight style={styles.botaoBarra} onPress={() => navigation.navigate('Home')}>
                 <View style={styles.itemBarra}>
                     <MaterialDesignIcons name="home" color="#fff" size={30}/>
                     <Text style={styles.textoBarra}>Home</Text>

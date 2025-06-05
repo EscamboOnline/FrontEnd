@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons, MaterialIcons, FontAwesome5, Feather, Entypo } from '@expo/vector-icons';
+import BarraNavegacao from '../../components/navegador';
 
 export default function Home({ navigation }) {
     return (
@@ -38,6 +39,9 @@ export default function Home({ navigation }) {
                     <Entypo name="user" size={28} color="#888" />
                 </TouchableOpacity>
             </View>
+
+            <BarraNavegacao />
+
         </View>
     );
 }

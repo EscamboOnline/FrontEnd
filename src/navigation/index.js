@@ -12,12 +12,12 @@ import Suporte from '../pages/Perfil/suporte';
 import EscambosFeitos from '../pages/Perfil/escamboFeitos';
 import ComprovanteTroca from "../pages/Perfil/comprovante";
 import PerfilX from "../pages/Perfil/perfilX";
-import Comentar from "../pages/Perfil/comentar"
+import Comentar from "../pages/Perfil/comentar";
 
 // Inventario ----
-import Inventario from '../pages/Inventario';
-import AddItem from '../pages/Inventario/addItem';
-import VerItem from '../pages/Inventario/verItem';
+import Inventario from '../pages/Inventory';
+import AddItem from '../pages/Inventory/addItem';
+import VerItem from '../pages/Inventory/verItem';
 // import editarItem from "../pages/Inventario/editarItem";
 
 // Chat ----
@@ -33,23 +33,18 @@ import Chat from "../pages/Chat/chat";
 const Stack = createNativeStackNavigator();
 
 export default function Routes(){
-    return(
-        <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="inventario"
-              component={inventario}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Welcome"
-              component={Welcome}
-              options={{headerShown: false}}
-            />
+  return(
+    <Stack.Navigator initialRouteName="Inventario">
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Welcome"
+        component={Welcome}
+        options={{headerShown: false}}
+      />
 
       <Stack.Screen
         name="SignIn"

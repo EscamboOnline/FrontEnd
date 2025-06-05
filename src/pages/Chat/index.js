@@ -9,6 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // para ícone de busca
+import BarraNavegacao from '../../components/navegador';
 
 const users = [
   {
@@ -98,41 +99,44 @@ export default function TelaDeChats() {
       </View>
 
       {/* Abas */}
-      <View style={styles.tabs}>
-        <TouchableOpacity
-          onPress={() => setSelectedTab('Chats')}
-          style={[
-            styles.tab,
-            selectedTab === 'Chats' && styles.activeTab,
-          ]}
-        >
-          <Text
+      <View style={{ paddingHorizontal: 16 }}>
+        <View style={styles.tabs}>
+          <TouchableOpacity
+            onPress={() => setSelectedTab('Chats')}
             style={[
-              styles.tabText,
-              selectedTab === 'Chats' && styles.activeTabText,
+              styles.tab,
+              selectedTab === 'Chats' && styles.activeTab,
             ]}
           >
-            Chats
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={[
+                styles.tabText,
+                selectedTab === 'Chats' && styles.activeTabText,
+              ]}
+            >
+              Chats
+            </Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => setSelectedTab('Conjunta')}
-          style={[
-            styles.tab,
-            selectedTab === 'Conjunta' && styles.activeTab,
-          ]}
-        >
-          <Text
+          <TouchableOpacity
+            onPress={() => setSelectedTab('Conjunta')}
             style={[
-              styles.tabText,
-              selectedTab === 'Conjunta' && styles.activeTabText,
+              styles.tab,
+              selectedTab === 'Conjunta' && styles.activeTab,
             ]}
           >
-            Conjunta
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={[
+                styles.tabText,
+                selectedTab === 'Conjunta' && styles.activeTabText,
+              ]}
+            >
+              Conjunta
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
+      
 
       {/* Lista de Conversas */}
       <FlatList
@@ -141,6 +145,8 @@ export default function TelaDeChats() {
         keyExtractor={(item) => item.id}
         style={styles.chatList}
       />
+
+      <BarraNavegacao />
     </View>
   );
 }
@@ -150,12 +156,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     backgroundColor: '#fff',
-    paddingHorizontal: 16,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 16
   },
   headerTitle: {
     fontSize: 28,
@@ -189,6 +195,7 @@ const styles = StyleSheet.create({
   },
   chatList: {
     marginTop: 8,
+    paddingHorizontal: 16
   },
   chatItem: {
     flexDirection: 'row',

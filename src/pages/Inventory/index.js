@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert, FlatList,
 import { Searchbar, FAB, IconButton } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 //adcionei ai
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -98,10 +99,11 @@ export default function Inventario() {
   }
 
   const navigation = useNavigation();
+  let contador;
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaProvider style={styles.container}>
       {/* Título da página */}
 
       <View style={headerStyles.header}>
@@ -179,7 +181,7 @@ export default function Inventario() {
         color="white"
         onPress={() => navigation.navigate('addItem')}
       />
-    </View>
+    </SafeAreaProvider>
   );
 }
 

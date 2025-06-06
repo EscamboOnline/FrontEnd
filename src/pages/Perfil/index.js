@@ -370,7 +370,7 @@ const styles = StyleSheet.create({
     textOptions: {
         fontSize: 18 * scale,
         color: colors.black,
-        fontWeight: '600',
+        fontWeight: 'bold',
     },
     textOptionsSelected: {
         color: colors.red,

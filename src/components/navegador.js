@@ -30,7 +30,7 @@ export default function BarraNavegacao() {
 
             
 
-            <TouchableHighlight style={styles.botaoBarra}>
+            <TouchableHighlight style={styles.botaoBarra} onPress={() => navigation.navigate('Search')}>
                 <View style={styles.itemBarra}>
                     <MaterialDesignIcons name="magnify" color="#fff" size={30}/>
                     <Text style={styles.textoBarra}>Search</Text>

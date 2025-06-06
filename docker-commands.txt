@@ -1,0 +1,45 @@
+| Comando                               | O que faz                                                                  |
+| ------------------------------------- | -------------------------------------------------------------------------- |
+| `docker build -t nome-imagem .`       | Cria uma imagem Docker a partir do Dockerfile na pasta atual.              |
+| `docker images`                       | Lista todas as imagens Docker disponíveis localmente.                      |
+| `docker run -p 3000:3000 nome-imagem` | Roda um container a partir de uma imagem, mapeando portas.                 |
+| `docker ps`                           | Lista os containers em execução.                                           |
+| `docker ps -a`                        | Lista todos os containers, inclusive parados.                              |
+| `docker stop id_container`            | Para a execução de um container.                                           |
+| `docker rm id_container`              | Remove um container parado.                                                |
+| `docker rmi id_imagem`                | Remove uma imagem Docker local.                                            |
+| `docker logs id_container`            | Mostra os logs de um container.                                            |
+| `docker exec -it id_container bash`   | Acessa o terminal bash de um container em execução (modo interativo).      |
+| `docker-compose up`                   | Sobe todos os serviços definidos no arquivo docker-compose.yml.            |
+| `docker-compose up --build`           | Reconstrói as imagens e sobe os serviços.                                  |
+| `docker-compose down`                 | Para e remove os containers, redes e volumes criados pelo compose.         |
+| `docker volume ls`                    | Lista volumes Docker criados.                                              |
+| `docker volume rm nome_volume`        | Remove um volume Docker.                                                   |
+| `docker network ls`                   | Lista redes Docker.                                                        |
+| `docker network rm nome_rede`         | Remove uma rede Docker.                                                    |
+| `docker system prune`                 | Limpa containers, imagens, volumes e redes não usados para liberar espaço. |
+
+
+docker stop 
+
+
+React no android studio
+
+npx react-native start
+
+npx react-native run-android
+
+
+*GIT COMMANDS*
+
+git init 
+git add . 
+git commit -m "primeiro commit"
+git branch -M main 
+git remote add origin (junto com o link do repositório) 
+git push -u origin main 
+
+git pull origin main --rebase
+git add nome-do-arquivo
+git rebase --continue
+git push origin main

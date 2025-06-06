@@ -24,6 +24,9 @@ import VerItem from '../pages/Inventory/verItem';
 import Contatos from "../pages/Chat";
 import Chat from "../pages/Chat/chat";
 
+//Search
+import Search from '../pages/Search';
+
 // Pra se localizar melhor (daqui pra frente terá muita página) dá um ctrl+F e escreve uma das categorias abaixo:
 // - Perfil
 // - inventário 
@@ -137,6 +140,13 @@ export default function Routes(){
       <Stack.Screen
         name="Chat"
         component={Chat}
+        options={{ headerShown: false }}
+      />
+
+      {/*------------Search---------------*/}
+      <Stack.Screen
+        name="Search"
+        component={Search}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

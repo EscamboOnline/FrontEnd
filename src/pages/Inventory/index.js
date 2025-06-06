@@ -10,65 +10,7 @@ import BarraNavegacao from '../../components/navegador';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { headerStyles } from '../../components/header';
 
-
-const items = [
-  {
-    id: '1',
-    image: require('../../assets/phone.png'),
-    titulo: 'Apple iPhone 16 Pro Max (512 GB) – Titânio natural',
-    favoritos: 1015,
-    status: 'Ótimo',
-  },
-  {
-    id: '2',
-    image: require('../../assets/bike.png'),
-    titulo: 'Caloi Bicicleta Vulcan, Aro 29, Câmbio Shimano 21 Velocidades',
-    favoritos: 563,
-    status: 'Ótimo',
-  },
-  {
-    id: '3',
-    image: require('../../assets/prateleiras.jpg'),
-    titulo: 'Kit 3 Prateleiras Grossas Madeira Maciça Suporte Invisível',
-    favoritos: 254,
-    status: 'Ótimo',
-  },
-  {
-    id: '4',
-    image: require('../../assets/cadeira.png'),
-    titulo: 'Cadeira de Jantar Madeira Maciça Larissa Para Sala de Jantar',
-    favoritos: 45,
-    status: 'Ótimo',
-  },
-  {
-    id: '5',
-    image: require('../../assets/phone.png'),
-    titulo: 'Smartphone Realme Note 60x RMX3938 3 GB de RAM/ 64 GB/Bateria de 5000mAh e tela de 6,74" 90Hz HD/Midnight Black (Preto)',
-    favoritos: 156,
-    status: 'Ótimo',
-  },
-  {
-    id: '6',
-    image: require('../../assets/bike.png'),
-    titulo: 'Bicicleta Aro 29 Ravok 21v Aço Carbono Freios a Disco',
-    favoritos: 358,
-    status: 'Ótimo',
-  },
-  {
-    id: '7',
-    image: require('../../assets/prateleiras.jpg'),
-    titulo: 'Bicicleta Aro 29 Ravok 21v Aço Carbono Freios a Disco',
-    favoritos: 518,
-    status: 'Ótimo',
-  },
-  {
-    id: '8',
-    image: require('../../assets/cadeira.png'),
-    titulo: 'Cadeira Peônia Assento de Madeira Maciça na cor Imbuia - Cód: CAD6',
-    favoritos: 765,
-    status: 'Ótimo',
-  },
-];
+import items from '../../Jsons/item.json'
 
 var gridList = false;
 
@@ -169,14 +111,16 @@ export default function Inventario() {
           numColumns={gridList ? 2 : 1}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View style={gridList ? styles.item : styles.itemList}>
-              <Image source={item.image} style={gridList ? styles.itemImage : styles.itemImageList} />
-              <View style={gridList ? styles.itemDetalhes : styles.itemDetalhesList}>
-                <Text style={gridList ? styles.itemTitulo : styles.itemTituloList}>{limitarTextoList(item.titulo)}</Text>
-                <Text style={gridList ? styles.itemFav : styles.itemFavList}>★ {item.favoritos} Favoritados</Text>
-                <Text style={gridList ? styles.itemStatus : styles.itemStatusList}>🟩 {item.status}</Text>
+            <TouchableHighlight onPress={() => navigation.navigate("verItem", {id: item.id})}>
+              <View style={gridList ? styles.item : styles.itemList}>
+                <Image source={{ uri: item.imagens[0] }} style={gridList ? styles.itemImage : styles.itemImageList} />
+                <View style={gridList ? styles.itemDetalhes : styles.itemDetalhesList}>
+                  <Text style={gridList ? styles.itemTitulo : styles.itemTituloList}>{limitarTextoList(item.nome)}</Text>
+                  <Text style={gridList ? styles.itemFav : styles.itemFavList}>★ 4 Favoritados</Text>
+                  <Text style={gridList ? styles.itemStatus : styles.itemStatusList}>🟩 {item.status}</Text>
+                </View>
               </View>
-            </View>
+            </TouchableHighlight>
           )}
         />
       <FAB

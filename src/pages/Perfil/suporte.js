@@ -40,28 +40,37 @@ export default function Suporte() {
     //imagePick
 
     //pede permissão
-    const [imageUri, setImageUri] = useState(null);
+    const [isPickingImage, setIsPickingImage] = useState(false);
+
     const [image, setImage] = useState(null);
 
 
-    const pickImage = async () => {
+   const pickImage = async () => {
         try {
-            const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-            if (!permissionResult.granted) {
-                alert("Você precisa permitir o acesso à galeria!");
+            Keyboard.dismiss();
+            setIsPickingImage(true);
+
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+                alert('Permissão para acessar a galeria negada');
                 return;
             }
+
             const result = await ImagePicker.launchImageLibraryAsync({
-                //mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
-                quality: 1,
+                aspect: [1, 1],
+                quality: 0.8,
+                presentationStyle: 'overFullScreen',
             });
-            console.log(result);
-            if (!result.canceled && result.assets.length > 0) {
+
+            if (!result.canceled && result.assets?.length > 0) {
                 setImage(result.assets[0].uri);
             }
         } catch (error) {
-            console.error("Erro ao pegar imagem:", error);
+            console.log('Erro ao selecionar imagem:', error);
+        } finally {
+            setIsPickingImage(false);
         }
     };
 
@@ -353,23 +362,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: colors.gray,
         padding: 15,
         borderRadius: 12,
         borderWidth: 1,
         borderColor: '#ddd',
         marginVertical: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
         elevation: 2,
     },
 
     imageName: {
         fontSize: 16,
-        color: '#333',
-        flex: 1,
+        color: colors.secondGray,
         fontWeight: '500',
     },
 

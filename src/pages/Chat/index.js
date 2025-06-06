@@ -84,6 +84,8 @@ export default function TelaDeChats() {
 
   let meusChats = chat.filter(i => i.id_usuario === 101)
 
+  usuarios
+
   console.log(JSON.stringify(meusChats, null, 2))
 
   const renderItem = ({ item }) => (

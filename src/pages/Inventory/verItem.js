@@ -2,7 +2,138 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
+const items = [
+  {
+    "id": "1",
+    "nome": "Apple iPhone 16 Pro Max (512 GB) – Titânio natural",
+    "valor": 3000,
+    "status": "Ótimo",
+    "categoria": "Tecnologia",
+    "imagens": [
+      require("../../assets/phone1/phone.png"),
+      require("../../assets/phone1/phone2.png"),
+      require("../../assets/phone1/phone3.png"),
+      require("../../assets/phone1/phone4.png")
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 101
+  },
+  {
+    "id": "2",
+    "nome": "Caloi Bicicleta Vulcan, Aro 29, Câmbio Shimano 21 Velocidades",
+    "valor": 1500,
+    "status": "Ótimo",
+    "categoria": "Esportes",
+    "imagens": [
+      require("../../assets/bike1/bike.png"),
+      "../../assets/bike1/bike2.png",
+      "../../assets/bike1/bike3.png",
+      "../../assets/bike1/bike4.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 102
+  },
+  {
+    "id": "3",
+    "nome": "Kit 3 Prateleiras Grossas Madeira Maciça Suporte Invisível",
+    "valor": 299,
+    "status": "Ótimo",
+    "categoria": "Móveis",
+    "imagens": [
+      require("../../assets/prateleiras1/prateleiras.jpg"),
+      "../../assets/prateleiras1/prateleiras2.png",
+      "../../assets/prateleiras1/prateleiras3.png",
+      "../../assets/prateleiras1/prateleiras4.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 103
+  },
+  {
+    "id": "4",
+    "nome": "Cadeira de Jantar Madeira Maciça Larissa Para Sala de Jantar",
+    "valor": 449,
+    "status": "Ótimo",
+    "categoria": "Móveis",
+    "imagens": [
+      require("../../assets/cadeira1/cadeira.png"),
+      "../../assets/cadeira1/cadeira2.png",
+      "../../assets/cadeira1/cadeira3.png",
+      "../../assets/cadeira1/cadeira4.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 104
+  },
+  {
+    "id": "5",
+    "nome": "Smartphone Realme Note 60x RMX3938 3 GB RAM / 64 GB / Bateria 5000mAh",
+    "valor": 1099,
+    "status": "Ótimo",
+    "categoria": "Tecnologia",
+    "imagens": [
+      require("../../assets/phone2/phone.png"),
+      require("../../assets/phone2/phone2.png"),
+      require("../../assets/phone2/phone3.png"),
+      require("../../assets/phone2/phone4.png")
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 105
+  },
+  {
+    "id": "6",
+    "nome": "Bicicleta Aro 29 Ravok 21v Aço Carbono Freios a Disco",
+    "valor": 1299,
+    "status": "Ótimo",
+    "categoria": "Esportes",
+    "imagens": [
+      require("../../assets/bike2/bikeV2.webp"),
+      "../../assets/bike2/bike2V2.png",
+      "../../assets/bike2/bike3V2.png",
+      "../../assets/bike2/bike4V2.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 102
+  },
+  {
+    "id": "7",
+    "nome": "Kit Prateleiras Rústicas em Madeira Maciça",
+    "valor": 349,
+    "status": "Ótimo",
+    "categoria": "Móveis",
+    "imagens": [
+      require("../../assets/prateleiras2/prateleiras.jpg"),
+      "../../assets/prateleiras2/prateleiras2V2.png",
+      "../../assets/prateleiras2/prateleiras3V2.png",
+      "../../assets/prateleiras2/prateleiras4V2.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 103
+  },
+  {
+    "id": "8",
+    "nome": "Cadeira Peônia Madeira Maciça Imbuia - Cód: CAD6",
+    "valor": 599,
+    "status": "Ótimo",
+    "categoria": "Móveis",
+    "imagens": [
+      require("../../assets/cadeira2/cadeiraV2.webp"),
+      "../../assets/cadeira2/cadeira2V2.png",
+      "../../assets/cadeira2/cadeira3V2.png",
+      "../../assets/cadeira2/cadeira4V2.png"
+    ],
+    "descricao": "Lorem ipsum dolor sit amet...",
+    "usuario_id": 106
+  }
+]
+
 export default function DetalhesDoItem() {
+
+  const route = useRoute();
+  const { id } = route.params;
+
+  const item = items.filter(p => p.id == id)
+
+  console.log(item)
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Imagem Principal */}

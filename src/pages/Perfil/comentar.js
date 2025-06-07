@@ -13,11 +13,16 @@ import {
 import colors from '../../constants/colors';
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { SafeAreaView } from 'react-native-safe-area-context'; 
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { popupStyles } from '../../components/popup';
 import { buttonsStyles } from '../../components/buttons';
 import { headerStyles } from '../../components/header';
 import StarRating from 'react-native-star-rating-widget';
+
+import { useFocusEffect } from '@react-navigation/native';
+import * as NavigationBar from 'expo-navigation-bar';
+import * as SystemUI from 'expo-system-ui';
+
 
 
 const { width } = Dimensions.get('window');
@@ -42,6 +47,23 @@ export default function Comentar() {
         },
     };
 
+    //Navegação android
+
+    useFocusEffect(
+        React.useCallback(() => {
+            NavigationBar.setBackgroundColorAsync('#ffffff');
+            NavigationBar.setButtonStyleAsync('dark');
+            SystemUI.setBackgroundColorAsync('#ffffff');
+
+            return () => {
+                NavigationBar.setBackgroundColorAsync('#e91e63');
+                NavigationBar.setButtonStyleAsync('light');
+                SystemUI.setBackgroundColorAsync('#e91e63');
+            };
+        }, [])
+    );
+
+
     //popup
     const [exitModalVisible, setExitModalVisible] = useState(false);
 
@@ -55,7 +77,7 @@ export default function Comentar() {
 
     return (
         <SafeAreaView style={styles.container}>
-            
+
             <Modal visible={exitModalVisible} transparent animationType="fade">
                 <View style={popupStyles.centeredView}>
                     <View style={popupStyles.modalView}>
@@ -127,6 +149,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.white,
         fontFamily: 'Montserrat',
+        marginBottom: 40
     },
 
     flatList: {
@@ -169,7 +192,7 @@ const styles = StyleSheet.create({
     },
 
     textArea: {
-        height: 600,
+        height: 570,
         padding: 15,
         borderColor: '#E0E0E0',
         borderWidth: 1,

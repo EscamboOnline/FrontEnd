@@ -21,6 +21,12 @@ import { buttonsStyles } from '../../components/buttons';
 import { headerStyles } from '../../components/header';
 import { SafeAreaView } from 'react-native-safe-area-context'; 
 
+import { useFocusEffect } from '@react-navigation/native';
+import * as NavigationBar from 'expo-navigation-bar';
+import * as SystemUI from 'expo-system-ui';
+
+
+
 const { width } = Dimensions.get('window');
 const baseWidth = 375;
 const scale = width / baseWidth;
@@ -55,6 +61,22 @@ export default function Suporte() {
             setIsPickingImage(false);
         }
     };
+
+     //Navegação android
+ 
+     useFocusEffect(
+         React.useCallback(() => {
+             NavigationBar.setBackgroundColorAsync('#ffffff');
+             NavigationBar.setButtonStyleAsync('light');
+             SystemUI.setBackgroundColorAsync(colors.green);
+ 
+             return () => {
+                 NavigationBar.setBackgroundColorAsync('#e91e63');
+                 NavigationBar.setButtonStyleAsync('light');
+                 SystemUI.setBackgroundColorAsync('#e91e63');
+             };
+         }, [])
+     );
 
     const dismissKeyboard = () => Keyboard.dismiss();
 

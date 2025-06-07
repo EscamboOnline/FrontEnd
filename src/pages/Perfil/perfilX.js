@@ -28,35 +28,35 @@ const scale = width / baseWidth;
 const itensData = [
     {
         id: '1',
-        image: require('../../assets/phone.png'),
+        image: require('../../assets/phone1/phone.png'),
     },
     {
         id: '2',
-        image: require('../../assets/bike.png'),
+        image: require('../../assets/bike1/bike.png'),
     },
     {
         id: '3',
-        image: require('../../assets/prateleiras.jpg'),
+        image: require('../../assets/prateleiras1/prateleiras.jpg'),
     },
     {
         id: '4',
-        image: require('../../assets/cadeira.png'),
+        image: require('../../assets/cadeira1/cadeira.png'),
     },
     {
         id: '5',
-        image: require('../../assets/phone.png'),
+        image: require('../../assets/phone2/phone.png'),
     },
     {
         id: '6',
-        image: require('../../assets/bike.png'),
+        image: require('../../assets/bike2/bikeV2.webp'),
     },
     {
         id: '7',
-        image: require('../../assets/prateleiras.jpg'),
+        image: require('../../assets/prateleiras2/prateleiras.jpg'),
     },
     {
         id: '8',
-        image: require('../../assets/cadeira.png'),
+        image: require('../../assets/cadeira2/cadeiraV2.webp'),
     },
 ];
 

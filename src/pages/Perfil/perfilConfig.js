@@ -21,6 +21,10 @@ import { popupStyles } from '../../components/popup';
 import { buttonsStyles } from '../../components/buttons';
 import { headerStyles } from '../../components/header';
 import * as ImagePicker from 'expo-image-picker';
+import { useFocusEffect } from '@react-navigation/native';
+
+import * as NavigationBar from 'expo-navigation-bar';
+import * as SystemUI from 'expo-system-ui';
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;
@@ -78,6 +82,22 @@ export default function PerfilConfig() {
     const formData_array = [{ id: 'form' }];
 
     const [exitModalVisible, setExitModalVisible] = useState(false);
+
+    //Navegação android
+
+    useFocusEffect(
+        React.useCallback(() => {
+            NavigationBar.setBackgroundColorAsync('#ffffff');
+            NavigationBar.setButtonStyleAsync('dark');
+            SystemUI.setBackgroundColorAsync('#ffffff');
+
+            return () => {
+                NavigationBar.setBackgroundColorAsync('#e91e63');
+                NavigationBar.setButtonStyleAsync('light');
+                SystemUI.setBackgroundColorAsync('#e91e63');
+            };
+        }, [])
+    );
 
     return (
         <SafeAreaView style={styles.container}>
@@ -306,8 +326,5 @@ const styles = StyleSheet.create({
         width: 1,
         height: '60%',
         backgroundColor: '#ccc'
-    },
-    bottomPadding: {
-        height: 10 * scale
     },
 });

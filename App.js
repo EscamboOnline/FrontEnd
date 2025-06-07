@@ -9,14 +9,26 @@ import * as SystemUI from 'expo-system-ui';
 
 export default function App() {
   useEffect(() => {
-    NavigationBar.setBackgroundColorAsync('#e91e63');
-    NavigationBar.setButtonStyleAsync('light');
-    SystemUI.setBackgroundColorAsync('#e91e63');
+    const configureNavigationBar = async () => {
+      try {
+        await NavigationBar.setBackgroundColorAsync('#e91e63');
+        await NavigationBar.setButtonStyleAsync('light');
+        await SystemUI.setBackgroundColorAsync('#e91e63');
+      } catch (error) {
+        console.warn('Erro ao configurar NavigationBar:', error);
+      }
+    };
+
+    configureNavigationBar();
   }, []);
 
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor={"#fff"} barStyle={"dark-content"} />
+      <StatusBar
+        backgroundColor="transparent"
+        translucent={true}
+        barStyle="dark-content"
+      />
       <Routes />
     </NavigationContainer>
   );

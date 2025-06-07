@@ -5,26 +5,30 @@ import { useNavigation } from "@react-navigation/native";
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+//adcionei ai
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { headerStyles } from '../../components/header';
+
 let items = [
   {
     id: 1,
-    image: require('../../assets/phone.png')
+    image: require('../../assets/phone1/phone.png')
   },
   {
     id: 2,
-    image: require('../../assets/bike.png')
+    image: require('../../assets/bike1/bike.png')
   },
   {
     id: 3,
-    image: require('../../assets/cadeira.png')
+    image: require('../../assets/cadeira1/cadeira.png')
   },
   {
     id: 4,
-    image: require('../../assets/prateleiras.jpg')
+    image: require('../../assets/prateleiras1/prateleiras.jpg')
   },
   {
     id: 5,
-    image: require('../../assets/bike.png')
+    image: require('../../assets/bike2/bikeV2.webp')
   }
 ]
 
@@ -50,16 +54,20 @@ export default function AddItem() {
     <SafeAreaProvider style={styles.container}>
       <SafeAreaView>
 
-        <StatusBar backgroundColor={"#e91e63"} barStyle="light-content"/>
-        <IconButton
-            style={styles.botaoVoltar}
-            icon={() => <MaterialDesignIcons style={{ transform: [{ scaleX: -1 }] }} name="play" color="#000" size={30}/>}
-            size={20}
-            onPress={() => navigation.navigate('Inventario')}
-        />
+        <StatusBar backgroundColor={"#e91e63"} barStyle="light-content" />
+        <View style={headerStyles.header}>
+          <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('Inventario')}>
+            <MaterialIcons name="play-arrow" size={30} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
+          </TouchableOpacity>
+
+          <Text style={headerStyles.headerTitle}>Adicionar Item</Text>
+
+          {/* Espaço vazio para balancear layout e centralizar o título */}
+          <View style={{ width: 40 }} />
+        </View>
+
 
         <View style={{ padding: 20 }}>
-          <Text style={styles.header}>Adicionar Item</Text>
 
           {/* Nome do Item */}
           <Text style={styles.label}>Nome do item</Text>
@@ -80,36 +88,36 @@ export default function AddItem() {
               <View>
 
                 <TouchableHighlight style={styles.dropdown} onPress={() => setMDDC(!DDC)}>
-                  <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '20'}}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: '20' }}>
                     <Text style={styles.dropdownText}>Condição</Text>
-                    <IconButton icon={() => <MaterialDesignIcons style={DDC ? "" : {transform: [{ rotateZ: "90deg"}]}} name="play" color="#000" size={20}/>}/>
+                    <IconButton icon={() => <MaterialDesignIcons style={DDC ? "" : { transform: [{ rotateZ: "90deg" }] }} name="play" color="#000" size={20} />} />
                   </View>
                 </TouchableHighlight>
-                
+
                 <View style={DDC ? styles.MDD : styles.escondido}>
-                  <TouchableHighlight style={{width: '100%', height: 'auto'}}>
+                  <TouchableHighlight style={{ width: '100%', height: 'auto' }}>
                     <View style={styles.categoriaMDD}>
-                      <IconButton icon={() => <MaterialDesignIcons name="circle" color="#00ff00" size={15}/>}> </IconButton>
+                      <IconButton icon={() => <MaterialDesignIcons name="circle" color="#00ff00" size={15} />}> </IconButton>
                       <Text style={styles.textoMDD}>Ótimo</Text>
                     </View>
                   </TouchableHighlight>
 
-                  <TouchableHighlight style={{width: '100%', height: 'auto'}}>
+                  <TouchableHighlight style={{ width: '100%', height: 'auto' }}>
                     <View style={styles.categoriaMDD}>
-                      <IconButton icon={() => <MaterialDesignIcons name="circle" color="#ffaa00" size={15}/>}> </IconButton>
+                      <IconButton icon={() => <MaterialDesignIcons name="circle" color="#ffaa00" size={15} />}> </IconButton>
                       <Text style={styles.textoMDD}>Regular</Text>
                     </View>
                   </TouchableHighlight>
 
-                  <TouchableHighlight style={{width: '100%', height: 'auto'}}>
+                  <TouchableHighlight style={{ width: '100%', height: 'auto' }}>
                     <View style={styles.categoriaMDD}>
-                      <IconButton icon={() => <MaterialDesignIcons name="circle" color="#ff0000" size={15}/>}> </IconButton>
+                      <IconButton icon={() => <MaterialDesignIcons name="circle" color="#ff0000" size={15} />}> </IconButton>
                       <Text style={styles.textoMDD}>Irregular</Text>
                     </View>
                   </TouchableHighlight>
-                  
+
                 </View>
-              
+
               </View>
             </View>
           </View>
@@ -125,7 +133,7 @@ export default function AddItem() {
             <View style={styles.imageUpload}>
               {/* imagem principal */}
               <Text style={styles.imageText}>Imagem</Text>
-              <Image source={selecionado} style={styles.imagemPrincipal}/>
+              <Image source={selecionado} style={styles.imagemPrincipal} />
             </View>
 
             <FlatList style={styles.thumbnailArea}
@@ -137,7 +145,7 @@ export default function AddItem() {
               numColumns={1}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
-                <TouchableHighlight onPress={() => imagemSelecionada(item.id)} underlayColor="#e91e63" style={{borderRadius: 6}}>
+                <TouchableHighlight onPress={() => imagemSelecionada(item.id)} underlayColor="#e91e63" style={{ borderRadius: 6 }}>
                   <Image
                     source={item.image}
                     style={selecao == item.id ? styles.selecionado : styles.thumbnail}
@@ -227,7 +235,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#e91e63',
   },
-    imageSection: {
+  imageSection: {
     width: '100%',
     height: 200,
     display: 'flex',

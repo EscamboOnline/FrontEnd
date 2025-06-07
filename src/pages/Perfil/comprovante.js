@@ -13,10 +13,13 @@ import colors from '../../constants/colors';
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { conditionStyles} from '../../constants/condicao';
-import { headerStyles} from '../../components/header';
-import { SafeAreaView } from 'react-native-safe-area-context'; 
+import { conditionStyles } from '../../constants/condicao';
+import { headerStyles } from '../../components/header';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native';
 
+import * as NavigationBar from 'expo-navigation-bar';
+import * as SystemUI from 'expo-system-ui';
 
 const { width } = Dimensions.get('window');
 
@@ -79,6 +82,24 @@ export default function ComprovanteTroca() {
         return `${street}, ${number} - ${neighborhood}, ${city} - ${state}, ${zipCode}`;
     };
 
+    //Navegação android
+
+    useFocusEffect(
+        React.useCallback(() => {
+            // Ao focar nessa tela, configura a barra com estilo "comentário"
+            NavigationBar.setBackgroundColorAsync('#ffffff');
+            NavigationBar.setButtonStyleAsync('dark');
+            SystemUI.setBackgroundColorAsync('#ffffff');
+
+            return () => {
+                // Ao sair dessa tela, restaura estilo padrão
+                NavigationBar.setBackgroundColorAsync('#e91e63');
+                NavigationBar.setButtonStyleAsync('light');
+                SystemUI.setBackgroundColorAsync('#e91e63');
+            };
+        }, [])
+    );
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -86,7 +107,7 @@ export default function ComprovanteTroca() {
             {/* Header */}
             <View style={headerStyles.header}>
                 <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('EscambosFeitos')}>
-                    <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }}/>
+                    <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
                 </TouchableOpacity>
                 <Text style={headerStyles.headerTitle}>Comprovante do Pedido</Text>
                 <TouchableOpacity style={headerStyles.downloadButton}>
@@ -176,101 +197,100 @@ const styles = StyleSheet.create({
     flatList: {
         flex: 1,
         padding: 10 * scale,
-        paddingBottom: 40 * scale, 
     },
-    
+
     userInfoContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20 * scale,
     },
-    
+
     userAvatar: {
         width: 60 * scale,
         height: 60 * scale,
         borderRadius: 35 * scale,
         marginRight: 15 * scale,
     },
-    
+
     userTextContainer: {
         justifyContent: 'center',
     },
-    
+
     userName: {
         fontSize: 20 * scale,
         fontWeight: 'bold',
         color: colors.black,
     },
-    
+
     userHandle: {
         fontSize: 14 * scale,
         color: '#666',
     },
-    
+
     infoRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 10 * scale,
     },
-    
+
     infoItem: {
         flexDirection: 'row',
         alignItems: 'center',
     },
-    
+
     infoLabel: {
         fontSize: 17 * scale,
         fontWeight: 'bold',
         color: colors.black,
         marginRight: 5 * scale,
     },
-    
+
     infoValue: {
         fontSize: 16 * scale,
         color: colors.black,
         opacity: 0.7
     },
-    
+
     statusContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 15 * scale,
     },
-    
+
     statusValue: {
         fontSize: 15 * scale,
         color: '#666',
     },
-    
+
     divider: {
         height: 1 * scale,
         backgroundColor: '#e0e0e0',
         marginVertical: 15 * scale,
     },
-    
+
     itemOwner: {
         fontSize: 17 * scale,
         fontWeight: 'bold',
         marginBottom: 10 * scale,
-        marginTop: 5*scale,
+        marginTop: 5 * scale,
     },
-    
+
     itemContent: {
         flexDirection: 'row',
     },
-    
+
     itemImage: {
         width: 100 * scale,
         height: 100 * scale,
         marginRight: 15 * scale,
         borderRadius: 8 * scale,
     },
-    
+
     itemDetails: {
         flex: 1,
         justifyContent: 'space-between',
     },
-    
+
     itemDescription: {
         fontSize: 15 * scale,
         color: colors.black,
@@ -279,7 +299,7 @@ const styles = StyleSheet.create({
         flexShrink: 1,
         lineHeight: 18 * scale,
     },
-    
+
     addressContainer: {
         marginTop: 40 * scale,
         marginBottom: 10 * scale,
@@ -288,13 +308,13 @@ const styles = StyleSheet.create({
         padding: 10 * scale,
         borderRadius: 15 * scale
     },
-    
+
     sectionTitle: {
         fontSize: 17 * scale,
         fontWeight: 'bold',
         marginBottom: 8 * scale,
     },
-    
+
     addressText: {
         fontSize: 15 * scale,
         color: colors.black,
@@ -313,7 +333,7 @@ const styles = StyleSheet.create({
 
     bottomButtonContainer: {
         marginTop: 0,
-        marginBottom: 50 * scale,
+        marginBottom: 30 * scale,
     },
 
     chatButton: {
@@ -321,9 +341,8 @@ const styles = StyleSheet.create({
         borderRadius: 15 * scale,
         paddingVertical: 12 * scale,
         alignItems: 'center',
-        marginBottom: 10*scale,
     },
-    
+
     chatButtonText: {
         color: colors.white,
         fontSize: 18 * scale,

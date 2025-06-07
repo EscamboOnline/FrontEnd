@@ -5,7 +5,6 @@ import {
     StyleSheet,
     TouchableOpacity,
     Image,
-    SafeAreaView,
     Dimensions,
     FlatList
 } from 'react-native';
@@ -16,6 +15,7 @@ import { conditionStyles } from '../../constants/condicao';
 import { headerStyles } from '../../components/header';
 import { buttonsStyles } from '../../components/buttons';
 import BarraNavegacao from '../../components/navegador';
+import { SafeAreaView } from 'react-native-safe-area-context'; 
 
 const { width } = Dimensions.get('window');
 
@@ -98,19 +98,20 @@ export default function EscambosFeitos() {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container} > 
+
             
-            <View style={headerStyles.header}>
-                <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
-                    <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
-                </TouchableOpacity>
+                <View style={headerStyles.header}>
+                    <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
+                        <MaterialIcons name="play-arrow" size={30 * scale} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
+                    </TouchableOpacity>
 
-                <Text style={headerStyles.headerTitle}>Escambos Feitos</Text>
+                    <Text style={headerStyles.headerTitle}>Escambos Feitos</Text>
 
-                {/* Espaço vazio para balancear layout e centralizar o título */}
-                <View style={{ width: 40 * scale }} />
-            </View>
-
+                    {/* Espaço vazio para balancear layout e centralizar o título */}
+                    <View style={{ width: 40 * scale }} />
+                </View>
+           
 
             <FlatList
                 data={trades}
@@ -123,7 +124,7 @@ export default function EscambosFeitos() {
                 showsVerticalScrollIndicator={false}
             />
 
-            <BarraNavegacao/>
+            <BarraNavegacao />
         </SafeAreaView>
     );
 }

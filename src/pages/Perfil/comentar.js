@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     Image,
     Modal,
-    SafeAreaView,
     Dimensions,
     TextInput,
     Alert,
@@ -14,7 +13,7 @@ import {
 import colors from '../../constants/colors';
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
+import { SafeAreaView } from 'react-native-safe-area-context'; 
 import { popupStyles } from '../../components/popup';
 import { buttonsStyles } from '../../components/buttons';
 import { headerStyles } from '../../components/header';

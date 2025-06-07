@@ -9,11 +9,8 @@ import {
     Image,
     TouchableWithoutFeedback,
     FlatList,
-    SafeAreaView,
     Dimensions,
     Modal,
-    Platform,
-    KeyboardAvoidingView
 } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from 'expo-image-picker';
@@ -22,6 +19,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { popupStyles } from '../../components/popup';
 import { buttonsStyles } from '../../components/buttons';
 import { headerStyles } from '../../components/header';
+import { SafeAreaView } from 'react-native-safe-area-context'; 
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;
@@ -44,7 +42,7 @@ export default function Suporte() {
                 return;
             }
             const result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                mediaTypes: ImagePicker.MediaType,
                 allowsEditing: true,
                 aspect: [4, 3],
                 quality: 1,
@@ -58,56 +56,47 @@ export default function Suporte() {
         }
     };
 
-    const updateFormData = (field, value) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
-    };
-
     const dismissKeyboard = () => Keyboard.dismiss();
 
     return (
-         <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
-    >
-        <TouchableWithoutFeedback onPress={dismissKeyboard}>
-            <SafeAreaView style={styles.container}>
-                <Modal
-                    visible={exitModalVisible}
-                    transparent={true}
-                    animationType="fade"
-                    onRequestClose={() => setExitModalVisible(false)}>
-                    <View style={popupStyles.centeredView}>
-                        <View style={popupStyles.modalView}>
-                            <Text style={popupStyles.modalText}>Sua mensagem foi enviada pro suporte</Text>
-                            <View style={popupStyles.modalButtons}>
-                                <TouchableOpacity
-                                    style={[popupStyles.modalButton, popupStyles.okButton]}
-                                    onPress={() => {
-                                        setExitModalVisible(false);
-                                        navigation.navigate('UserPerfil');
-                                    }}>
-                                    <Text style={popupStyles.okButtonText}>OK</Text>
-                                </TouchableOpacity>
-                            </View>
+        <SafeAreaView style={styles.container}>
+            <Modal
+                visible={exitModalVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setExitModalVisible(false)}>
+                <View style={popupStyles.centeredView}>
+                    <View style={popupStyles.modalView}>
+                        <Text style={popupStyles.modalText}>Sua mensagem foi enviada pro suporte</Text>
+                        <View style={popupStyles.modalButtons}>
+                            <TouchableOpacity
+                                style={[popupStyles.modalButton, popupStyles.okButton]}
+                                onPress={() => {
+                                    setExitModalVisible(false);
+                                    navigation.navigate('UserPerfil');
+                                }}>
+                                <Text style={popupStyles.okButtonText}>OK</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
-                </Modal>
+                </View>
+            </Modal>
 
-                <View style={styles.innerContainer}>
-                    <View style={[headerStyles.header, { backgroundColor: colors.green }]}>
-                        <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
-                            <MaterialIcons name="play-arrow" size={30 * scale} color="#fff" style={{ transform: [{ scaleX: -1 }] }} />
-                        </TouchableOpacity>
-                        <Text style={[headerStyles.headerTitle, { color: colors.white }]}>Suporte</Text>
-                        <View style={{ width: 40 * scale }} />
-                    </View>
+            <View style={styles.innerContainer}>
+                <View style={[headerStyles.header, { backgroundColor: colors.green }]}>
+                    <TouchableOpacity style={headerStyles.backButton} onPress={() => navigation.navigate('UserPerfil')}>
+                        <MaterialIcons name="play-arrow" size={30 * scale} color="#fff" style={{ transform: [{ scaleX: -1 }] }} />
+                    </TouchableOpacity>
+                    <Text style={[headerStyles.headerTitle, { color: colors.white }]}>Suporte</Text>
+                    <View style={{ width: 40 * scale }} />
+                </View>
 
-                    <View style={styles.suporteContainerContainer}>
-                        <Image source={require('../../assets/suporte.png')} style={styles.suporteIcon} />
-                    </View>
+                <View style={styles.suporteContainerContainer}>
+                    <Image source={require('../../assets/suporte.png')} style={styles.suporteIcon} />
+                </View>
 
-                    <View style={styles.containerForm}>
+                <View style={styles.containerForm}>
+                    <TouchableWithoutFeedback onPress={dismissKeyboard}>
                         <FlatList
                             data={[{ key: 'form' }]}
                             renderItem={() => (
@@ -179,11 +168,11 @@ export default function Suporte() {
                             keyboardShouldPersistTaps="handled"
                             showsVerticalScrollIndicator={false}
                         />
-                    </View>
+                    </TouchableWithoutFeedback>
                 </View>
-            </SafeAreaView>
-        </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+            </View>
+        </SafeAreaView>
+
     );
 }
 

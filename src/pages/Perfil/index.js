@@ -15,6 +15,8 @@ import colors from '../../constants/colors';
 import { useFonts, Baloo2_400Regular, Baloo2_700Bold } from '@expo-google-fonts/baloo-2';
 import { popupStyles } from '../../components/popup';
 import BarraNavegacao from '../../components/navegador';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { headerStyles } from '../../components/header';
 
 
 const { width } = Dimensions.get('window');
@@ -63,8 +65,8 @@ export default function UserPerfil() {
     };
 
     return (
-        <View style={styles.container}>
-            
+        <SafeAreaView style={styles.container}>
+
             {/* Exit Modal */}
             <Modal visible={exitModalVisible} transparent animationType="fade">
                 <View style={popupStyles.centeredView}>
@@ -91,15 +93,17 @@ export default function UserPerfil() {
             </Modal>
 
             {/* Botão Exit */}
-            <TouchableOpacity
-                style={styles.buttonExit}
-                onPress={() => setExitModalVisible(true)}
-            >
-                <Image
-                    source={require('../../assets/logout.png')}
-                    style={styles.exitIcon}
-                />
-            </TouchableOpacity>
+            <View style={headerStyles.header}>
+                <TouchableOpacity
+                    style={styles.buttonExit}
+                    onPress={() => setExitModalVisible(true)}
+                >
+                    <Image
+                        source={require('../../assets/logout.png')}
+                        style={styles.exitIcon}
+                    />
+                </TouchableOpacity>
+            </View>
 
             {/* Avatar e Nome */}
             <Image
@@ -193,7 +197,7 @@ export default function UserPerfil() {
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({ item }) => (
                             <View style={styles.notificationItem}>
-                                <Image source={{ uri: item.userImg }} style={styles.notificationImage}/>
+                                <Image source={{ uri: item.userImg }} style={styles.notificationImage} />
                                 <Text style={styles.notificationText}>{item.title}</Text>
                             </View>
                         )}
@@ -207,7 +211,7 @@ export default function UserPerfil() {
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({ item }) => (
                             <View style={styles.reviewItem}>
-                                <TouchableOpacity   onPress={() => navigation.navigate('PerfilX')}><Image source={{ uri: item.userImg }} style={styles.reviewImage}/></TouchableOpacity>
+                                <TouchableOpacity onPress={() => navigation.navigate('PerfilX')}><Image source={{ uri: item.userImg }} style={styles.reviewImage} /></TouchableOpacity>
                                 <Image
                                     source={require('../../assets/estrelas.png')}
                                     style={styles.estralasIcon}
@@ -224,9 +228,9 @@ export default function UserPerfil() {
                 )}
             </View>
 
-            <BarraNavegacao/>
+            <BarraNavegacao />
 
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -243,7 +247,7 @@ const styles = StyleSheet.create({
         width: 45 * scale,
         height: 45 * scale,
         position: 'absolute',
-        top: 30 * scale,
+        top: -30 * scale,
         right: 20 * scale,
         backgroundColor: colors.red,
         borderRadius: 25 * scale,
@@ -262,7 +266,6 @@ const styles = StyleSheet.create({
         height: avatarSize,
         borderRadius: 75,
         alignSelf: 'center',
-        marginTop: 10 * scale,
         marginBottom: 12,
     },
     title: {

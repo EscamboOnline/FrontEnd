@@ -20,6 +20,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { popupStyles } from '../../components/popup';
 import { buttonsStyles } from '../../components/buttons';
 import { headerStyles } from '../../components/header';
+import * as ImagePicker from 'expo-image-picker';
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;
@@ -39,9 +40,40 @@ export default function PerfilConfig() {
         cityNeighborhood: "Cajamar, Pajé House",
     });
 
-    const dismissKeyboard = () => Keyboard.dismiss();
+    //Image Picker
 
-    const handleAvatarPress = () => console.log('Avatar pressed');
+    const [isPickingImage, setIsPickingImage] = useState(false);
+    const [image, setImage] = useState(null);
+
+
+    const pickImage = async () => {
+        try {
+            Keyboard.dismiss();
+            setIsPickingImage(true);
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+                alert('Permissão para acessar a galeria foi negada.');
+                return;
+            }
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaType,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+            if (!result.canceled && result.assets && result.assets.length > 0) {
+                setImage(result.assets[0].uri);
+            }
+        } catch (error) {
+            console.error("Erro ao escolher imagem:", error);
+            alert("Ocorreu um erro ao escolher a imagem.");
+        } finally {
+            setIsPickingImage(false);
+        }
+    };
+    //Fim Image Picker
+
+    const dismissKeyboard = () => Keyboard.dismiss();
 
     const formData_array = [{ id: 'form' }];
 
@@ -91,8 +123,8 @@ export default function PerfilConfig() {
             <View style={styles.mainContainer}>
 
                 <View style={styles.headerSection}>
-                    <TouchableOpacity style={styles.avatarContainer} onPress={handleAvatarPress}>
-                        <Image source={require('../../assets/personaImage.png')} style={styles.avatar} />
+                    <TouchableOpacity style={styles.avatarContainer} onPress={pickImage}>
+                        <Image source={image ? { uri: image } : require('../../assets/personaImage.png')} style={styles.avatar} />
                         <View style={styles.editIconContainer}>
                             <Image source={require('../../assets/camera.png')} style={styles.editIcon} />
                         </View>
@@ -173,7 +205,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
     },
     mainContainer: {
-        flex: 1
+        flexGrow: 1
     },
     headerSection: {
         paddingBottom: 10 * scale
@@ -210,18 +242,18 @@ const styles = StyleSheet.create({
     },
     title2: {
         textAlign: 'center',
-        fontSize: 24 * scale,
+        fontSize: 20 * scale,
         fontWeight: 'bold',
         color: colors.red,
         paddingTop: 5 * scale,
     },
     title: {
-        fontSize: 20 * scale,
+        fontSize: 18 * scale,
         marginVertical: 8 * scale
     },
     input: {
         height: 50 * scale,
-        fontSize: 16 * scale,
+        fontSize: 15 * scale,
         borderRadius: 25 * scale,
         paddingHorizontal: 15 * scale,
         backgroundColor: colors.white,
@@ -238,7 +270,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8 * scale,
     },
     pickerText: {
-        fontSize: 16 * scale,
+        fontSize: 15 * scale,
     },
     inputContainer: {
         flexDirection: 'row',
@@ -251,7 +283,7 @@ const styles = StyleSheet.create({
     },
     inputReadOnly: {
         flex: 1,
-        fontSize: 16 * scale,
+        fontSize: 15 * scale,
     },
     lockIcon: {
         width: 20 * scale,
@@ -268,7 +300,7 @@ const styles = StyleSheet.create({
     inputHalf: {
         flex: 1,
         paddingHorizontal: 15 * scale,
-        fontSize: 16 * scale
+        fontSize: 15 * scale
     },
     separator: {
         width: 1,

@@ -13,6 +13,7 @@ import colors from '../../constants/colors';
 import { headerStyles } from '../../components/header';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import BarraNavegacao from '../../components/navegador';
+import { SafeAreaView } from 'react-native-safe-area-context'; 
 
 const { width } = Dimensions.get('window');
 const BUTTON_COUNT = 4;
@@ -87,7 +88,7 @@ export default function UserPerfil() {
 
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
 
             {/*Header*/}
             <View style={headerStyles.header}>
@@ -215,7 +216,7 @@ export default function UserPerfil() {
 
             <BarraNavegacao />
 
-        </View >
+        </SafeAreaView>
     );
 }
 

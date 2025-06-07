@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    SafeAreaView,
     StatusBar,
     Dimensions
 } from 'react-native';
@@ -16,6 +15,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { conditionStyles} from '../../constants/condicao';
 import { headerStyles} from '../../components/header';
+import { SafeAreaView } from 'react-native-safe-area-context'; 
 
 
 const { width } = Dimensions.get('window');

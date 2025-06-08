@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     },
 
     addressContainer: {
-        marginTop: 40 * scale,
+        marginTop: 20 * scale,
         marginBottom: 10 * scale,
         backgroundColor: colors.secondGray,
         width: '100%',

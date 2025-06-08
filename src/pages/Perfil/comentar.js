@@ -49,19 +49,18 @@ export default function Comentar() {
 
     //Navegação android
 
-    useFocusEffect(
-        React.useCallback(() => {
-            NavigationBar.setBackgroundColorAsync('#ffffff');
-            NavigationBar.setButtonStyleAsync('dark');
-            SystemUI.setBackgroundColorAsync('#ffffff');
-
-            return () => {
-                NavigationBar.setBackgroundColorAsync('#e91e63');
-                NavigationBar.setButtonStyleAsync('light');
-                SystemUI.setBackgroundColorAsync('#e91e63');
-            };
-        }, [])
-    );
+      useFocusEffect(
+          React.useCallback(() => {
+              NavigationBar.setButtonStyleAsync("dark");
+              SystemUI.setBackgroundColorAsync("#ffffff");
+  
+              return () => {
+                  NavigationBar.setButtonStyleAsync("light");
+                  SystemUI.setBackgroundColorAsync("#e91e63");
+              };
+          }, [])
+      );
+  
 
 
     //popup

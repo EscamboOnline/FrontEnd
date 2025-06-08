@@ -11,7 +11,7 @@ export default function App() {
   useEffect(() => {
     const configureNavigationBar = async () => {
       try {
-        await NavigationBar.setBackgroundColorAsync('#e91e63');
+        //await NavigationBar.setBackgroundColorAsync('#e91e63');
         await NavigationBar.setButtonStyleAsync('light');
         await SystemUI.setBackgroundColorAsync('#e91e63');
       } catch (error) {

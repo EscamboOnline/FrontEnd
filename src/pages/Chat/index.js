@@ -82,7 +82,7 @@ export default function TelaDeChats() {
   // Preciso do nome, imagem, nickname
   // Por ultimo necessito também das mensagens do chat
 
-  let meusChats = chat.filter(i => i.id_usuario === 101)
+  let meusChats = chats.filter(i => i.id_usuario === 101)
 
   usuarios
 

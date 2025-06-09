@@ -205,8 +205,7 @@ export default function Inventario() {
           </View>
         </View>
 
-        <View style={styles.barraSeparatoria}>
-        </View>
+        <View style={styles.barraSeparatoria}></View>
 
         {/* Último Update + alterar layout */}
         <View style={styles.update}>
@@ -234,16 +233,19 @@ export default function Inventario() {
           numColumns={gridList ? 2 : 1}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableHighlight onPress={() => navigation.navigate("verItem", {id: item.id})}>
-              <View style={gridList ? styles.item : styles.itemList}>
-                <Image source={item.imagens[0]} style={gridList ? styles.itemImage : styles.itemImageList} />
-                <View style={gridList ? styles.itemDetalhes : styles.itemDetalhesList}>
-                  <Text style={gridList ? styles.itemTitulo : styles.itemTituloList}>{limitarTextoList(item.nome)}</Text>
-                  <Text style={gridList ? styles.itemFav : styles.itemFavList}>★ 4 Favoritados</Text>
-                  <Text style={gridList ? styles.itemStatus : styles.itemStatusList}>🟩 {item.status}</Text>
+            <View style={gridList ? { width: '50%' } : { width: '100%' } }>
+              <TouchableHighlight onPress={() => navigation.navigate("verItem", {id: item.id})}>
+                <View style={gridList ? styles.item : styles.itemList}>
+                  <Image source={item.imagens[0]} style={gridList ? styles.itemImage : styles.itemImageList} />
+                  <View style={gridList ? styles.itemDetalhes : styles.itemDetalhesList}>
+                    <Text style={gridList ? styles.itemTitulo : styles.itemTituloList}>{limitarTextoList(item.nome)}</Text>
+                    <Text style={gridList ? styles.itemFav : styles.itemFavList}>★ 4 Favoritados</Text>
+                    <Text style={gridList ? styles.itemStatus : styles.itemStatusList}>🟩 {item.status}</Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableHighlight>
+              </TouchableHighlight>
+            </View>
+
           )}
         />
       <FAB
@@ -297,8 +299,7 @@ const styles = StyleSheet.create({
   },
   barraSeparatoria: {
     height: 3,
-    width: '120%',
-    left: '-20',
+    width: '100%',
     marginBottom: 0,
     backgroundColor: '#c0c0c0',
   },
@@ -319,14 +320,15 @@ const styles = StyleSheet.create({
 
 
   listaQd: {
-    flex: 1,
-    marginBottom: 50
+    marginBottom: 50,
   },
   item: {
+    display: 'flex',
     height: 'auto',
-    width: '50%',
+    width: '100%',
     flexDirection: 'collum',
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 5,
     padding: 5,
     marginBottom: 30,
@@ -335,10 +337,8 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 8,
-    marginRight: 10
   },
   itemDetalhes: {
-    flex: 1,
   },
   itemTitulo: {
     maxWidth: '10ch',

@@ -17,8 +17,9 @@ import Comentar from "../pages/Perfil/comentar";
 // Inventario ----
 import Inventario from '../pages/Inventory';
 import AddItem from '../pages/Inventory/addItem';
+import EditarItem from '../pages/Inventory/editarItem';
 import VerItem from '../pages/Inventory/verItem';
-// import editarItem from "../pages/Inventario/editarItem";
+
 
 // Chat ----
 import Contatos from "../pages/Chat";
@@ -123,11 +124,11 @@ export default function Routes(){
         options={{ headerShown: false }}
       />
 
-      {/* <Stack.Screen
+      { <Stack.Screen
         name="editarItem"
-        component={editarItem}
+        component={EditarItem}
         options={{ headerShown: false }}
-      /> */}
+      /> }
 
       {/* ---------- Parte do Chat ---------- */}
 

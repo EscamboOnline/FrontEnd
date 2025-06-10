@@ -15,27 +15,27 @@ import { headerStyles } from '../../components/header';
 let items = [
   {
     id: 1,
-    image: require('../../assets/phone.png')
+    image: require('../../assets/phone1/phone.png')
   },
   {
     id: 2,
-    image: require('../../assets/bike.png')
+    image: require('../../assets/bike1/bike.png')
   },
   {
     id: 3,
-    image: require('../../assets/cadeira.png')
+    image: require('../../assets/cadeira1/cadeira.png')
   },
   {
     id: 4,
-    image: require('../../assets/prateleiras.jpg')
+    image: require('../../assets/prateleiras1/prateleiras.jpg')
   },
   {
     id: 5,
-    image: require('../../assets/bike.png')
+    image: require('../../assets/bike2/bikeV2.webp')
   }
 ]
 
-export default function AddItem() {
+export default function editarItem() {
 
   let [selecao, setSelecao] = useState(1);
   let [selecionado, setSelecionado] = useState(items[0].image)
@@ -168,7 +168,7 @@ export default function AddItem() {
 
           {/* Botão para concluir e adicionar o item */}
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('inventario')}>
-            <Text style={styles.buttonText}>Adicionar</Text>
+            <Text style={styles.buttonText}>Salvar</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

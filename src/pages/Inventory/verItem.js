@@ -181,7 +181,7 @@ export default function DetalhesDoItem() {
       </View>
 
       {/* Botão Editar */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('editarItem')}>
         <Text style={styles.buttonText}>Editar</Text>
       </TouchableOpacity>
 
